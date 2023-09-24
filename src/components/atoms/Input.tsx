@@ -13,7 +13,7 @@ interface InputProps extends HTMLAttributes<HTMLInputElement> {
 const Input = ({ className, ...props }: InputProps) => {
   const inputClass = formatClassName(className);
 
-  return <input className={inputClass} {...props} />;
+  return <input className={inputClass} {...props} autoComplete="off" />;
 };
 
 export default Input;
