@@ -1,5 +1,5 @@
+import Input from '@components/atoms/Input';
 import { useState } from 'react';
-import Input from './components/atoms/Input';
 
 function App() {
   const [text, setTest] = useState('');
