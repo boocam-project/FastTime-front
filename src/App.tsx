@@ -1,5 +1,11 @@
+import MyForm from '@components/form/FormGroup';
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <MyForm />
+    </>
+  );
 }
 
 export default App;
