@@ -1,18 +1,9 @@
-import Input from '@components/atoms/Input';
-import { useState } from 'react';
+import MyForm from '@components/form/FormGroup';
 
 function App() {
-  const [text, setTest] = useState('');
-
   return (
     <>
-      <Input
-        className=""
-        name="name"
-        value={text}
-        placeholder="test"
-        onChange={(e) => setTest(e.target.value)}
-      />
+      <MyForm />
     </>
   );
 }

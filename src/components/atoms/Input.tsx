@@ -1,19 +1,37 @@
-import { ChangeEvent, HTMLAttributes } from 'react';
+import { ChangeEventHandler, HTMLAttributes } from 'react';
 import { formatClassName } from '../../utils/classNames';
+import checkIcon from '../../assets/icons/check.svg';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface InputProps extends HTMLAttributes<HTMLInputElement> {
-  name: string;
+  id: string;
   placeholder?: string;
   type?: string;
+  register: UseFormRegisterReturn;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  className?: string;
 }
 
-const Input = ({ className, ...props }: InputProps) => {
-  const inputClass = formatClassName(className);
+const Input = ({ register, 'aria-invalid': isInvalid, ...props }: InputProps) => {
+  const hasValue = props.value && props.value.length > 0;
+  const isValid = isInvalid === 'false' && hasValue;
+  const inputClass = formatClassName(hasValue && !isValid && 'error');
 
-  return <input className={inputClass} {...props} autoComplete="off" />;
+  console.log(isInvalid, props.value);
+  console.log(register.name);
+
+  return (
+    <div className="input-wrapper">
+      <input
+        className={inputClass}
+        {...props}
+        aria-invalid={isInvalid}
+        {...register}
+        autoComplete="off"
+      />
+      {isValid && <img src={checkIcon} alt="check icon" />}
+    </div>
+  );
 };
 
 export default Input;
