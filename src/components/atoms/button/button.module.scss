@@ -95,7 +95,7 @@ button {
   &:disabled {
     color: $gray;
     background-color: $light-gray;
-    padding: 6px 16px;
+    padding: 12px 32px;
   }
   &_cancel {
     color: $red-500;
@@ -108,7 +108,7 @@ button {
     &:disabled {
       color: $gray;
       background-color: $light-gray;
-      padding: 6px 16px;
+      padding: 12px 32px;
     }
   }
 }
@@ -121,13 +121,15 @@ button {
   &:hover {
     animation: colorchangehover 2s infinite alternate;
   }
+}
+.compact-disabled {
   &:disabled {
+    width: 100%;
     color: $gray;
     background-color: $light-gray;
-    padding: 6px 16px;
+    padding: 16px 0;
   }
 }
-
 @keyframes colorchangehover {
   0% {
     background-color: $red-100;
