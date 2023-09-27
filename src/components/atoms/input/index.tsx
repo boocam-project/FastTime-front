@@ -1,5 +1,5 @@
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import styles from './index.module.scss';
+import styles from './input.module.scss';
 import { InputHTMLAttributes } from 'react';
 import CheckIcon from '../../../assets/icons/check.svg';
 import classNames from 'classnames/bind';
@@ -28,7 +28,12 @@ const Input = ({ name, label, registerOptions, ...rest }: Props) => {
         {label}
       </label>
       <div className={cx('input-wrapper')}>
-        <input className={cx('input')} {...register(name, registerOptions)} id={name} {...rest} />
+        <input
+          className={cx('input', fieldError ? 'error' : 'success')}
+          {...register(name, registerOptions)}
+          id={name}
+          {...rest}
+        />
         {isValid && <img src={CheckIcon} alt="check icon" className={styles.icon} />}
       </div>
       {fieldError && <span className={styles.message}>{fieldError.message as string}</span>}
@@ -37,6 +42,3 @@ const Input = ({ name, label, registerOptions, ...rest }: Props) => {
 };
 
 export default Input;
-
-// 내일 할 일
-// 상태에 따른 클래스 명
