@@ -1,0 +1,149 @@
+@import '@styles/abstracts/variables';
+
+$red-list: (
+  '100': $red-100,
+  '200': $red-200,
+  '300': $red-300,
+  '400': $red-400,
+  '500': $red-500,
+);
+
+button {
+  font-size: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+@mixin tag-red-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 0 5px;
+  border-radius: 50px;
+  font-size: 8px;
+}
+@mixin round-red-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 4px 16px;
+  border-radius: 50px;
+  font-size: 15px;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.2);
+  }
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 6px 16px;
+  }
+}
+
+.tag-red {
+  @each $index, $color in $red-list {
+    &-#{$index} {
+      @include tag-red-style($color);
+    }
+  }
+}
+.round-red {
+  @each $index, $color in $red-list {
+    &-#{$index} {
+      @include round-red-style($color);
+    }
+  }
+}
+
+.default {
+  color: $white;
+  background-color: $red-400;
+  padding: 6px 16px;
+
+  &:hover {
+    color: $white;
+    background-color: $red-500;
+  }
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 6px 16px;
+  }
+  &_cancel {
+    color: $red-500;
+    background-color: $red-100;
+    border: none;
+    outline: none;
+    padding: 6px 16px;
+    &:hover {
+      color: $red-500;
+      background-color: $red-300;
+    }
+    &:disabled {
+      color: $gray;
+      background-color: $light-gray;
+      padding: 6px 16px;
+    }
+  }
+}
+
+.large {
+  color: $white;
+  background-color: $red-400;
+  padding: 12px 32px;
+  &:hover {
+    background-color: $red-500;
+  }
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 12px 32px;
+  }
+  &_cancel {
+    color: $red-500;
+    background-color: $red-100;
+    padding: 12px 32px;
+    &:hover {
+      color: $red-500;
+      background-color: $red-200;
+    }
+    &:disabled {
+      color: $gray;
+      background-color: $light-gray;
+      padding: 12px 32px;
+    }
+  }
+}
+
+.compact {
+  width: 100%;
+  color: $white;
+  background-color: $red-100;
+  padding: 16px 0;
+  &:hover {
+    animation: colorchangehover 2s infinite alternate;
+  }
+}
+.compact-disabled {
+  &:disabled {
+    width: 100%;
+    color: $gray;
+    background-color: $light-gray;
+    padding: 16px 0;
+  }
+}
+@keyframes colorchangehover {
+  0% {
+    background-color: $red-100;
+  }
+  25% {
+    background-color: $red-200;
+  }
+  50% {
+    background-color: $red-300;
+  }
+  75% {
+    background-color: $red-400;
+  }
+  100% {
+    background-color: $red-500;
+  }
+}
