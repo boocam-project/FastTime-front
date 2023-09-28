@@ -1,43 +1,47 @@
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './input.module.scss';
-import { InputHTMLAttributes } from 'react';
-import CheckIcon from '../../../assets/icons/check.svg';
+import { ComponentProps } from 'react';
 import classNames from 'classnames/bind';
+import { CiSearch } from 'react-icons/ci';
+import InputIcon from './InputIcon';
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends ComponentProps<'input'> {
   name: string;
   label: string;
-  registerOptions?: RegisterOptions;
+  register?: UseFormRegisterReturn;
+  errorMessage?: any;
+  type?: string;
+  className?: string;
 }
 
-const Input = ({ name, label, registerOptions, ...rest }: Props) => {
-  const {
-    register,
-    watch,
-    formState: { errors },
-  } = useFormContext();
-
+const Input = ({ name, label, register, errorMessage, className, type, ...props }: Props) => {
   const cx = classNames.bind(styles);
-  const watchValue = watch(name);
-  const fieldError = errors[name];
-  const isValid = Boolean(fieldError === undefined && watchValue);
+  const isValid = Boolean(errorMessage === undefined);
 
   return (
-    <>
+    <div className={styles.group}>
       <label className={cx('label')} htmlFor={name}>
         {label}
       </label>
-      <div className={cx('input-wrapper')}>
+
+      <div className={cx('input-wrapper', className, { search: type === 'searchInput' })}>
+        {type === 'searchInput' && <CiSearch />}
         <input
-          className={cx('input', fieldError ? 'error' : 'success')}
-          {...register(name, registerOptions)}
+          className={cx('input', className, { error: errorMessage })}
           id={name}
-          {...rest}
+          autoComplete="off"
+          {...register}
+          {...props}
         />
-        {isValid && <img src={CheckIcon} alt="check icon" className={styles.icon} />}
+        <div className={styles.icon}>
+          <InputIcon type={type} isValid={isValid} />
+        </div>
       </div>
-      {fieldError && <span className={styles.message}>{fieldError.message as string}</span>}
-    </>
+
+      {type === 'defaultInput' && errorMessage && (
+        <span className={styles.message}>{errorMessage}</span>
+      )}
+    </div>
   );
 };
 
