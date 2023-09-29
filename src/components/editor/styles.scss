@@ -4,15 +4,43 @@
   background-color: #fbfbfb;
 }
 
-.menu {
+.menus {
   position: relative;
   display: flex;
+  justify-content: center;
 
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #dbdbdb;
-  gap: 0.5rem;
+  gap: 1rem;
 
   background-color: #fff;
+
+  .editor-menu-items-wrapper {
+    position: relative;
+
+    .editor-menu-drop {
+      position: absolute;
+      display: grid;
+      gap: 0.5rem;
+      top: calc(100% + 0.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+
+      padding: 0.5rem;
+      border: 1px solid #dbdbdb;
+      background-color: #fff;
+      z-index: 1;
+
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+
+      &.open {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
 
   button {
     display: flex;
@@ -27,7 +55,35 @@
 
     height: 24px;
 
-    font-size: 21px;
+    font-size: 20px;
+    color: #8e8e8e;
+
+    &.is-active {
+      color: #000;
+    }
+
+    &.editor-text-color {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        width: 14px;
+        height: 14px;
+        z-index: 1;
+      }
+
+      &.color-accent::before {
+        background-color: $red-400;
+      }
+
+      &.color-black::before {
+        background-color: #0d0d0d;
+      }
+    }
   }
 }
 
