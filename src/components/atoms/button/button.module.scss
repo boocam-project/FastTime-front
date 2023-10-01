@@ -15,11 +15,16 @@ button {
   cursor: pointer;
 }
 @mixin tag-red-style($bgColor) {
-  color: $white;
-  background-color: $bgColor;
-  padding: 0 5px;
+  color: $black;
+  background-color: $white;
+  border: 1px solid $red-300;
+  padding: 8px 12px;
   border-radius: 50px;
-  font-size: 8px;
+  font-size: 12px;
+  &:hover {
+    color: $white;
+    background-color: $bgColor;
+  }
 }
 @mixin round-red-style($bgColor) {
   color: $white;
@@ -110,6 +115,29 @@ button {
       background-color: $light-gray;
       padding: 12px 32px;
     }
+  }
+}
+
+.compact-test {
+  width: 25%;
+  color: $white;
+  background-color: $red-300;
+  border: 1px solid $red-400;
+  color: black;
+  padding: 16px 2px;
+  &:hover {
+    animation: colorchangehover2 2s infinite alternate;
+  }
+}
+
+@keyframes colorchangehover2 {
+  0% {
+    color: $white;
+    background-color: $red-300;
+  }
+  100% {
+    color: $white;
+    background-color: $red-400;
   }
 }
 

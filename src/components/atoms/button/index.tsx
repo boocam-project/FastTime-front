@@ -16,9 +16,6 @@ const Button = ({ className, children, show }: ButtonProps) => {
     <button className={cx([styles[className]])} disabled={!show}>
       {children}
     </button>
-    // <button className={cx({ [styles[className]]: show })} disabled={!show}>
-    //   {children}
-    // </button>
   );
 };
 
