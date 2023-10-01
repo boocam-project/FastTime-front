@@ -1,7 +1,10 @@
 @import '@styles/abstracts/variables';
 
 .editor-wrapper {
-  background-color: #fbfbfb;
+  position: relative;
+
+  // max-width: 680px;
+  margin: auto;
 }
 
 .menus {
@@ -9,7 +12,6 @@
   display: flex;
   justify-content: center;
 
-  padding: 0.5rem 1rem;
   border-bottom: 1px solid #dbdbdb;
   gap: 1rem;
 
@@ -45,18 +47,20 @@
   button {
     display: flex;
     align-items: center;
+    padding: 1rem 0.25rem;
 
     border: none;
     background: none;
     cursor: pointer;
-    padding: 0;
     margin: 0;
     outline: none;
 
-    height: 24px;
-
     font-size: 20px;
     color: #8e8e8e;
+
+    &:hover {
+      background-color: #dbdbdb;
+    }
 
     &.is-active {
       color: #000;
@@ -88,14 +92,13 @@
 }
 
 .tiptap {
-  max-width: 680px;
-  min-height: 100vh;
-  margin: auto;
-  padding: 3rem;
+  min-height: calc(100vh - #{$--header-height} - #{$--nav-bar-height} - #{$--editor-footer-height});
+  max-height: calc(100vh - #{$--header-height} - #{$--nav-bar-height} - #{$--editor-footer-height});
+  padding: 2rem 3rem;
   background-color: #fff;
-  border-right: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
   outline: none;
+
+  overflow-y: auto;
 
   ul,
   ol {
@@ -153,6 +156,7 @@
   }
 
   img {
+    display: block;
     max-width: 100%;
     height: auto;
   }
@@ -180,4 +184,14 @@
     height: 0;
     float: left;
   }
+}
+
+.editor-footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: #{$--editor-footer-height};
+
+  border-top: 1px solid #dbdbdb;
 }

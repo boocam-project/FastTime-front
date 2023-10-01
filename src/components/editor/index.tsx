@@ -9,9 +9,11 @@ import Document from '@tiptap/extension-document';
 import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
 import TableOfContent from '@tiptap-pro/extension-table-of-content';
+import Image from '@tiptap/extension-image';
 
 import MenuBar from './MenuBar';
 import StarterKit from '@tiptap/starter-kit';
+import Button from '@components/atoms/button';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -85,6 +87,7 @@ const extensions = [
   Title,
   CustomHeading,
   Underline,
+  Image,
 ];
 
 const content = `
@@ -109,6 +112,14 @@ const TextEditor = () => {
           <EditorContent editor={editor} />
         </>
       )}
+      <div className="editor-footer">
+        <Button className="default" show>
+          취소
+        </Button>
+        <Button className="default" show>
+          발행
+        </Button>
+      </div>
     </div>
   );
 };
