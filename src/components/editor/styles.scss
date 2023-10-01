@@ -127,6 +127,10 @@
     border-bottom: 1px solid rgba(#0d0d0d, 0.1);
   }
 
+  h1 {
+    font-size: 2.3rem;
+  }
+
   code {
     background-color: rgba(#616161, 0.1);
     color: #616161;
@@ -162,5 +166,18 @@
     border: none;
     border-top: 2px solid rgba(#0d0d0d, 0.1);
     margin: 2rem 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
+  h1.is-empty:nth-child(1)::before,
+  p.is-empty:nth-child(2)::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    pointer-events: none;
+    height: 0;
+    float: left;
   }
 }
