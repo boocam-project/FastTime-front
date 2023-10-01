@@ -1,11 +1,13 @@
 import { Editor } from '@tiptap/react';
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 
 import { PiTextItalicLight, PiTextStrikethroughLight, PiTextUnderlineLight } from 'react-icons/pi';
-import { BsCode } from 'react-icons/bs';
+import { BsCode, BsCardImage } from 'react-icons/bs';
 import { AiOutlineUnorderedList, AiOutlineOrderedList, AiOutlineBold } from 'react-icons/ai';
 import { BiSolidQuoteAltLeft } from 'react-icons/bi';
 import { MdHorizontalRule, MdFormatColorText } from 'react-icons/md';
+import useBlobUrl from '../../hooks/useBlobUrl';
+import { TextSelection } from '@tiptap/pm/state';
 
 interface Props {
   editor: Editor;
@@ -13,6 +15,19 @@ interface Props {
 
 const MenuBar = ({ editor }: Props) => {
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
+  const { url, setFile } = useBlobUrl();
+
+  useEffect(() => {
+    if (url) {
+      editor.chain().focus().setImage({ src: url }).run();
+
+      const { to } = editor.state.selection;
+      const tr = editor.state.tr.insert(to, editor.schema.nodes.paragraph.create());
+      editor.view.dispatch(tr.setSelection(TextSelection.create(tr.doc, to + 1)));
+
+      editor.view.focus();
+    }
+  }, [url, editor]);
 
   const handleMenuSelect = (selectedMenu: string) => {
     if (menuOpen === selectedMenu) {
@@ -25,6 +40,14 @@ const MenuBar = ({ editor }: Props) => {
   if (!editor) {
     return null;
   }
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setFile(file);
+
+    e.target.value = '';
+  };
 
   return (
     <div className="menus">
@@ -126,6 +149,20 @@ const MenuBar = ({ editor }: Props) => {
           ></button>
         </div>
       </div>
+
+      {/* 인풋 컴포넌트에서 따로 조작 가능하도록 */}
+      <button>
+        <label style={{ display: 'flex', alignContent: 'center' }} htmlFor="image">
+          <BsCardImage />
+        </label>
+        <input
+          style={{ display: 'none' }}
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
+      </button>
     </div>
   );
 };
