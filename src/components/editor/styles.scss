@@ -1,0 +1,166 @@
+@import '@styles/abstracts/variables';
+
+.editor-wrapper {
+  background-color: #fbfbfb;
+}
+
+.menus {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #dbdbdb;
+  gap: 1rem;
+
+  background-color: #fff;
+
+  .editor-menu-items-wrapper {
+    position: relative;
+
+    .editor-menu-drop {
+      position: absolute;
+      display: grid;
+      gap: 0.5rem;
+      top: calc(100% + 0.5rem);
+      left: 50%;
+      transform: translateX(-50%);
+
+      padding: 0.5rem;
+      border: 1px solid #dbdbdb;
+      background-color: #fff;
+      z-index: 1;
+
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.2s ease-in-out;
+
+      &.open {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    outline: none;
+
+    height: 24px;
+
+    font-size: 20px;
+    color: #8e8e8e;
+
+    &.is-active {
+      color: #000;
+    }
+
+    &.editor-text-color {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
+        width: 14px;
+        height: 14px;
+        z-index: 1;
+      }
+
+      &.color-accent::before {
+        background-color: $red-400;
+      }
+
+      &.color-black::before {
+        background-color: #0d0d0d;
+      }
+    }
+  }
+}
+
+.tiptap {
+  max-width: 680px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 3rem;
+  background-color: #fff;
+  border-right: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  outline: none;
+
+  ul,
+  ol {
+    padding: 0 2rem;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+    counter-reset: list;
+  }
+
+  li {
+    margin-block: 0.5rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(#0d0d0d, 0.1);
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: 'Hack', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      font: inherit;
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0d0d0d, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0d0d0d, 0.1);
+    margin: 2rem 0;
+  }
+}
