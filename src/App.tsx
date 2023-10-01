@@ -1,5 +1,11 @@
+import TextEditor from '@components/editor';
+
 function App() {
-  return <></>;
+  return (
+    <div>
+      <TextEditor />
+    </div>
+  );
 }
 
 export default App;
