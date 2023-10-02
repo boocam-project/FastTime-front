@@ -1,0 +1,108 @@
+@import '../../../styles/abstracts/variables';
+
+body {
+  margin: 0;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  height: 340px;
+  width: 100%;
+  padding: 10px;
+  overflow: hidden;
+  @media (max-width: 1256px) {
+    height: auto;
+    padding: 0px 10px;
+  }
+}
+
+.footer h2 {
+  padding-bottom: 15px;
+}
+
+.footer .footer-section p {
+  font-size: 12px;
+  color: #b9b9b9;
+}
+
+.team-list-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.team-list {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .team-list-container {
+    flex-direction: column;
+  }
+}
+
+.footer-content {
+  padding: 32px 64px 0 40px;
+  display: flex;
+  gap: 88px;
+}
+
+.icon-text-container a {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.icon-text-container a span {
+  margin-left: 5px;
+}
+
+ul.team-members-list {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  @media (max-width: 1120px) {
+    flex-direction: column;
+    padding: 4px;
+    gap: 4px;
+  }
+}
+
+ul.team-members-list li {
+  font-size: 8px;
+  margin-bottom: 4px;
+}
+
+ul.team-members-list li a {
+  color: #9e9e9e;
+}
+
+ul.team-members-list li a:hover {
+  text-decoration: underline;
+}
+
+.team-list h3 {
+  font-size: 12px;
+  margin: 10px 0;
+  color: $red-400;
+}
+
+.footer .footer-bottom p {
+  padding: 20px 20px;
+  font-size: 12px;
+  color: #d2d2d2;
+}
+
+.footer-section {
+  margin-right: -20px;
+  a.github-link {
+    font-size: 10px;
+    color: $red-200;
+  }
+}
+
+.github-link span {
+  margin-left: 5px;
+}
