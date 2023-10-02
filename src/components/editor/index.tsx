@@ -15,7 +15,9 @@ import MenuBar from './MenuBar';
 import StarterKit from '@tiptap/starter-kit';
 import Button from '@components/atoms/button';
 import Title from './Title';
-import HTMLReactParser from 'html-react-parser';
+
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../libs/firebase';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -122,6 +124,39 @@ const TextEditor = () => {
     },
   });
 
+  const handlePublish = async () => {
+    if (!editor) {
+      console.log('editor is null');
+      return;
+    }
+
+    console.log(editor.getHTML());
+
+    const editorHTML = editor.getHTML();
+    const parser = new DOMParser();
+    const originalDoc = parser.parseFromString(editorHTML, 'text/html');
+    const images = originalDoc.querySelectorAll('img');
+    let updatedHTML = '';
+
+    images.forEach(async (image) => {
+      const src = image.getAttribute('src');
+      if (src?.startsWith('blob')) {
+        const response = await fetch(src);
+        const blob = await response.blob();
+
+        const storageRef = ref(storage, `images/${new Date().getTime()}_${blob.type}`);
+        const uploadTask = uploadBytesResumable(storageRef, blob);
+
+        const snapshot = await uploadTask;
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        image.setAttribute('src', downloadURL);
+        updatedHTML = originalDoc.body.innerHTML;
+        console.log(updatedHTML);
+      }
+    });
+  };
+
   return (
     <div className="editor-wrapper">
       {editor && (
@@ -134,12 +169,8 @@ const TextEditor = () => {
         <Button className="default" show>
           취소
         </Button>
-        <Button className="default" show>
-          발행
-        </Button>
+        <button onClick={handlePublish}>발행</button>
       </div>
-
-      <div className="tiptap">{HTMLReactParser(editor?.getHTML() || '')}</div>
     </div>
   );
 };
