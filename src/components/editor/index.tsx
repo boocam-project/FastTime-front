@@ -14,16 +14,12 @@ import Image from '@tiptap/extension-image';
 import MenuBar from './MenuBar';
 import StarterKit from '@tiptap/starter-kit';
 import Button from '@components/atoms/button';
+import Title from './Title';
+import HTMLReactParser from 'html-react-parser';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
 });
-
-const Title = Heading.extend({
-  name: 'title',
-  group: 'title',
-  parseHTML: () => [{ tag: 'h1:first-child' }],
-}).configure({ levels: [1] });
 
 const adjustLevel = (level: any) => (level == 1 ? 2 : level);
 const CustomHeading = Heading.extend({
@@ -100,7 +96,29 @@ const TextEditor = () => {
     extensions,
     content,
     onUpdate: ({ editor }) => {
-      console.log(editor.getJSON());
+      console.log(editor.getHTML());
+    },
+    editorProps: {
+      handleDrop: (view, event, slice, moved) => {
+        if (!moved && event.dataTransfer?.files.length) {
+          const file = event.dataTransfer.files[0];
+          const fileSize = Number((file.size / 1024 / 1024).toFixed(4)); // MB
+          if ((file.type === 'image/jpeg' || file.type === 'image/png') && fileSize < 10) {
+            console.log(file);
+            const blobUrl = URL.createObjectURL(file);
+
+            // Insert the blob URL as an image into the editor
+            const { tr } = view.state;
+            const imageNode = view.state.schema.nodes.image.create({ src: blobUrl });
+            const transaction = tr.replaceSelectionWith(imageNode);
+            view.dispatch(transaction);
+          } else {
+            alert('이미지는 jpeg, png 형식만 가능합니다. (10MB 이하)');
+          }
+          return true;
+        }
+        return false;
+      },
     },
   });
 
@@ -120,6 +138,8 @@ const TextEditor = () => {
           발행
         </Button>
       </div>
+
+      <div className="tiptap">{HTMLReactParser(editor?.getHTML() || '')}</div>
     </div>
   );
 };

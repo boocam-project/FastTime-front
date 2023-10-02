@@ -79,7 +79,28 @@ const MenuBar = ({ editor }: Props) => {
       >
         <PiTextStrikethroughLight />
       </button>
+      {/* TEXT COLORS */}
+      <div className="editor-menu-items-wrapper" onClick={() => handleMenuSelect('colorMenu')}>
+        <button>
+          <MdFormatColorText />
+        </button>
+        <div className={`editor-menu-drop ${menuOpen === 'colorMenu' ? 'open' : ''}`}>
+          <button
+            onClick={() => editor.chain().focus().setColor('#fc4c70').run()}
+            className={`editor-text-color color-accent ${
+              editor.isActive('textStyle', { color: '#fc4c70' }) ? 'is-active' : ''
+            }`}
+          ></button>
+          <button
+            onClick={() => editor.chain().focus().setColor('#0d0d0d').run()}
+            className={`editor-text-color color-black ${
+              editor.isActive('textStyle', { color: '#0d0d0d' }) ? 'is-active' : ''
+            }`}
+          ></button>
+        </div>
+      </div>
 
+      <div className="divider"></div>
       {/* <button
         onClick={() => editor.chain().focus().setParagraph().run()}
         className={editor.isActive('paragraph') ? 'is-active' : ''}
@@ -129,30 +150,13 @@ const MenuBar = ({ editor }: Props) => {
         <MdHorizontalRule />
       </button>
 
-      {/* TEXT COLORS */}
-      <div className="editor-menu-items-wrapper" onClick={() => handleMenuSelect('colorMenu')}>
-        <button>
-          <MdFormatColorText />
-        </button>
-        <div className={`editor-menu-drop ${menuOpen === 'colorMenu' ? 'open' : ''}`}>
-          <button
-            onClick={() => editor.chain().focus().setColor('#fc4c70').run()}
-            className={`editor-text-color color-accent ${
-              editor.isActive('textStyle', { color: '#fc4c70' }) ? 'is-active' : ''
-            }`}
-          ></button>
-          <button
-            onClick={() => editor.chain().focus().setColor('#0d0d0d').run()}
-            className={`editor-text-color color-black ${
-              editor.isActive('textStyle', { color: '#0d0d0d' }) ? 'is-active' : ''
-            }`}
-          ></button>
-        </div>
-      </div>
-
+      <div className="divider"></div>
       {/* 인풋 컴포넌트에서 따로 조작 가능하도록 */}
       <button>
-        <label style={{ display: 'flex', alignContent: 'center' }} htmlFor="image">
+        <label
+          style={{ display: 'flex', alignContent: 'center', cursor: 'pointer' }}
+          htmlFor="image"
+        >
           <BsCardImage />
         </label>
         <input
