@@ -8,7 +8,6 @@ import Underline from '@tiptap/extension-underline';
 import Document from '@tiptap/extension-document';
 import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
-import TableOfContent from '@tiptap-pro/extension-table-of-content';
 import Image from '@tiptap/extension-image';
 
 import MenuBar from './MenuBar';
@@ -80,7 +79,6 @@ const extensions = [
       return '내용을 입력하세요';
     },
   }),
-  TableOfContent,
   DocumentWithTitle,
   Title,
   CustomHeading,
