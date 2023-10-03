@@ -10,8 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tiptap-pro/extension-table-of-content": "^2.3.0",
-    "@tiptap-pro/extension-unique-id": "^2.3.0",
     "@tiptap/extension-blockquote": "^2.1.11",
     "@tiptap/extension-bold": "^2.1.11",
     "@tiptap/extension-bullet-list": "^2.1.11",
