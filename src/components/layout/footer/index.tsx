@@ -1,13 +1,12 @@
 import teamMembers from '../../../data/teamMembersData';
 import { FaEnvelope, FaGithub, FaBlog } from 'react-icons/fa';
-import './styles.scss';
-
+import styles from './footer.module.scss';
 function Footer() {
   const feMembers = teamMembers.filter((member) => member.role === 'FE');
   const beMembers = teamMembers.filter((member) => member.role === 'BE');
 
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
       <div className="footer-content">
         <div className="footer-section">
           <h2>Fast Time</h2>
