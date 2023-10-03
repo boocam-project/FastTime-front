@@ -1,162 +1,96 @@
 import './styles.scss';
 
+import { EditorContent, useEditor, textblockTypeInputRule } from '@tiptap/react';
 import { Color } from '@tiptap/extension-color';
 import ListItem from '@tiptap/extension-list-item';
 import TextStyle from '@tiptap/extension-text-style';
-import { Editor, EditorContent, useEditor } from '@tiptap/react';
 import Underline from '@tiptap/extension-underline';
+import Document from '@tiptap/extension-document';
+import Heading from '@tiptap/extension-heading';
+import Placeholder from '@tiptap/extension-placeholder';
+import TableOfContent from '@tiptap-pro/extension-table-of-content';
+import Image from '@tiptap/extension-image';
+
+import MenuBar from './MenuBar';
 import StarterKit from '@tiptap/starter-kit';
+import Button from '@components/atoms/button';
+import Title from './Title';
 
-import { PiTextItalicLight, PiTextStrikethroughLight, PiTextUnderlineLight } from 'react-icons/pi';
-import { BsCode } from 'react-icons/bs';
-import { AiOutlineUnorderedList, AiOutlineOrderedList, AiOutlineBold } from 'react-icons/ai';
-import { BiSolidQuoteAltLeft } from 'react-icons/bi';
-import { MdHorizontalRule, MdFormatColorText } from 'react-icons/md';
-import { useState } from 'react';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { storage } from '../../libs/firebase';
 
-interface Props {
-  editor: Editor;
-}
+const DocumentWithTitle = Document.extend({
+  content: 'title block+',
+});
 
-const MenuBar = ({ editor }: Props) => {
-  const [menuOpen, setMenuOpen] = useState<string | null>(null);
-
-  const handleMenuSelect = (selectedMenu: string) => {
-    if (menuOpen === selectedMenu) {
-      setMenuOpen(null);
-    } else {
-      setMenuOpen(selectedMenu);
-    }
-  };
-
-  if (!editor) {
-    return null;
-  }
-
-  return (
-    <div className="menus">
-      <button
-        onClick={() => editor.chain().focus().toggleBold().run()}
-        disabled={!editor.can().chain().focus().toggleBold().run()}
-        className={editor.isActive('bold') ? 'is-active' : ''}
-      >
-        <AiOutlineBold size={19} />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleItalic().run()}
-        disabled={!editor.can().chain().focus().toggleItalic().run()}
-        className={editor.isActive('italic') ? 'is-active' : ''}
-      >
-        <PiTextItalicLight />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleUnderline().run()}
-        disabled={!editor.can().chain().focus().toggleUnderline().run()}
-        className={editor.isActive('underline') ? 'is-active' : ''}
-      >
-        <PiTextUnderlineLight />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleStrike().run()}
-        disabled={!editor.can().chain().focus().toggleStrike().run()}
-        className={editor.isActive('strike') ? 'is-active' : ''}
-      >
-        <PiTextStrikethroughLight />
-      </button>
-
-      {/* <button
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
-      >
-        본문
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-      >
-        소제목
-      </button> */}
-
-      <div className="editor-menu-items-wrapper" onClick={() => handleMenuSelect('listMenu')}>
-        <button>
-          <AiOutlineUnorderedList />
-        </button>
-        <div className={`editor-menu-drop ${menuOpen === 'listMenu' ? 'open' : ''}`}>
-          <button
-            onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={editor.isActive('bulletList') ? 'is-active' : ''}
-          >
-            <AiOutlineUnorderedList />
-          </button>
-          <button
-            onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={editor.isActive('orderedList') ? 'is-active' : ''}
-          >
-            <AiOutlineOrderedList />
-          </button>
-        </div>
-      </div>
-
-      <button
-        onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-        className={editor.isActive('codeBlock') ? 'is-active' : ''}
-      >
-        <BsCode />
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleBlockquote().run()}
-        className={editor.isActive('blockquote') ? 'is-active' : ''}
-      >
-        <BiSolidQuoteAltLeft />
-      </button>
-      <button onClick={() => editor.chain().focus().setHorizontalRule().run()}>
-        <MdHorizontalRule />
-      </button>
-
-      {/* TEXT COLORS */}
-      <div className="editor-menu-items-wrapper" onClick={() => handleMenuSelect('colorMenu')}>
-        <button>
-          <MdFormatColorText />
-        </button>
-        <div className={`editor-menu-drop ${menuOpen === 'colorMenu' ? 'open' : ''}`}>
-          <button
-            onClick={() => editor.chain().focus().setColor('#fc4c70').run()}
-            className={`editor-text-color color-accent ${
-              editor.isActive('textStyle', { color: '#fc4c70' }) ? 'is-active' : ''
-            }`}
-          ></button>
-          <button
-            onClick={() => editor.chain().focus().setColor('#0d0d0d').run()}
-            className={`editor-text-color color-black ${
-              editor.isActive('textStyle', { color: '#0d0d0d' }) ? 'is-active' : ''
-            }`}
-          ></button>
-        </div>
-      </div>
-    </div>
-  );
-};
+const adjustLevel = (level: any) => (level == 1 ? 2 : level);
+const CustomHeading = Heading.extend({
+  parseHTML() {
+    return this.options.levels.map((level) => ({
+      tag: `h${level}`,
+      attrs: { level: adjustLevel(level) },
+    }));
+  },
+  addKeyboardShortcuts() {
+    return this.options.levels.reduce(
+      (items, level) => ({
+        ...items,
+        ...{
+          [`Mod-Alt-${level}`]: () =>
+            this.editor.commands.toggleHeading({
+              level: adjustLevel(level),
+            }),
+        },
+      }),
+      {}
+    );
+  },
+  addInputRules() {
+    return this.options.levels.map((level) => {
+      return textblockTypeInputRule({
+        find: new RegExp(`^(#{1,${level}})\\s$`),
+        type: this.type,
+        getAttributes: {
+          level: adjustLevel(level),
+        },
+      });
+    });
+  },
+});
 
 const extensions = [
   Color.configure({ types: [TextStyle.name, ListItem.name] }),
   TextStyle.configure({ types: [ListItem.name] } as any),
   StarterKit.configure({
-    bulletList: {
-      keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-    },
     orderedList: {
       keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+      keepAttributes: false,
+    },
+    bulletList: {
+      keepMarks: true,
+      keepAttributes: false,
+    },
+    document: false,
+    heading: false,
+  }),
+  Placeholder.configure({
+    showOnlyCurrent: false,
+    placeholder: ({ node }) => {
+      if (node.type.name === 'title') return '제목을 입력하세요';
+      return '내용을 입력하세요';
     },
   }),
+  TableOfContent,
+  DocumentWithTitle,
+  Title,
+  CustomHeading,
   Underline,
+  Image,
 ];
 
 const content = `
-<h2>
-  Hi there,
-</h2>
+<p>
+</p>
 `;
 
 const TextEditor = () => {
@@ -164,9 +98,64 @@ const TextEditor = () => {
     extensions,
     content,
     onUpdate: ({ editor }) => {
-      console.log(editor.getJSON());
+      console.log(editor.getHTML());
+    },
+    editorProps: {
+      handleDrop: (view, event, slice, moved) => {
+        if (!moved && event.dataTransfer?.files.length) {
+          const file = event.dataTransfer.files[0];
+          const fileSize = Number((file.size / 1024 / 1024).toFixed(4)); // MB
+          if ((file.type === 'image/jpeg' || file.type === 'image/png') && fileSize < 10) {
+            console.log(file);
+            const blobUrl = URL.createObjectURL(file);
+
+            // Insert the blob URL as an image into the editor
+            const { tr } = view.state;
+            const imageNode = view.state.schema.nodes.image.create({ src: blobUrl });
+            const transaction = tr.replaceSelectionWith(imageNode);
+            view.dispatch(transaction);
+          } else {
+            alert('이미지는 jpeg, png 형식만 가능합니다. (10MB 이하)');
+          }
+          return true;
+        }
+        return false;
+      },
     },
   });
+
+  const handlePublish = async () => {
+    if (!editor) {
+      console.log('editor is null');
+      return;
+    }
+
+    console.log(editor.getHTML());
+
+    const editorHTML = editor.getHTML();
+    const parser = new DOMParser();
+    const originalDoc = parser.parseFromString(editorHTML, 'text/html');
+    const images = originalDoc.querySelectorAll('img');
+    let updatedHTML = '';
+
+    images.forEach(async (image) => {
+      const src = image.getAttribute('src');
+      if (src?.startsWith('blob')) {
+        const response = await fetch(src);
+        const blob = await response.blob();
+
+        const storageRef = ref(storage, `images/${new Date().getTime()}_${blob.type}`);
+        const uploadTask = uploadBytesResumable(storageRef, blob);
+
+        const snapshot = await uploadTask;
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        image.setAttribute('src', downloadURL);
+        updatedHTML = originalDoc.body.innerHTML;
+        console.log(updatedHTML);
+      }
+    });
+  };
 
   return (
     <div className="editor-wrapper">
@@ -176,6 +165,12 @@ const TextEditor = () => {
           <EditorContent editor={editor} />
         </>
       )}
+      <div className="editor-footer">
+        <Button className="default" show>
+          취소
+        </Button>
+        <button onClick={handlePublish}>발행</button>
+      </div>
     </div>
   );
 };
