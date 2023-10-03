@@ -5,16 +5,3 @@
 @import 'base/typography';
 @import 'base/reset';
 
-.app {
-  width: 100vw;
-  height: 100vh;
-  @include mobile {
-    background: pink;
-  }
-  @include tablet {
-    background: blanchedalmond;
-  }
-  @include desktop {
-    background: gray;
-  }
-}
