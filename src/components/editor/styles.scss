@@ -13,6 +13,8 @@
   justify-content: center;
   align-items: center;
 
+  height: 44px;
+
   border-bottom: 1px solid #dbdbdb;
   gap: 0.5rem;
 
@@ -55,7 +57,7 @@
   button {
     display: flex;
     align-items: center;
-    padding: 1rem 0.25rem;
+    padding: 0.5rem 0.5rem;
 
     border: none;
     background: none;
@@ -64,6 +66,7 @@
     outline: none;
 
     font-size: 20px;
+    border-radius: 4px;
     color: #8e8e8e;
 
     &:hover {
@@ -100,8 +103,9 @@
 }
 
 .tiptap {
-  min-height: calc(100vh - #{$--header-height} - #{$--nav-bar-height} - #{$--editor-footer-height});
-  max-height: calc(100vh - #{$--header-height} - #{$--nav-bar-height} - #{$--editor-footer-height});
+  height: calc(
+    100vh - #{$--header-height} - #{$--editor-menu-bar-height} - #{$--editor-footer-height}
+  );
   padding: 2rem 3rem;
   background-color: #fff;
   outline: none;
