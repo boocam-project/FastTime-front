@@ -1,10 +1,14 @@
 @import '@styles/abstracts/variables';
 
-.editor-wrapper {
+.editor-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   // max-width: 680px;
   margin: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .menus {
@@ -102,108 +106,125 @@
   }
 }
 
-.tiptap {
-  height: calc(
-    100vh - #{$--header-height} - #{$--editor-menu-bar-height} - #{$--editor-footer-height}
-  );
-  padding: 2rem 3rem;
-  background-color: #fff;
-  outline: none;
-
+.editor-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   overflow-y: auto;
 
-  ul,
-  ol {
-    padding: 0 2rem;
+  padding-bottom: $--editor-footer-height;
+
+  & > div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    max-height: calc(100% - $--editor-footer-height);
   }
 
-  ul {
-    list-style: disc;
-  }
+  .tiptap {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
 
-  ol {
-    list-style: decimal;
-    counter-reset: list;
-  }
+    padding: 2rem 3rem 0 3rem;
 
-  li {
-    margin-block: 0.5rem;
-  }
+    background-color: #fff;
+    outline: none;
+    overflow-y: auto;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 1.1;
-    margin: 1rem 0;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(#0d0d0d, 0.1);
-  }
+    ul,
+    ol {
+      padding: 0 2rem;
+    }
 
-  h1 {
-    font-size: 2.3rem;
-  }
+    ul {
+      list-style: disc;
+    }
 
-  code {
-    background-color: rgba(#616161, 0.1);
-    color: #616161;
-  }
+    ol {
+      list-style: decimal;
+      counter-reset: list;
+    }
 
-  pre {
-    background: #0d0d0d;
-    color: #fff;
-    font-family: 'Hack', monospace;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+    li {
+      margin-block: 0.5rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+      margin: 1rem 0;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(#0d0d0d, 0.1);
+    }
+
+    h1 {
+      font-size: 2.3rem;
+    }
 
     code {
-      font: inherit;
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
+      background-color: rgba(#616161, 0.1);
+      color: #616161;
     }
-  }
 
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'Hack', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
 
-    &.ProseMirror-selectednode {
-      outline: 2px solid #0d0d0d;
+      code {
+        font: inherit;
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
     }
-  }
 
-  blockquote {
-    padding-left: 1rem;
-    border-left: 2px solid rgba(#0d0d0d, 0.1);
-  }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
 
-  hr {
-    border: none;
-    border-top: 2px solid rgba(#0d0d0d, 0.1);
-    margin: 2rem 0;
-  }
+      &.ProseMirror-selectednode {
+        outline: 2px solid #0d0d0d;
+      }
+    }
 
-  p {
-    font-size: 1.1rem;
-  }
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(#0d0d0d, 0.1);
+    }
 
-  h1.is-empty:nth-child(1)::before,
-  p.is-empty:nth-child(2)::before {
-    color: #adb5bd;
-    content: attr(data-placeholder);
-    pointer-events: none;
-    height: 0;
-    float: left;
+    hr {
+      border: none;
+      border-top: 2px solid rgba(#0d0d0d, 0.1);
+      margin: 2rem 0;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+
+    h1.is-empty:nth-child(1)::before,
+    p.is-empty:nth-child(2)::before {
+      color: #adb5bd;
+      content: attr(data-placeholder);
+      pointer-events: none;
+      height: 0;
+      float: left;
+    }
   }
 }
 
 .editor-footer {
-  position: relative;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
