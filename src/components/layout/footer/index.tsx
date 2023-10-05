@@ -1,7 +1,7 @@
 import teamMembers from '../../../data/teamMembersData';
 import { FaEnvelope, FaGithub, FaBlog } from 'react-icons/fa';
 import styles from './footer.module.scss';
-function Footer() {
+const Footer = () => {
   const feMembers = teamMembers.filter((member) => member.role === 'FE');
   const beMembers = teamMembers.filter((member) => member.role === 'BE');
 
@@ -87,6 +87,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
