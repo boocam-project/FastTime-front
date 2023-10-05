@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import styles from './header.module.scss';
+import { AiOutlineMenu } from 'react-icons/ai';
 import ToggleBar from '../toggleBar';
 const Header = () => {
   return (
     <>
       <ToggleBar />
       <div className={styles.container}>
+        <div className={styles.menuBtn}>
+          <AiOutlineMenu />
+        </div>
         <div className={styles.logo}>fast time</div>
         <div className={styles.nav}>
           <div>
