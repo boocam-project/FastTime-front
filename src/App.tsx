@@ -1,11 +1,13 @@
-import TextEditor from '@components/editor';
+// import TextEditor from '@components/editor';
+import Login from '@components/auth/login';
 import Header from '@components/layout/header';
 
 function App() {
   return (
     <div>
       <Header />
-      <TextEditor />
+      {/* <TextEditor /> */}
+      <Login />
     </div>
   );
 }

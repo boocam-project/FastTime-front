@@ -1,0 +1,57 @@
+@import '@styles/abstracts/variables';
+
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 320px;
+  border: 30px solid transparent;
+  border-bottom-color: $red-200;
+  border-top-color: $red-200;
+  border-left-color: $red-200;
+
+  border-radius: 50%;
+  text-align: center;
+  padding: 30px;
+  margin: 70px auto;
+
+  transform: rotate(-45deg);
+}
+
+.FTtitle {
+  transform: rotate(45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  transform: translate(0%, -280%) rotate(45deg);
+
+  font-size: 32px;
+}
+
+.loginForm {
+  transform: rotate(45deg);
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.loginForm h2 {
+  padding: 25px 0 2px 0;
+  font-size: 15px;
+  color: $gray;
+}
+
+.findPassword {
+  font-size: 10px;
+  text-decoration: none;
+  padding: 0 0 0 80px;
+  color: $gray;
+}
+
+.loginForm Button {
+  margin-top: 10px;
+  border-radius: 10px;
+}
