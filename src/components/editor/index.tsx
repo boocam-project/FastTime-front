@@ -156,12 +156,12 @@ const TextEditor = () => {
   };
 
   return (
-    <div className="editor-wrapper">
+    <div className="editor-container">
       {editor && (
-        <>
+        <div className="editor-main">
           <MenuBar editor={editor} />
           <EditorContent editor={editor} />
-        </>
+        </div>
       )}
       <div className="editor-footer">
         <Button className="default" show>
