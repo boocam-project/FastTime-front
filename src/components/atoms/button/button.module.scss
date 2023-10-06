@@ -1,5 +1,15 @@
 @import '@styles/abstracts/variables';
 
+@function next-color($current-index) {
+  $keys: map-keys($red-list);
+  $currentIndex: index($keys, $current-index);
+
+  @if $currentIndex and $currentIndex < length($keys) {
+    @return map-get($red-list, nth($keys, $currentIndex + 1));
+  }
+  @return null;
+}
+
 $red-list: (
   '100': $red-100,
   '200': $red-200,
@@ -9,37 +19,73 @@ $red-list: (
 );
 
 button {
-  font-size: 15px;
   border: none;
   outline: none;
   cursor: pointer;
 }
+
 @mixin tag-red-style($bgColor) {
-  color: $black;
-  background-color: $white;
-  border: 1px solid $red-300;
+  color: $white;
+  background-color: $bgColor;
   padding: 8px 12px;
   border-radius: 50px;
-  font-size: 12px;
-  &:hover {
-    color: $white;
-    background-color: $bgColor;
-  }
+  font-size: $--size-smalltext;
 }
+
 @mixin round-red-style($bgColor) {
   color: $white;
   background-color: $bgColor;
   padding: 4px 16px;
   border-radius: 50px;
-  font-size: 15px;
+  font-size: $--size-subtext;
   transition: all 0.3s;
-  &:hover {
-    transform: scale(1.2);
+
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 4px 16px;
   }
+}
+
+@mixin default-red-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 6px 16px;
+  font-size: $--size-subtext;
+  transition: all 0.3s;
+
   &:disabled {
     color: $gray;
     background-color: $light-gray;
     padding: 6px 16px;
+  }
+}
+
+@mixin large-red-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 12px 32px;
+  font-size: $--size-subtext;
+  transition: all 0.3s;
+
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 12px 32px;
+  }
+}
+
+@mixin conpact-red-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 12px 32px;
+  font-size: $--size-subtext;
+  transition: all 0.3s;
+
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
+    padding: 12px 32px;
   }
 }
 
@@ -47,131 +93,63 @@ button {
   @each $index, $color in $red-list {
     &-#{$index} {
       @include tag-red-style($color);
+
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
     }
   }
 }
+
 .round-red {
   @each $index, $color in $red-list {
     &-#{$index} {
       @include round-red-style($color);
+
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
     }
   }
 }
 
-.default {
-  color: $white;
-  background-color: $red-400;
-  padding: 6px 16px;
+.default-red {
+  @each $index, $color in $red-list {
+    &-#{$index} {
+      @include default-red-style($color);
 
-  &:hover {
-    color: $white;
-    background-color: $red-500;
-  }
-  &:disabled {
-    color: $gray;
-    background-color: $light-gray;
-    padding: 6px 16px;
-  }
-  &_cancel {
-    color: $red-500;
-    background-color: $red-100;
-    border: none;
-    outline: none;
-    padding: 6px 16px;
-    &:hover {
-      color: $red-500;
-      background-color: $red-300;
-    }
-    &:disabled {
-      color: $gray;
-      background-color: $light-gray;
-      padding: 6px 16px;
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
     }
   }
 }
 
-.large {
-  color: $white;
-  background-color: $red-400;
-  padding: 12px 32px;
-  &:hover {
-    background-color: $red-500;
-  }
-  &:disabled {
-    color: $gray;
-    background-color: $light-gray;
-    padding: 12px 32px;
-  }
-  &_cancel {
-    color: $red-500;
-    background-color: $red-100;
-    padding: 12px 32px;
-    &:hover {
-      color: $red-500;
-      background-color: $red-200;
-    }
-    &:disabled {
-      color: $gray;
-      background-color: $light-gray;
-      padding: 12px 32px;
+.large-red {
+  @each $index, $color in $red-list {
+    &-#{$index} {
+      @include large-red-style($color);
+
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
     }
   }
 }
 
-.compact-test {
-  width: 25%;
-  color: $white;
-  background-color: $red-300;
-  border: 1px solid $red-400;
-  color: black;
-  padding: 16px 2px;
-  &:hover {
-    animation: colorchangehover2 2s infinite alternate;
-  }
-}
+.conpact-red {
+  @each $index, $color in $red-list {
+    &-#{$index} {
+      @include conpact-red-style($color);
 
-@keyframes colorchangehover2 {
-  0% {
-    color: $white;
-    background-color: $red-300;
-  }
-  100% {
-    color: $white;
-    background-color: $red-400;
-  }
-}
+      &.full {
+        width: 100%;
+        height: 100%;
+      }
 
-.compact {
-  width: 100%;
-  color: $white;
-  background-color: $red-100;
-  padding: 16px 0;
-  &:hover {
-    animation: colorchangehover 2s infinite alternate;
-  }
-}
-.compact-disabled {
-  &:disabled {
-    width: 100%;
-    color: $gray;
-    background-color: $light-gray;
-    padding: 16px 0;
-  }
-}
-@keyframes colorchangehover {
-  0% {
-    background-color: $red-100;
-  }
-  25% {
-    background-color: $red-200;
-  }
-  50% {
-    background-color: $red-300;
-  }
-  75% {
-    background-color: $red-400;
-  }
-  100% {
-    background-color: $red-500;
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
+    }
   }
 }
