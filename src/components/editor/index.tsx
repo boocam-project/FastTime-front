@@ -12,11 +12,11 @@ import Image from '@tiptap/extension-image';
 import StarterKit from '@tiptap/starter-kit';
 
 import MenuBar from './MenuBar';
-import Button from '@components/atoms/button';
 import Title from './Title';
 
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../libs/firebase';
+import { storage } from '@/libs/firebase';
+import Button from '@/components/atoms/button';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
