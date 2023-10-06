@@ -15,8 +15,8 @@ import StarterKit from '@tiptap/starter-kit';
 import Button from '@components/atoms/button';
 import Title from './Title';
 
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../libs/firebase';
+import useBlobUrl from '../../hooks/useBlobUrl';
+import { createBlob, uploadImageToFirebase } from '../../hooks/useImageConvert';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -92,6 +92,7 @@ const content = `
 `;
 
 const TextEditor = () => {
+  const { createBlobUrl } = useBlobUrl();
   const editor = useEditor({
     extensions,
     content,
@@ -104,9 +105,7 @@ const TextEditor = () => {
           const file = event.dataTransfer.files[0];
           const fileSize = Number((file.size / 1024 / 1024).toFixed(4)); // MB
           if ((file.type === 'image/jpeg' || file.type === 'image/png') && fileSize < 10) {
-            console.log(file);
-            const blobUrl = URL.createObjectURL(file);
-
+            const blobUrl = createBlobUrl(file);
             // Insert the blob URL as an image into the editor
             const { tr } = view.state;
             const imageNode = view.state.schema.nodes.image.create({ src: blobUrl });
@@ -123,36 +122,44 @@ const TextEditor = () => {
   });
 
   const handlePublish = async () => {
-    if (!editor) {
-      console.log('editor is null');
+    if (!editor) return;
+
+    const articleJSON = editor.getJSON();
+
+    if (!articleJSON) return;
+
+    const images = articleJSON.content?.filter((node) => node.type === 'image') || [];
+
+    const uploadImageAndChangeURL = images.map(async (image) => {
+      const blobUrl = image.attrs?.src;
+      const blob = await createBlob(blobUrl);
+      const downloadUrl = await uploadImageToFirebase(blob);
+
+      const imageNode = articleJSON.content?.find(
+        (node) => node.type === 'image' && node.attrs?.src === blobUrl
+      );
+      if (imageNode && imageNode.attrs) {
+        imageNode.attrs.src = downloadUrl;
+      }
+    });
+
+    await Promise.all(uploadImageAndChangeURL);
+
+    const titleNode = articleJSON.content?.find((node) => node.type === 'title');
+    if (!titleNode) {
+      alert('제목을 입력해주세요');
       return;
     }
 
-    console.log(editor.getHTML());
+    const contentWithoutTitle = articleJSON.content?.filter((node) => node.type !== 'title');
+    articleJSON.content = contentWithoutTitle;
 
-    const editorHTML = editor.getHTML();
-    const parser = new DOMParser();
-    const originalDoc = parser.parseFromString(editorHTML, 'text/html');
-    const images = originalDoc.querySelectorAll('img');
-    let updatedHTML = '';
+    const article = {
+      title: titleNode.content?.[0].text,
+      content: JSON.stringify(articleJSON),
+    };
 
-    images.forEach(async (image) => {
-      const src = image.getAttribute('src');
-      if (src?.startsWith('blob')) {
-        const response = await fetch(src);
-        const blob = await response.blob();
-
-        const storageRef = ref(storage, `images/${new Date().getTime()}_${blob.type}`);
-        const uploadTask = uploadBytesResumable(storageRef, blob);
-
-        const snapshot = await uploadTask;
-        const downloadURL = await getDownloadURL(snapshot.ref);
-
-        image.setAttribute('src', downloadURL);
-        updatedHTML = originalDoc.body.innerHTML;
-        console.log(updatedHTML);
-      }
-    });
+    console.log(article);
   };
 
   return (
