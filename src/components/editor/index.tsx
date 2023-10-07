@@ -149,7 +149,7 @@ const TextEditor = () => {
     await Promise.all(uploadImageAndChangeURL);
 
     const titleNode = articleJSON.content?.find((node) => node.type === 'title');
-    if (!titleNode) {
+    if (!titleNode?.textContent) {
       alert('제목을 입력해주세요');
       return;
     }
