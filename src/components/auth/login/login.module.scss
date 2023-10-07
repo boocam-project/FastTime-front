@@ -1,57 +1,63 @@
 @import '@styles/abstracts/variables';
+@import '@styles/abstracts/mixins';
 
-.loginContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  height: 320px;
-  border: 30px solid transparent;
+.roundedShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%) rotate(-45deg); /* 요소의 중앙을 부모 요소의 중앙으로 이동 */
+
+  width: 430px;
+  height: 430px;
+
+  border: 40px solid transparent;
   border-bottom-color: $red-200;
   border-top-color: $red-200;
   border-left-color: $red-200;
 
   border-radius: 50%;
-  text-align: center;
-  padding: 30px;
-  margin: 70px auto;
-
-  transform: rotate(-45deg);
+  z-index: -1; /* 이 요소를 loginContainer의 뒤로 보내는 부분 */
 }
 
-.FTtitle {
-  transform: rotate(45deg);
+.loginContainer {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform-origin: center center;
-  transform: translate(0%, -280%) rotate(45deg);
+  transform: translate(-50%, -27%);
 
-  font-size: 32px;
+  width: 350px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.FTtitle {
+  font-size: 50px;
 }
 
 .loginForm {
-  transform: rotate(45deg);
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
 }
 
 .loginForm h2 {
-  padding: 25px 0 2px 0;
-  font-size: 15px;
-  color: $gray;
+  padding: 10px 0 20px 0;
+  font-size: 20px;
+  color: #b5b5b5;
+  text-align: center;
 }
 
 .findPassword {
   font-size: 10px;
   text-decoration: none;
-  padding: 0 0 0 80px;
+  padding: 0 0 0 90px;
   color: $gray;
 }
 
-.loginForm Button {
-  margin-top: 10px;
+Button {
+  margin-top: 10px; /* 원하는 간격으로 조절 */
   border-radius: 10px;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 }

@@ -1,0 +1,22 @@
+/* register.module.scss */
+
+.registrationContainer {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.registrationContainer h2 {
+  padding-bottom: 20px;
+}
+
+.registrationForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.registrationFormInput {
+  margin-bottom: 10px;
+}
