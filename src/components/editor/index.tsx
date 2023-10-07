@@ -16,9 +16,6 @@ import Title from './Title';
 
 import useBlobUrl from '../../hooks/useBlobUrl';
 import { createBlob, uploadImageToFirebase } from '../../hooks/useImageConvert';
-
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '@/libs/firebase';
 import Button from '@/components/atoms/button';
 
 const DocumentWithTitle = Document.extend({
@@ -96,6 +93,7 @@ const content = `
 
 const TextEditor = () => {
   const { createBlobUrl } = useBlobUrl();
+
   const editor = useEditor({
     extensions,
     content,
@@ -176,10 +174,12 @@ const TextEditor = () => {
         </div>
       )}
       <div className="editor-footer">
-        <Button className="default" show>
+        <Button className="conpact-red-200" show>
           취소
         </Button>
-        <button onClick={handlePublish}>발행</button>
+        <Button className="conpact-red-200" show onClick={handlePublish}>
+          발행
+        </Button>
       </div>
     </div>
   );

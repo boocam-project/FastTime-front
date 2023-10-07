@@ -1,4 +1,4 @@
-@import '@styles/abstracts/variables';
+@import '@/styles/abstracts/variables';
 
 .editor-container {
   position: relative;
@@ -225,6 +225,10 @@
 
 .editor-footer {
   position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
   left: 0;
   bottom: 0;
   width: 100%;
