@@ -9,14 +9,14 @@ import Document from '@tiptap/extension-document';
 import Heading from '@tiptap/extension-heading';
 import Placeholder from '@tiptap/extension-placeholder';
 import Image from '@tiptap/extension-image';
+import StarterKit from '@tiptap/starter-kit';
 
 import MenuBar from './MenuBar';
-import StarterKit from '@tiptap/starter-kit';
-import Button from '@components/atoms/button';
 import Title from './Title';
 
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from '../../libs/firebase';
+import { storage } from '@/libs/firebase';
+import Button from '@/components/atoms/button';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -95,6 +95,7 @@ const TextEditor = () => {
   const editor = useEditor({
     extensions,
     content,
+    // TODO: 이 로직을 어딘가로 옮겨야 함
     onUpdate: ({ editor }) => {
       console.log(editor.getHTML());
     },
@@ -122,6 +123,7 @@ const TextEditor = () => {
     },
   });
 
+  // TODO: 세부적으로 추상화 할 것
   const handlePublish = async () => {
     if (!editor) {
       console.log('editor is null');
