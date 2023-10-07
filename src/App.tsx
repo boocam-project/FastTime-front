@@ -1,5 +1,7 @@
+import TextEditor from './components/editor';
+
 function App() {
-  return <></>;
+  return <TextEditor />;
 }
 
 export default App;

@@ -1,5 +1,3 @@
-@import '@styles/abstracts/variables';
-
 @function next-color($current-index) {
   $keys: map-keys($red-list);
   $currentIndex: index($keys, $current-index);
