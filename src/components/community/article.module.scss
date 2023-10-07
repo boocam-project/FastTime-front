@@ -1,0 +1,52 @@
+@import '@styles/abstracts/variables';
+
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 680px;
+  margin: 0 auto;
+
+  padding: 1rem 0 2rem;
+  border-bottom: 1px solid $red-100;
+
+  .article-info {
+    display: flex;
+    gap: 0.5rem;
+    color: $black;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+
+    .like {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+  }
+
+  .article-contents {
+    display: flex;
+    justify-content: space-between;
+
+    div:nth-child(1) {
+      .title {
+        font-size: 20px;
+        margin-bottom: 0.5rem;
+      }
+
+      .description {
+        line-height: 1.5;
+      }
+    }
+
+    div:nth-child(2) {
+      display: flex;
+      justify-content: flex-end;
+
+      img {
+        object-fit: cover;
+      }
+    }
+  }
+}
