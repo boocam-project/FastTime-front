@@ -8,13 +8,19 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   show: boolean;
   full?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  type: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ className, children, show, full, onClick }: ButtonProps) => {
+const Button = ({ className, type, children, show, full, onClick }: ButtonProps) => {
   const cx = classNames.bind(styles);
 
   return (
-    <button className={cx(className, { full: full })} disabled={!show} onClick={onClick}>
+    <button
+      type={type}
+      className={cx(className, { full: full })}
+      disabled={!show}
+      onClick={onClick}
+    >
       {children}
     </button>
   );
