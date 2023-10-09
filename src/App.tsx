@@ -1,13 +1,7 @@
-import TextEditor from '@components/editor';
-import Header from '@components/layout/header';
+import TextEditor from './components/editor';
 
 function App() {
-  return (
-    <div>
-      <Header />
-      <TextEditor />
-    </div>
-  );
+  return <TextEditor />;
 }
 
 export default App;
