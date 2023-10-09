@@ -1,7 +1,7 @@
-import TextEditor from './components/editor';
+import CommentContainer from './components/comment';
 
 function App() {
-  return <TextEditor />;
+  return <CommentContainer />;
 }
 
 export default App;
