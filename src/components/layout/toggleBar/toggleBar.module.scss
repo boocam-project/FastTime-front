@@ -1,8 +1,6 @@
-@import '@styles/abstracts/variables';
-
 .container {
   width: 100%;
-  height: $--notice-height;
+  height: $--notice-bar-height;
   font-size: $--size-subtext;
   color: $white;
   background-color: $red-500;
