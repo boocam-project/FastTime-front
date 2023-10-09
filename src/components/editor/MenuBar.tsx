@@ -15,7 +15,7 @@ interface Props {
 
 const MenuBar = ({ editor }: Props) => {
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
-  const { url, setFile } = useBlobUrl();
+  const { url, createBlobUrl } = useBlobUrl();
 
   useEffect(() => {
     if (url) {
@@ -37,17 +37,17 @@ const MenuBar = ({ editor }: Props) => {
     }
   };
 
-  if (!editor) {
-    return null;
-  }
-
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setFile(file);
+    createBlobUrl(file);
 
     e.target.value = '';
   };
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <div className="menus">

@@ -1,19 +1,20 @@
 import { HTMLAttributes, MouseEventHandler } from 'react';
 import styles from './button.module.scss';
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  className: string;
+  className?: string;
   children: string;
   show: boolean;
+  full?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
-const Button = ({ className, children, show, onClick }: ButtonProps) => {
+const Button = ({ className, children, show, full, onClick }: ButtonProps) => {
   const cx = classNames.bind(styles);
 
   return (
-    <button className={cx([styles[className]])} disabled={!show} onClick={onClick}>
+    <button className={cx(className, { full: full })} disabled={!show} onClick={onClick}>
       {children}
     </button>
   );

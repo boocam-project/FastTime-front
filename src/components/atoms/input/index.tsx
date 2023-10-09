@@ -24,10 +24,10 @@ const Input = ({ name, label, register, errorMessage, className, type, ...props 
         {label}
       </label>
 
-      <div className={cx('input-wrapper', className, { search: type === 'searchInput' })}>
+      <div className={cx('input-wrapper', { search: type === 'searchInput' })}>
         {type === 'searchInput' && <CiSearch />}
         <input
-          className={cx('input', className, { error: errorMessage })}
+          className={cx('input', className?.split(' '), { error: errorMessage })}
           id={name}
           autoComplete="off"
           {...register}
