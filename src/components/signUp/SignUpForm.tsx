@@ -1,31 +1,44 @@
 import { useForm } from 'react-hook-form';
-import styles from './signIn.module.scss';
+import styles from './signUp.module.scss';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
 
-interface SignInFormValues {
+interface SignUpFormValues {
+  nickname: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormValues>({ mode: 'onChange' });
+  } = useForm<SignUpFormValues>({ mode: 'onChange' });
 
-  const onSubmit = (data: SignInFormValues) => {
+  const onSubmit = (data: SignUpFormValues) => {
     console.log(data);
   };
 
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>로그인</h2>
+        <h2>회원가입</h2>
+        <Input
+          type="text"
+          register={register('nickname', {
+            required: '닉네임을 입력해주세요.',
+          })}
+          value={watch('nickname')}
+          errorMessage={errors.nickname?.message}
+          name="nickname"
+          label="닉네임"
+          variant="defaultInput"
+        />
         <Input
           type="text"
           register={register('email', {
@@ -58,16 +71,28 @@ const SignInForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
+        <Input
+          type="password"
+          register={register('confirmPassword', {
+            required: '비밀번호를 다시 입력해주세요.',
+            validate: (value) => value === watch('password') || '비밀번호가 일치하지 않습니다.',
+          })}
+          value={watch('confirmPassword')}
+          errorMessage={errors.confirmPassword?.message}
+          name="confirmPassword"
+          label="비밀번호 확인"
+          variant="defaultInput"
+        />
         <Button type="submit" className="default-red-200" show>
-          로그인
+          회원가입
         </Button>
         <div>
-          <span>아직 아이디가 없나요? </span>
-          <Link to="/signup">회원가입</Link>
+          <span>이미 계정이 있으신가요? </span>
+          <Link to="/login">로그인</Link>
         </div>
       </form>
     </div>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
