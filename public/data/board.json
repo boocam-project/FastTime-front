@@ -1,0 +1,61 @@
+{
+  "code": 200,
+  "message": "성공",
+  "data": [
+    {
+      "id": 1,
+      "title": "제목1",
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null,
+      "anonymity": true,
+      "commentCount": 1,
+      "likeCount": 1,
+      "hateCount": 1
+    },
+    {
+      "id": 2,
+      "title": "제목2",
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null,
+      "anonymity": true,
+      "commentCount": 1,
+      "likeCount": 1,
+      "hateCount": 1
+    },
+    {
+      "id": 3,
+      "title": "제목3",
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null,
+      "anonymity": true,
+      "commentCount": 1,
+      "likeCount": 1,
+      "hateCount": 1
+    },
+    {
+      "id": 4,
+      "title": "제목4",
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null,
+      "anonymity": true,
+      "commentCount": 1,
+      "likeCount": 1,
+      "hateCount": 1
+    },
+    {
+      "id": 5,
+      "title": "제목5",
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null,
+      "anonymity": true,
+      "commentCount": 1,
+      "likeCount": 1,
+      "hateCount": 1
+    }
+  ]
+}
