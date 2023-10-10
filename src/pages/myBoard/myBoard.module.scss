@@ -30,6 +30,7 @@
     span {
       color: $gray;
     }
+
     p {
       background-color: $red-100;
       color: $red-300;
@@ -59,6 +60,7 @@
     cursor: pointer;
     box-sizing: border-box;
     border-bottom: 1px solid transparent;
+
     &:hover {
       border-bottom: 1px solid black;
     }
@@ -78,11 +80,13 @@
       row-gap: 0.2rem;
     }
   }
+
   .titleText {
     width: 50%;
     cursor: pointer;
     box-sizing: border-box;
     border-bottom: 1px solid transparent;
+
     &:hover {
       border-bottom: 1px solid black;
     }
@@ -94,6 +98,7 @@
     cursor: pointer;
     box-sizing: border-box;
     border-bottom: 1px solid transparent;
+
     &:hover {
       border-bottom: 1px solid black;
     }
