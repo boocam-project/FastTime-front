@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+  padding-inline: clamp(1rem, 1rem, 2rem);
+  border: 1px solid $black;
+
+  .comment-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .child {
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+    }
+  }
+}
