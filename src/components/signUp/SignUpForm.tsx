@@ -16,17 +16,18 @@ const SignUpForm = () => {
   const {
     register,
     watch,
-    handleSubmit,
+    // handleSubmit,
     formState: { errors },
   } = useForm<SignUpFormValues>({ mode: 'onChange' });
 
-  const onSubmit = (data: SignUpFormValues) => {
-    console.log(data);
-  };
+  // const onSubmit = (data: SignUpFormValues) => {
+  //   console.log(data);
+  // };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      {/* <form className={styles.form} onSubmit={handleSubmit(onSubmit)}> */}
+      <form className={styles.form}>
         <h2>회원가입</h2>
         <Input
           type="text"
