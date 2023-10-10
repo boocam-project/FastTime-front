@@ -20,8 +20,6 @@ const SignInForm = () => {
   } = useForm<SignInFormValues>({ mode: 'onChange' });
 
   const onSubmit = async (data: SignInFormValues) => {
-    console.log(data);
-
     const response = await instance.post('api/v1/login', {
       email: data.email,
       password: data.password,
