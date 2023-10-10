@@ -10,13 +10,23 @@ interface Props extends ComponentProps<'input'> {
   label: string;
   register?: UseFormRegisterReturn;
   errorMessage?: any;
-  type?: string;
+  variant?: 'defaultInput' | 'searchInput';
   className?: string;
+  value: string;
 }
 
-const Input = ({ name, label, register, errorMessage, className, type, ...props }: Props) => {
+const Input = ({
+  name,
+  label,
+  register,
+  errorMessage,
+  className,
+  variant,
+  value,
+  ...props
+}: Props) => {
   const cx = classNames.bind(styles);
-  const isValid = Boolean(errorMessage === undefined);
+  const isValid = Boolean(errorMessage === undefined && value);
 
   return (
     <div className={styles.group}>
@@ -24,8 +34,8 @@ const Input = ({ name, label, register, errorMessage, className, type, ...props 
         {label}
       </label>
 
-      <div className={cx('input-wrapper', { search: type === 'searchInput' })}>
-        {type === 'searchInput' && <CiSearch />}
+      <div className={cx('input-wrapper', { search: variant === 'searchInput' })}>
+        {variant === 'searchInput' && <CiSearch />}
         <input
           className={cx('input', className?.split(' '), { error: errorMessage })}
           id={name}
@@ -34,11 +44,11 @@ const Input = ({ name, label, register, errorMessage, className, type, ...props 
           {...props}
         />
         <div className={styles.icon}>
-          <InputIcon type={type} isValid={isValid} />
+          <InputIcon type={variant} isValid={isValid} />
         </div>
       </div>
 
-      {type === 'defaultInput' && errorMessage && (
+      {variant === 'defaultInput' && errorMessage && (
         <span className={styles.message}>{errorMessage}</span>
       )}
     </div>
