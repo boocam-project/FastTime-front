@@ -4,6 +4,7 @@ import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
+import { instance } from '@/api/client';
 
 interface SignInFormValues {
   email: string;
@@ -18,7 +19,19 @@ const SignInForm = () => {
     formState: { errors },
   } = useForm<SignInFormValues>({ mode: 'onChange' });
 
-  const onSubmit = (data: SignInFormValues) => {
+  const onSubmit = async (data: SignInFormValues) => {
+    const response = await instance.post('api/v1/login', {
+      email: data.email,
+      password: data.password,
+    });
+
+    if (response.status === 200) {
+      console.log('success');
+      window.location.href = '/';
+    } else {
+      console.log('fail');
+    }
+
     console.log(data);
   };
 
