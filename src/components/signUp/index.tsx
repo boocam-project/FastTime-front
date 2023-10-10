@@ -1,8 +1,8 @@
 import React from 'react';
-import SignInForm from './SignInForm';
+import SignUpForm from './SignUpForm';
 
-const SignIn = () => {
-  return <SignInForm />;
+const SignUp = () => {
+  return <SignUpForm />;
 };
 
-export default SignIn;
+export default SignUp;
