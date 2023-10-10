@@ -1,6 +1,6 @@
-import Myboard from '@pages/myBoard';
+import Myboard from '../myBoard';
+import MyComenets from '../myComents';
 import styles from './myPage.module.scss';
-import MyComenets from '@pages/myComents';
 const Mypage = () => {
   return (
     <div className={styles.container}>
