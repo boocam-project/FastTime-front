@@ -17,6 +17,7 @@ import Title from './Title';
 import useBlobUrl from '../../hooks/useBlobUrl';
 import { createBlob, uploadImageToFirebase } from '../../hooks/useImageConvert';
 import Button from '@/components/atoms/button';
+import { instance } from '@/api/client';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -149,7 +150,7 @@ const TextEditor = () => {
     await Promise.all(uploadImageAndChangeURL);
 
     const titleNode = articleJSON.content?.find((node) => node.type === 'title');
-    if (!titleNode?.textContent) {
+    if (!titleNode || !titleNode.content?.[0].text) {
       alert('제목을 입력해주세요');
       return;
     }
@@ -158,11 +159,20 @@ const TextEditor = () => {
     articleJSON.content = contentWithoutTitle;
 
     const article = {
+      memberId: 1,
       title: titleNode.content?.[0].text,
       content: JSON.stringify(articleJSON),
+      anonymity: false,
     };
 
     console.log(article);
+
+    const response = await instance.post('api/v1/post', article, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response.data);
   };
 
   return (
@@ -174,10 +184,10 @@ const TextEditor = () => {
         </div>
       )}
       <div className="editor-footer">
-        <Button className="conpact-red-200" show>
+        <Button type="button" className="conpact-red-200" show>
           취소
         </Button>
-        <Button className="conpact-red-200" show onClick={handlePublish}>
+        <Button type="button" className="conpact-red-200" show onClick={handlePublish}>
           발행
         </Button>
       </div>
