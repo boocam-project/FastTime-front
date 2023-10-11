@@ -1,6 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import SignIn from '@/components/signIn';
+import ArticleList from '@/components/community/ArticleList';
+import ArticleDetail from '@/components/community/ArticleDetail';
+import TextEditor from '@/components/editor';
+import SignUpForm from '@/components/signUp/SignUpForm';
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +21,19 @@ export const router = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <h1>SignUp</h1>,
+        element: <SignUpForm />,
+      },
+      {
+        path: '/write',
+        element: <TextEditor />,
+      },
+      {
+        path: '/community',
+        element: <ArticleList />,
+      },
+      {
+        path: '/community/:id',
+        element: <ArticleDetail />,
       },
     ],
   },
