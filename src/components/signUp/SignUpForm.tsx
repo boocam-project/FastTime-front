@@ -4,6 +4,7 @@ import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
+import { instance } from '@/api/client'; // 이미 생성한 Axios 인스턴스를 import합니다.
 
 interface SignUpFormValues {
   nickname: string;
@@ -16,18 +17,31 @@ const SignUpForm = () => {
   const {
     register,
     watch,
-    // handleSubmit,
+    handleSubmit,
     formState: { errors },
   } = useForm<SignUpFormValues>({ mode: 'onChange' });
 
-  // const onSubmit = (data: SignUpFormValues) => {
-  //   console.log(data);
-  // };
+  const signUp = async (data: SignUpFormValues) => {
+    try {
+      const response = await instance.post('/v1/join', data);
+      if (response.status === 200) {
+        console.log('회원가입이 성공했습니다.');
+      } else {
+        console.error('회원가입 실패:', response.data);
+      }
+    } catch (error) {
+      console.error('서버 요청 중 오류가 발생했습니다.', error);
+    }
+  };
+
+  const onSubmit = async (data: SignUpFormValues) => {
+    console.log('회원가입 데이터:', data);
+    await signUp(data); // signUp 함수를 호출하여 데이터를 서버로 전송합니다.
+  };
 
   return (
     <div className={styles.container}>
-      {/* <form className={styles.form} onSubmit={handleSubmit(onSubmit)}> */}
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2>회원가입</h2>
         <Input
           type="text"
