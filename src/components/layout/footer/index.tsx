@@ -23,18 +23,15 @@ function Footer() {
                   <li key={index}>
                     {member.name}
                     <div className={styles['icon-text-container']}>
-                      <a href={member.link}>
+                      <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />
-                        <span>{member.link.replace(/^https?:\/\//, '')}</span>
                       </a>
-                      <a href={`mailto:${member.email}`}>
+                      <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer">
                         <FaEnvelope />
-                        <span>{member.email}</span>
                       </a>
                       {member.blog && (
-                        <a href={member.blog}>
+                        <a href={member.blog} target="_blank" rel="noopener noreferrer">
                           <FaBlog />
-                          <span>{member.blog.replace(/^https?:\/\//, '')}</span>
                         </a>
                       )}
                     </div>
@@ -49,18 +46,15 @@ function Footer() {
                   <li key={index}>
                     {member.name}
                     <div className={styles['icon-text-container']}>
-                      <a href={member.link}>
+                      <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />
-                        <span>{member.link.replace(/^https?:\/\//, '')}</span>
                       </a>
-                      <a href={`mailto:${member.email}`}>
+                      <a href={`mailto:${member.email}`} target="_blank" rel="noopener noreferrer">
                         <FaEnvelope />
-                        <span>{member.email}</span>
                       </a>
                       {member.blog && (
-                        <a href={member.blog}>
+                        <a href={member.blog} target="_blank" rel="noopener noreferrer">
                           <FaBlog />
-                          <span>{member.blog.replace(/^https?:\/\//, '')}</span>
                         </a>
                       )}
                     </div>
@@ -71,14 +65,27 @@ function Footer() {
           </div>
         </div>
         <div className={styles['footer-section']}>
-          <h2>Contact</h2>
-          <p>Email: contact@example.com</p>
-          <p>Phone: +1 (123) 456-7890</p>
+          <h2>Feedback</h2>
+          <p>
+            <a
+              className={styles['feedback-link']}
+              href="https://forms.gle/zwEJgEJy1Sx3D4Gz5"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>Provide Feedback →</span>
+            </a>
+          </p>
           <br />
           <p>
-            <a className={styles['github-link']} href="https://github.com/fcstudy-project">
+            <a
+              className={styles['github-link']}
+              href="https://github.com/fcstudy-project"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaGithub />
-              <span>GitHub Repository →</span>
+              <span>GitHub Repository</span>
             </a>
           </p>
         </div>
