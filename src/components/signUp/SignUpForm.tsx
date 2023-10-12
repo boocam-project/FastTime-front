@@ -4,7 +4,7 @@ import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
-import { instance } from '@/api/client'; // 이미 생성한 Axios 인스턴스를 import합니다.
+import { instance } from '@/api/client';
 
 interface SignUpFormValues {
   nickname: string;
@@ -36,7 +36,22 @@ const SignUpForm = () => {
 
   const onSubmit = async (data: SignUpFormValues) => {
     console.log('회원가입 데이터:', data);
-    await signUp(data); // signUp 함수를 호출하여 데이터를 서버로 전송합니다.
+    await signUp(data);
+  };
+
+  const handleEmailVerification = async () => {
+    try {
+      const response = await instance.post('/v1/emailconfirm', {
+        email: watch('email'),
+      });
+      if (response.status === 200) {
+        console.log('이메일 전송 성공');
+      } else {
+        console.error('이메일 전송 실패:', response.data);
+      }
+    } catch (error) {
+      console.error('서버 요청 중 오류가 발생했습니다.', error);
+    }
   };
 
   return (
@@ -69,6 +84,9 @@ const SignUpForm = () => {
           label="이메일"
           variant="defaultInput"
         />
+        <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
+          이메일 인증
+        </Button>
         <Input
           type="password"
           register={register('password', {
@@ -98,7 +116,7 @@ const SignUpForm = () => {
           label="비밀번호 확인"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-200" show>
+        <Button type="submit" className="default-red-300" show>
           회원가입
         </Button>
         <div>
