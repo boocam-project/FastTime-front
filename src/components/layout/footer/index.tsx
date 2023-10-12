@@ -70,6 +70,7 @@ function Footer() {
             <a
               className={styles['feedback-link']}
               href="https://forms.gle/zwEJgEJy1Sx3D4Gz5"
+              target="_blank"
               rel="noreferrer"
             >
               <span>Provide Feedback →</span>
@@ -77,7 +78,12 @@ function Footer() {
           </p>
           <br />
           <p>
-            <a className={styles['github-link']} href="https://github.com/fcstudy-project">
+            <a
+              className={styles['github-link']}
+              href="https://github.com/fcstudy-project"
+              target="_blank"
+              rel="noreferrer"
+            >
               <FaGithub />
               <span>GitHub Repository</span>
             </a>
