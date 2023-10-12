@@ -1,3 +1,21 @@
+.roundedShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%) rotate(-45deg); /* 요소의 중앙을 부모 요소의 중앙으로 이동 */
+
+  width: 430px;
+  height: 430px;
+
+  border: 40px solid transparent;
+  border-bottom-color: $red-200;
+  border-top-color: $red-200;
+  border-left-color: $red-200;
+
+  border-radius: 50%;
+  z-index: -1; /* 이 요소를 loginContainer의 뒤로 보내는 부분 */
+}
+
 .container {
   position: relative;
   width: 100%;

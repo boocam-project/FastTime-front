@@ -5,6 +5,7 @@ import ArticleList from '@/components/community/ArticleList';
 import ArticleDetail from '@/components/community/ArticleDetail';
 import TextEditor from '@/components/editor';
 import SignUpForm from '@/components/signUp/SignUpForm';
+import Mypage from '@/pages/myPage';
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
         path: '/community/:id',
         element: <ArticleDetail />,
       },
+      { path: '/mypage', element: <Mypage /> },
     ],
   },
   {
