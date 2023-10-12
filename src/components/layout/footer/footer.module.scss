@@ -20,7 +20,7 @@ body {
 }
 
 .footer .footer-section p {
-  font-size: 12px;
+  font-size: 14px;
   color: #b9b9b9;
 }
 
@@ -41,20 +41,20 @@ body {
 }
 
 .footer-content {
-  padding: 32px 64px 0 40px;
+  padding: 32px 60px 0 40px;
   display: flex;
   gap: 88px;
 }
 
 .icon-text-container a {
-  display: flex;
   align-items: center;
   margin-right: 10px;
+  font-size: 15px;
 }
 
-.icon-text-container a span {
-  margin-left: 5px;
-}
+// .icon-text-container a span {
+//   margin-left: 5px;
+// }
 
 ul.team-members-list {
   padding: 0;
@@ -69,7 +69,7 @@ ul.team-members-list {
 }
 
 ul.team-members-list li {
-  font-size: 8px;
+  font-size: 10px;
   margin-bottom: 4px;
 }
 
@@ -88,7 +88,7 @@ ul.team-members-list li a:hover {
 }
 
 .footer .footer-bottom p {
-  padding: 20px 20px;
+  padding: 50px 20px;
   font-size: 12px;
   color: #d2d2d2;
 }
@@ -96,11 +96,16 @@ ul.team-members-list li a:hover {
 .footer-section {
   margin-right: -20px;
   a.github-link {
-    font-size: 10px;
+    font-size: 12px;
     color: $red-200;
   }
 }
 
 .github-link span {
   margin-left: 5px;
+}
+
+.feedback-link {
+  color: $red-100;
+  font-size: 14px;
 }
