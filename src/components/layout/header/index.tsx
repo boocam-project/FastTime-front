@@ -13,7 +13,7 @@ const Header = () => {
         <div className={styles.logo}>fast time</div>
         <div className={styles.nav}>
           <div>
-            <Link to={'/'}>소근소근</Link>
+            <Link to={'/community'}>소근소근</Link>
           </div>
           <div>
             <Link to={'/'}>포트폴리오</Link>

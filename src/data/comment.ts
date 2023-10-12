@@ -26,7 +26,7 @@ export const comments: Comment[] = [
     memberId: 1,
     content: '댓글 내용 2',
     anonymity: false,
-    parentCommentId: 3,
+    parentCommentId: 5,
     createdAt: '2023-01-01 12:00:00',
   },
   {
