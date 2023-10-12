@@ -24,10 +24,6 @@ export const router = createBrowserRouter([
         element: <SignUpForm />,
       },
       {
-        path: '/write',
-        element: <TextEditor />,
-      },
-      {
         path: '/community',
         element: <ArticleList />,
       },
@@ -36,5 +32,9 @@ export const router = createBrowserRouter([
         element: <ArticleDetail />,
       },
     ],
+  },
+  {
+    path: '/write',
+    element: <TextEditor />,
   },
 ]);
