@@ -128,50 +128,43 @@ const TextEditor = () => {
   const handlePublish = async () => {
     if (!editor) return;
 
-    const articleJSON = editor.getJSON();
+    // const articleJSON = editor.getJSON();
+    const articleHTML = editor.getHTML();
 
-    if (!articleJSON) return;
+    if (!articleHTML) return;
 
-    const images = articleJSON.content?.filter((node) => node.type === 'image') || [];
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(articleHTML, 'text/html');
+    const images = doc.querySelectorAll('img');
 
-    const uploadImageAndChangeURL = images.map(async (image) => {
-      const blobUrl = image.attrs?.src;
+    const uploadImageAndChangeURL = Array.from(images).map(async (image) => {
+      const blobUrl = image.src;
       const blob = await createBlob(blobUrl);
       const downloadUrl = await uploadImageToFirebase(blob);
 
-      const imageNode = articleJSON.content?.find(
-        (node) => node.type === 'image' && node.attrs?.src === blobUrl
-      );
-      if (imageNode && imageNode.attrs) {
-        imageNode.attrs.src = downloadUrl;
-      }
+      image.src = downloadUrl;
     });
 
     await Promise.all(uploadImageAndChangeURL);
 
-    const titleNode = articleJSON.content?.find((node) => node.type === 'title');
-    if (!titleNode || !titleNode.content?.[0].text) {
+    const titleNode = doc.querySelector('h1');
+    if (!titleNode || !titleNode.textContent) {
       alert('제목을 입력해주세요');
       return;
     }
 
-    const contentWithoutTitle = articleJSON.content?.filter((node) => node.type !== 'title');
-    articleJSON.content = contentWithoutTitle;
+    titleNode.remove();
+
+    const updatedHTML = doc.body.innerHTML;
 
     const article = {
       memberId: 1,
-      title: titleNode.content?.[0].text,
-      content: JSON.stringify(articleJSON),
+      title: titleNode.textContent,
+      content: updatedHTML,
       anonymity: false,
     };
 
-    console.log(article);
-
-    const response = await instance.post('api/v1/post', article, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    const response = await instance.post('/api/v1/post', article);
     console.log(response.data);
   };
 
