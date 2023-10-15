@@ -51,40 +51,77 @@
       }
     }
   }
+}
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 680px;
+  margin: 0 auto;
 
-  .comment-list {
+  .comments {
+    position: relative;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 
-    .comments {
-      position: relative;
+    .above {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+
+      button {
+        background-color: #fff;
+      }
+    }
+
+    .parent,
+    .child {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      align-items: flex-start;
+      font-size: 1rem;
+    }
 
-      .parent,
-      .child {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        font-size: 1rem;
-      }
+    .child {
+      margin-left: 2rem;
+    }
 
-      .child {
-        margin-left: 2rem;
-      }
+    .comment-info {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
 
-      .date {
-        font-size: $--size-subtext;
-        opacity: 0.5;
-      }
+    .username {
+      font-size: $--size-subtext;
+      font-weight: 500;
+    }
 
-      .reply-btn {
-        display: flex;
-        margin-top: 0.3rem;
-        font-size: $--size-subtext;
-        background-color: transparent;
+    .content {
+      margin-top: 0.25rem;
+      font-size: $--size-text;
+    }
+
+    .date {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .reply-btn {
+      display: flex;
+      margin-top: 0.3rem;
+      font-size: $--size-subtext;
+      opacity: 0.5;
+      background-color: transparent;
+
+      &:hover {
+        opacity: 1;
       }
     }
   }
