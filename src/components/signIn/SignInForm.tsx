@@ -20,14 +20,16 @@ const SignInForm = () => {
   } = useForm<SignInFormValues>({ mode: 'onChange' });
 
   const onSubmit = async (data: SignInFormValues) => {
-    const response = await instance.post('api/v1/login', {
+    const response = await instance.post('/api/v1/login', {
       email: data.email,
       password: data.password,
     });
 
+    console.log(response.data);
+    console.log(response.headers);
+
     if (response.status === 200) {
       console.log('success');
-      window.location.href = '/';
     } else {
       console.log('fail');
     }
