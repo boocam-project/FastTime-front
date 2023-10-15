@@ -26,15 +26,27 @@
   .article-contents {
     display: flex;
     justify-content: space-between;
+    gap: 0.5rem;
 
     div:nth-child(1) {
       .title {
         font-size: 20px;
         margin-bottom: 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* 라인수 */
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
       }
 
       .description {
-        line-height: 1.5;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
     }
 
@@ -59,9 +71,85 @@
     margin-bottom: 1.5rem;
   }
 
+  ul,
+  ol {
+    padding: 0 2rem;
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+    counter-reset: list;
+  }
+
+  li {
+    margin-block: 0.5rem;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(#0d0d0d, 0.1);
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0d0d0d;
+    color: #fff;
+    font-family: 'Hack', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      font: inherit;
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
+    margin-right: auto;
+
+    &.ProseMirror-selectednode {
+      outline: 2px solid #0d0d0d;
+    }
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0d0d0d, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0d0d0d, 0.1);
+    margin: 2rem 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+
   .info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.5rem;
     color: $black;
     font-weight: 400;
@@ -69,6 +157,18 @@
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 3px solid $red-300;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      .btns {
+        border: none;
+        background-color: transparent;
+        font-size: $--size-text;
+      }
+    }
 
     span {
       display: flex;

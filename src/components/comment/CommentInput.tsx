@@ -1,16 +1,14 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './index.module.scss';
 import Button from '../atoms/button';
-import CommentList from './CommentList';
 import { instance } from '@/api/client';
+import { useParams } from 'react-router-dom';
 
-interface Props {
-  postId: number;
-}
-
-const Comment = ({ postId }: Props) => {
+const CommentInput = () => {
   const [content, setContent] = useState('');
   const [anonymity, setAnonymity] = useState<boolean>(false);
+  const { id: idString } = useParams();
+  const postId = Number(idString);
 
   const handleComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.currentTarget.value);
@@ -32,7 +30,9 @@ const Comment = ({ postId }: Props) => {
 
     console.log(data);
 
-    const response = await instance.post('api/v1/comment', data);
+    const response = await instance.post('api/v1/comment', data, {
+      withCredentials: true,
+    });
     console.log(response.status);
   };
 
@@ -57,10 +57,8 @@ const Comment = ({ postId }: Props) => {
           </div>
         </div>
       </form>
-      {/* 댓글 목록 */}
-      <CommentList />
     </div>
   );
 };
 
-export default Comment;
+export default CommentInput;
