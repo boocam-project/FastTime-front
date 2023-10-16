@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './index.module.scss';
 import Button from '../atoms/button';
-import { instance } from '@/api/client';
 import { useParams } from 'react-router-dom';
+import { useAddComment } from '@/hooks/mutations';
 
 interface Props {
   parentCommentId?: number;
@@ -13,6 +13,7 @@ const CommentInput = ({ parentCommentId }: Props) => {
   const [anonymity, setAnonymity] = useState<boolean>(false);
   const { id: idString } = useParams();
   const postId = Number(idString);
+  const { mutate } = useAddComment();
 
   const handleComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.currentTarget.value);
@@ -32,12 +33,13 @@ const CommentInput = ({ parentCommentId }: Props) => {
       parentCommentId,
     };
 
-    console.log(data);
+    mutate(data);
+    // console.log(data);
 
-    const response = await instance.post('api/v1/comment', data, {
-      withCredentials: true,
-    });
-    console.log(response.status);
+    // const response = await instance.post('api/v1/comment', data, {
+    //   withCredentials: true,
+    // });
+    // console.log(response.status);
   };
 
   return (
