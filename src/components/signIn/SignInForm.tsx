@@ -32,14 +32,10 @@ const SignInForm = () => {
 
     if (response.status === 200) {
       console.log('success');
-      console.log(response.data.data);
-
-      setData(response.data.data);
+      setData({ ...response.data.data, login: true });
     } else {
       console.log('fail');
     }
-
-    console.log(data);
   };
 
   return (

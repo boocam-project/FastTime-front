@@ -10,6 +10,7 @@ import { recoilPersist } from 'recoil-persist';
 type UserStateType = {
   id: number;
   nickname: string;
+  login: boolean;
 };
 const { persistAtom } = recoilPersist();
 
@@ -18,6 +19,7 @@ export const userState = atom<UserStateType>({
   default: {
     id: 0,
     nickname: '',
+    login: false,
   },
   effects_UNSTABLE: [persistAtom],
 });
