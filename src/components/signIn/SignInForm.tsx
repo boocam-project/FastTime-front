@@ -5,6 +5,8 @@ import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
 import { instance } from '@/api/client';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@/main';
 
 interface SignInFormValues {
   email: string;
@@ -18,18 +20,21 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFormValues>({ mode: 'onChange' });
-
+  const setData = useSetRecoilState(userState);
   const onSubmit = async (data: SignInFormValues) => {
     const response = await instance.post('/api/v1/login', {
       email: data.email,
       password: data.password,
     });
+    console.log(response);
 
-    console.log(response.data);
     console.log(response.headers);
 
     if (response.status === 200) {
       console.log('success');
+      console.log(response.data.data);
+
+      setData(response.data.data);
     } else {
       console.log('fail');
     }

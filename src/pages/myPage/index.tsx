@@ -1,11 +1,16 @@
 import Myboard from '../myBoard';
 import MyComenets from '../myComents';
 import styles from './myPage.module.scss';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/main';
+
 const Mypage = () => {
+  const userData = useRecoilValue(userState);
+
   return (
     <div className={styles.container}>
       <div className={styles.userArticle}>
-        <h3>이재준님 안녕하세요</h3>
+        <h3>{userData.nickname} 안녕하세요</h3>
         <button>설정</button>
       </div>
       <div className={styles.section}>
