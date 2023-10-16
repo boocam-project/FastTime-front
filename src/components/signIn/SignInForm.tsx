@@ -6,7 +6,7 @@ import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
-import { userState } from '@/main';
+import { userState } from '@/store/store';
 
 interface SignInFormValues {
   email: string;
