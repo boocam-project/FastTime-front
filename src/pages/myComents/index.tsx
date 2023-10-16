@@ -1,31 +1,40 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import styles from './myComents.module.scss';
-const fetchData = async () => {
-  const response = await fetch(`data/coments.json`);
-  const results = await response.json();
-  return results.data;
+import { instance } from '@/api/client';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/main';
+const fetchCommentData = async (userid: number) => {
+  try {
+    const response = await instance.get(`api/v1/comment/my-page/${userid}`);
+    const result = response.data;
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 type ComentsType = {
-  id: number;
-  postId: number;
-  memberId: number;
-  content: string;
   anonymity: boolean;
-  parentCommentId: string;
+  content: string;
   createdAt: string;
-  updatedAt: string | null;
-  deletedAt: string | null;
+  deletedAt: null;
+  id: number;
+  nickname: string;
+  parentCommentId: null | number;
+  postId: number;
+  updatedAt: string;
 };
 
 const MyComenets = () => {
+  const userData = useRecoilValue(userState);
   const { isLoading, isError, data, error } = useQuery<ComentsType[], Error>({
     queryKey: ['my-comenets'],
-    queryFn: fetchData,
+    queryFn: () => fetchCommentData(userData.id),
     staleTime: 3 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
+
   if (isLoading) return <span> 로딩중 ...</span>;
   if (isError) return <span>{error.message}</span>;
   return (

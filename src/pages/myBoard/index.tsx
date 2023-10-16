@@ -1,27 +1,36 @@
 import { useQuery } from 'react-query';
 import styles from './myBoard.module.scss';
-const fetchData = async () => {
-  const response = await fetch(`data/board.json`);
-  const result = await response.json();
-  return result.data;
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/main';
+import { instance } from '@/api/client';
+
+const fetchPostData = async (nickname: string) => {
+  try {
+    const response = await instance.get(`api/v1/post?nickname=${nickname}`);
+    const result = response.data;
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 type BoardType = {
-  id: number;
-  title: string;
-  createdAt: string;
-  updatedAt: string | null;
-  deletedAt: string | null;
   anonymity: boolean;
-  commentCount: number;
-  likeCount: number;
+  content: string;
+  createdAt: string;
   hateCount: number;
+  id: number;
+  lastModifiedAt: string;
+  likeCount: number;
+  nickname: string;
+  title: string;
 };
 
 const Myboard = () => {
+  const userData = useRecoilValue(userState);
   const { isLoading, isError, data, error } = useQuery<BoardType[], Error>({
     queryKey: ['myboard'],
-    queryFn: fetchData,
+    queryFn: () => fetchPostData(userData.nickname),
     staleTime: 3 * 1000 * 60,
     refetchOnWindowFocus: false,
   });
