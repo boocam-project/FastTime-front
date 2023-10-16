@@ -4,7 +4,11 @@ import Button from '../atoms/button';
 import { instance } from '@/api/client';
 import { useParams } from 'react-router-dom';
 
-const CommentInput = () => {
+interface Props {
+  parentCommentId?: number;
+}
+
+const CommentInput = ({ parentCommentId }: Props) => {
   const [content, setContent] = useState('');
   const [anonymity, setAnonymity] = useState<boolean>(false);
   const { id: idString } = useParams();
@@ -25,7 +29,7 @@ const CommentInput = () => {
       memberId: 1,
       content,
       anonymity,
-      parentCommentId: null,
+      parentCommentId,
     };
 
     console.log(data);
@@ -38,11 +42,10 @@ const CommentInput = () => {
 
   return (
     <div className={styles['comment-box']}>
-      <h2 className={styles.title}>댓글</h2>
+      {/* <h2 className={styles.title}>댓글</h2> */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles['content-write']}>
           <textarea
-            // rows={1}
             className={styles.content}
             value={content}
             onChange={handleComment}

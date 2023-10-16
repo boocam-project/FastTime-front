@@ -8,11 +8,13 @@ import { formatTime } from './formatTime';
 import { instance } from '@/api/client';
 import { useState } from 'react';
 import CommentBox from './CommentBox';
+import CommentInput from './CommentInput';
 
 const CommentList = () => {
   const { id: idString } = useParams();
   const postId = Number(idString);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
+  const [replyingId, setReplyingId] = useState<number | null>(null);
 
   const { data: comments, isLoading: commentLoading } = useData<Comment[]>(
     HttpMethod.GET,
@@ -42,6 +44,7 @@ const CommentList = () => {
                 <div className={styles['comment-info']}>
                   <span className={styles.username}>{comment.nickname}</span>
                   <span className={styles.date}>{formatTime(comment.createdAt)}</span>
+                  {comment.updatedAt !== comment.createdAt ? <span>수정됨</span> : null}
                 </div>
                 <div className={styles.buttons}>
                   <button className={styles.edit} onClick={() => setEditingCommentId(comment.id)}>
@@ -53,7 +56,14 @@ const CommentList = () => {
                 </div>
               </div>
               <span className={styles.content}>{comment.content}</span>
-              <button className={styles['reply-btn']}>답글 달기</button>
+              <button
+                type="button"
+                className={styles['reply-btn']}
+                onClick={() => setReplyingId(comment.id)}
+              >
+                답글 달기
+              </button>
+              {replyingId === comment.id ? <CommentInput parentCommentId={comment.id} /> : null}
             </li>
           )}
 
