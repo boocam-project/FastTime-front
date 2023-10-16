@@ -3,24 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/router.tsx';
-import { RecoilRoot, atom } from 'recoil';
+import { RecoilRoot } from 'recoil';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { recoilPersist } from 'recoil-persist';
-
-type UserStateType = {
-  id: number;
-  nickname: string;
-};
-const { persistAtom } = recoilPersist();
-
-export const userState = atom<UserStateType>({
-  key: 'userState',
-  default: {
-    id: 0,
-    nickname: '',
-  },
-  effects_UNSTABLE: [persistAtom],
-});
 
 const queryClient = new QueryClient();
 
