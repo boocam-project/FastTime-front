@@ -6,7 +6,7 @@ import Button from '../atoms/button';
 import { Link } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
-import { userState } from '@/main';
+import { userState } from '@/store/store';
 
 interface SignInFormValues {
   email: string;
@@ -32,14 +32,10 @@ const SignInForm = () => {
 
     if (response.status === 200) {
       console.log('success');
-      console.log(response.data.data);
-
-      setData(response.data.data);
+      setData({ ...response.data.data, login: true });
     } else {
       console.log('fail');
     }
-
-    console.log(data);
   };
 
   return (

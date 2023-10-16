@@ -1,9 +1,8 @@
-import React from 'react';
 import { useQuery } from 'react-query';
 import styles from './myComents.module.scss';
 import { instance } from '@/api/client';
 import { useRecoilValue } from 'recoil';
-import { userState } from '@/main';
+import { userState } from '@/store/store';
 const fetchCommentData = async (userid: number) => {
   try {
     const response = await instance.get(`api/v1/comment/my-page/${userid}`);
