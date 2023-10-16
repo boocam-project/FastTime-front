@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import styles from './myBoard.module.scss';
 import { useRecoilValue } from 'recoil';
-import { userState } from '@/main';
 import { instance } from '@/api/client';
+import { userState } from '@/store/store';
 
 const fetchPostData = async (nickname: string) => {
   try {

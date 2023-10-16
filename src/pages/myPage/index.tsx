@@ -1,8 +1,8 @@
+import { userState } from '@/store/store';
 import Myboard from '../myBoard';
 import MyComenets from '../myComents';
 import styles from './myPage.module.scss';
 import { useRecoilValue } from 'recoil';
-import { userState } from '@/main';
 
 const Mypage = () => {
   const userData = useRecoilValue(userState);
