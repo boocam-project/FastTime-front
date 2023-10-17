@@ -3,7 +3,7 @@ import styles from './signIn.module.scss';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
@@ -14,6 +14,8 @@ interface SignInFormValues {
 }
 
 const SignInForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     watch,
@@ -33,6 +35,7 @@ const SignInForm = () => {
     if (response.status === 200) {
       console.log('success');
       setData({ ...response.data.data, login: true });
+      navigate('/community');
     } else {
       console.log('fail');
     }
