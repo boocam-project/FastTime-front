@@ -18,6 +18,9 @@ import useBlobUrl from '../../hooks/useBlobUrl';
 import { createBlob, uploadImageToFirebase } from '../../hooks/useImageConvert';
 import Button from '@/components/atoms/button';
 import { instance } from '@/api/client';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/main';
+import { useState } from 'react';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -94,6 +97,8 @@ const content = `
 
 const TextEditor = () => {
   const { createBlobUrl } = useBlobUrl();
+  const user = useRecoilValue(userState);
+  const [anonymity, setAnonymity] = useState(false);
 
   const editor = useEditor({
     extensions,
@@ -158,11 +163,13 @@ const TextEditor = () => {
     const updatedHTML = doc.body.innerHTML;
 
     const article = {
-      memberId: 1,
+      memberId: user.id,
       title: titleNode.textContent,
       content: updatedHTML,
-      anonymity: false,
+      anonymity: anonymity,
     };
+
+    console.log(article);
 
     const response = await instance.post('/api/v1/post', article);
     console.log(response.data);
@@ -177,6 +184,16 @@ const TextEditor = () => {
         </div>
       )}
       <div className="editor-footer">
+        <input
+          type="checkbox"
+          name="anonymity"
+          id="anonymity"
+          checked={anonymity}
+          onChange={(e) => {
+            setAnonymity(e.currentTarget.checked);
+          }}
+        />
+        <label htmlFor="anonymity">익명</label>
         <Button type="button" className="conpact-red-200" show>
           취소
         </Button>
