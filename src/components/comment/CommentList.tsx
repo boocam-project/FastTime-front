@@ -64,7 +64,9 @@ const CommentList = () => {
             <li className={styles.parent}>
               <div className={styles.above}>
                 <div className={styles['comment-info']}>
-                  <span className={styles.username}>{comment.nickname}</span>
+                  <span className={styles.username}>
+                    {comment.anonymity ? '익명' : comment.nickname}
+                  </span>
                   <span className={styles.date}>{formatTime(comment.createdAt)}</span>
                   {comment.updatedAt !== comment.createdAt ? <span>수정됨</span> : null}
                 </div>
@@ -101,7 +103,9 @@ const CommentList = () => {
               <li key={reply.id} className={styles.child}>
                 <div className={styles.above}>
                   <div className={styles['comment-info']}>
-                    <span className={styles.username}>{comment.nickname}</span>
+                    <span className={styles.username}>
+                      {comment.anonymity ? '익명' : comment.nickname}
+                    </span>
                     <span className={styles.date}>{formatTime(comment.createdAt)}</span>
                   </div>
                   <div className={styles.buttons}>
