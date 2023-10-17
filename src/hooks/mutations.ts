@@ -35,7 +35,7 @@ export const useAddComment = () => {
 
       return { previousComments };
     },
-    onError: (err, newComment, context) => {
+    onError: (_err, _newComment, context) => {
       queryClient.setQueryData('comments', context?.previousComments);
     },
     onSettled: () => {
