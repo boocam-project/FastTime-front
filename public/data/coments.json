@@ -1,0 +1,50 @@
+{
+  "code": 200,
+  "message": "댓글을 성공적으로 조회했습니다.",
+  "data": [
+    {
+      "id": 2,
+      "postId": 1,
+      "memberId": 1,
+      "content": "댓글 내용 1",
+      "anonymity": false,
+      "parentCommentId": null,
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": 3,
+      "postId": 1,
+      "memberId": 2,
+      "content": "댓글 내용 2",
+      "anonymity": false,
+      "parentCommentId": null,
+      "createdAt": "2023-01-01 16:00:00",
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": 7,
+      "postId": 1,
+      "memberId": 1,
+      "content": "댓글 내용 8",
+      "anonymity": false,
+      "parentCommentId": null,
+      "createdAt": "2023-01-01 12:00:00",
+      "updatedAt": null,
+      "deletedAt": null
+    },
+    {
+      "id": 8,
+      "postId": 1,
+      "memberId": 2,
+      "content": "댓글 내용 10",
+      "anonymity": false,
+      "parentCommentId": null,
+      "createdAt": "2023-01-01 16:00:00",
+      "updatedAt": null,
+      "deletedAt": null
+    }
+  ]
+}

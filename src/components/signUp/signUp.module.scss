@@ -1,0 +1,50 @@
+.roundedShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%) rotate(-45deg); /* 요소의 중앙을 부모 요소의 중앙으로 이동 */
+
+  width: 430px;
+  height: 430px;
+
+  border: 40px solid transparent;
+  border-bottom-color: $red-200;
+  border-top-color: $red-200;
+  border-left-color: $red-200;
+
+  border-radius: 50%;
+  z-index: -1; /* 이 요소를 loginContainer의 뒤로 보내는 부분 */
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    gap: 2rem;
+    padding: 2rem 3rem;
+    padding-inline: clamp(1rem, 5%, 3rem);
+    margin: 0 auto;
+    width: clamp(300px, 50%, 500px);
+    background-color: #fff;
+
+    a {
+      color: $red-300;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.container {
+  width: 100%;
+  height: $--notice-bar-height;
+  font-size: $--size-subtext;
+  color: $white;
+  background-color: $red-500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+
+  .text {
+    flex: 9;
+    text-align: center;
+  }
+
+  .deleteBtn {
+    outline: none;
+    border: none;
+    color: white;
+    background-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}

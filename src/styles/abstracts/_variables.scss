@@ -1,6 +1,35 @@
-$light-gray: #f2f2f2;
+$--font-main: 'Spoqa Han Sans Neo', 'sans-serif';
+
+$blue-50: #8bbaf1;
 $blue: #2273ed;
+
+$red-100: #ffdadf;
+$red-200: #fda4b6;
+$red-300: #fd7792;
 $red-400: #fc4c70;
+$red-500: #ed224b;
+
 $white: #ffffff;
 $black: #333333;
 $gray: #7f7f7f;
+$light-gray: #d3d3d3;
+
+$--header-height: 56px;
+$--nav-bar-height: 52px;
+$--notice-bar-height: 44px;
+$--editor-footer-height: 53px;
+$--editor-menu-bar-height: 45px;
+
+$--size-tag-button: 15px;
+$--size-button: 8px;
+
+$--size-smalltext: 12px;
+$--size-subtext: 14px;
+$--size-text: 16px;
+$--size-subtitle: 20px;
+$--size-title: 40px;
+$--size-bigtitle: 64px;
+
+$--mobile: 767px;
+$--tablet: 1023px;
+$--desktop: 1024px;
