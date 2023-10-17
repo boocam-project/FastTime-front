@@ -10,7 +10,7 @@ interface SignUpFormValues {
   nickname: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  // confirmPassword: string;
 }
 
 const SignUpForm = () => {
@@ -19,11 +19,12 @@ const SignUpForm = () => {
     watch,
     handleSubmit,
     formState: { errors },
+    // getValues,
   } = useForm<SignUpFormValues>({ mode: 'onChange' });
 
   const signUp = async (data: SignUpFormValues) => {
     try {
-      const response = await instance.post('/v1/join', data);
+      const response = await instance.post('/api/v1/join', data);
       if (response.status === 200) {
         console.log('회원가입이 성공했습니다.');
       } else {
@@ -39,20 +40,22 @@ const SignUpForm = () => {
     await signUp(data);
   };
 
-  const handleEmailVerification = async () => {
-    try {
-      const response = await instance.post('/v1/emailconfirm', {
-        email: watch('email'),
-      });
-      if (response.status === 200) {
-        console.log('이메일 전송 성공');
-      } else {
-        console.error('이메일 전송 실패:', response.data);
-      }
-    } catch (error) {
-      console.error('서버 요청 중 오류가 발생했습니다.', error);
-    }
-  };
+  // const handleEmailVerification = async () => {
+  //   const emailValue = getValues('email');
+  //   try {
+  //     const response = await instance.post('api/v1/emailconfirm', {
+  //       email: emailValue,
+  //     });
+  //     if (response.status === 200) {
+  //       console.log('이메일 전송 성공');
+  //     } else {
+  //       console.error('이메일 전송 실패:', response.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('서버 요청 중 오류가 발생했습니다.', error);
+  //   }
+  //   console.log(emailValue);
+  // };
 
   return (
     <div className={styles.container}>
@@ -84,9 +87,9 @@ const SignUpForm = () => {
           label="이메일"
           variant="defaultInput"
         />
-        <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
+        {/* <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
           이메일 인증
-        </Button>
+        </Button> */}
         <Input
           type="password"
           register={register('password', {
@@ -104,7 +107,7 @@ const SignUpForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
-        <Input
+        {/* <Input
           type="password"
           register={register('confirmPassword', {
             required: '비밀번호를 다시 입력해주세요.',
@@ -115,7 +118,7 @@ const SignUpForm = () => {
           name="confirmPassword"
           label="비밀번호 확인"
           variant="defaultInput"
-        />
+        /> */}
         <Button type="submit" className="default-red-300" show>
           회원가입
         </Button>
