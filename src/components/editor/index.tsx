@@ -19,7 +19,7 @@ import { createBlob, uploadImageToFirebase } from '../../hooks/useImageConvert';
 import Button from '@/components/atoms/button';
 import { instance } from '@/api/client';
 import { useRecoilValue } from 'recoil';
-import { userState } from '@/main';
+import { userState } from '@/store/store';
 import { useState } from 'react';
 
 const DocumentWithTitle = Document.extend({
@@ -108,7 +108,7 @@ const TextEditor = () => {
       console.log(editor.getHTML());
     },
     editorProps: {
-      handleDrop: (view, event, slice, moved) => {
+      handleDrop: (view, event, _slice, moved) => {
         if (!moved && event.dataTransfer?.files.length) {
           const file = event.dataTransfer.files[0];
           const fileSize = Number((file.size / 1024 / 1024).toFixed(4)); // MB
