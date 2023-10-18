@@ -15,7 +15,6 @@ interface SignInFormValues {
 
 const SignInForm = () => {
   const navigate = useNavigate();
-
   const {
     register,
     watch,
@@ -33,7 +32,7 @@ const SignInForm = () => {
     console.log(response.headers);
 
     if (response.status === 200) {
-      console.log('success');
+      alert('로그인 성공');
       setData({ ...response.data.data, login: true });
       navigate('/community');
     } else {
