@@ -16,8 +16,10 @@ const fetchData = async () => {
   const result = await response.data;
   return result.data;
 };
-
-const Modal = () => {
+type PropsType = {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+const Modal = ({ setModalOpen }: PropsType) => {
   const defaultValues = {
     nickname: '',
     email: '',
@@ -39,6 +41,10 @@ const Modal = () => {
       reset(data);
     },
   });
+
+  const cancelHandler = () => {
+    setModalOpen(false);
+  };
 
   return (
     <form className={styles.container}>
@@ -83,7 +89,7 @@ const Modal = () => {
         <Button className="default-red-400" type="button" show={true}>
           수정
         </Button>
-        <Button className="default-red-200" type="button" show={true}>
+        <Button className="default-red-200" type="button" show={true} onClick={cancelHandler}>
           취소
         </Button>
       </div>
