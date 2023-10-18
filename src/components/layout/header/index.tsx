@@ -1,8 +1,31 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { AiOutlineMenu } from 'react-icons/ai';
 import ToggleBar from '../toggleBar';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/store/store';
+import { instance } from '@/api/client';
+
+const fetchLogout = async () => {
+  const response = await instance.get(`api/v1/logout`);
+  return response.data;
+};
+
 const Header = () => {
+  const [userData, setUserData] = useRecoilState(userState);
+  const navigation = useNavigate();
+
+  const logoutHandler = () => {
+    const fetchData = async () => {
+      const result = await fetchLogout();
+      if (result.code === 200) {
+        setUserData({ ...userData, login: false });
+        navigation('/signin');
+      }
+    };
+    fetchData();
+  };
+
   return (
     <>
       <ToggleBar />
@@ -29,7 +52,11 @@ const Header = () => {
           </div>
         </div>
         <div className={styles.signin}>
-          <Link to={'/signin'}>signin</Link>
+          {userData.login ? (
+            <button onClick={logoutHandler}>logout</button>
+          ) : (
+            <Link to={'/signin'}>signin</Link>
+          )}
         </div>
       </div>
     </>
