@@ -34,12 +34,6 @@ const CommentInput = ({ parentCommentId }: Props) => {
     };
 
     mutate(data);
-    // console.log(data);
-
-    // const response = await instance.post('api/v1/comment', data, {
-    //   withCredentials: true,
-    // });
-    // console.log(response.status);
   };
 
   return (

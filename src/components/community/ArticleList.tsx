@@ -3,7 +3,7 @@ import useData, { HttpMethod } from '@/hooks/useData';
 import { Article } from './articles';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { BsHeartFill } from 'react-icons/bs';
+import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 
 const ArticleList = () => {
   const location = useLocation();
@@ -24,33 +24,40 @@ const ArticleList = () => {
       {isLoading ? (
         <div>로딩중...</div>
       ) : (
-        data?.map((article) => (
-          <article key={article.id} className={styles.article}>
-            <Link to={`${article.id}`}>
-              <div className={styles['article-contents']}>
-                <div>
-                  <h2 className={styles.title}>{article.title}</h2>
-                  <p className={styles.description}>{article.content}</p>
+        <div className={styles['article-container']}>
+          <Link className={styles['write-btn']} to={'/write'}>
+            <BsPencilSquare size={30} />
+            <span>글쓰기</span>
+          </Link>
+
+          {data?.map((article) => (
+            <article key={article.id} className={styles.article}>
+              <Link to={`${article.id}`}>
+                <div className={styles['article-contents']}>
+                  <div>
+                    <h2 className={styles.title}>{article.title}</h2>
+                    <p className={styles.description}>{article.content}</p>
+                  </div>
+                  <div>
+                    <img
+                      src={`https://picsum.photos/seed/${article.id}/600/300`}
+                      alt=""
+                      width={112}
+                      height={112}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <img
-                    src={`https://picsum.photos/seed/${article.id}/600/300`}
-                    alt=""
-                    width={112}
-                    height={112}
-                  />
+                <div className={styles['article-info']}>
+                  <span className={styles.user}>{article.nickname}</span>
+                  <span className={styles.date}>{article.createdAt}</span>
+                  <span className={styles.like}>
+                    <BsHeartFill /> {article.likeCount}
+                  </span>
                 </div>
-              </div>
-              <div className={styles['article-info']}>
-                <span className={styles.user}>{article.nickname}</span>
-                <span className={styles.date}>{article.createdAt}</span>
-                <span className={styles.like}>
-                  <BsHeartFill /> {article.likeCount}
-                </span>
-              </div>
-            </Link>
-          </article>
-        ))
+              </Link>
+            </article>
+          ))}
+        </div>
       )}
     </>
   );

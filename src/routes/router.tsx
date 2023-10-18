@@ -7,6 +7,7 @@ import TextEditor from '@/components/editor';
 import SignUp from '@/components/signUp';
 import Mypage from '@/pages/myPage';
 import ArticleList from '@/components/community/ArticleList';
+import EditArticle from '@/components/editor/EditArticle';
 
 export const router = createBrowserRouter([
   {
@@ -39,5 +40,9 @@ export const router = createBrowserRouter([
   {
     path: '/write',
     element: <TextEditor />,
+  },
+  {
+    path: '/edit/:id',
+    element: <EditArticle />,
   },
 ]);

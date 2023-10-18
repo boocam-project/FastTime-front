@@ -21,6 +21,7 @@ import { instance } from '@/api/client';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/store';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -90,15 +91,20 @@ const extensions = [
   Image,
 ];
 
-const content = `
-<p>
-</p>
-`;
+interface Props {
+  oldContent?: string;
+  oldTitle?: string;
+  mode?: 'edit' | 'write';
+  postId?: number;
+}
 
-const TextEditor = () => {
+const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
   const { createBlobUrl } = useBlobUrl();
   const user = useRecoilValue(userState);
   const [anonymity, setAnonymity] = useState(false);
+  const navigate = useNavigate();
+
+  const content = oldContent ? `<h1>${oldTitle}</h1> ${oldContent}` : `<p></p>`;
 
   const editor = useEditor({
     extensions,
@@ -162,17 +168,38 @@ const TextEditor = () => {
 
     const updatedHTML = doc.body.innerHTML;
 
-    const article = {
-      memberId: user.id,
-      title: titleNode.textContent,
-      content: updatedHTML,
-      anonymity: anonymity,
-    };
+    const article =
+      mode === 'edit'
+        ? {
+            postId,
+            memberId: user.id,
+            title: titleNode.textContent,
+            content: updatedHTML,
+          }
+        : {
+            memberId: user.id,
+            title: titleNode.textContent,
+            content: updatedHTML,
+            anonymity: anonymity,
+          };
 
     console.log(article);
 
-    const response = await instance.post('/api/v1/post', article);
-    console.log(response.data);
+    if (mode === 'write') {
+      const response = await instance.post('/api/v1/post', article);
+      console.log(response.data);
+    } else {
+      const response = await instance.patch('/api/v1/post', article);
+      console.log(response.data);
+    }
+  };
+
+  const handleCancel = () => {
+    if (mode === 'edit') {
+      navigate(`/community/${postId}`);
+    } else {
+      navigate('/community');
+    }
   };
 
   return (
@@ -194,11 +221,11 @@ const TextEditor = () => {
           }}
         />
         <label htmlFor="anonymity">익명</label>
-        <Button type="button" className="conpact-red-200" show>
+        <Button type="button" className="conpact-red-200" show onClick={handleCancel}>
           취소
         </Button>
         <Button type="button" className="conpact-red-200" show onClick={handlePublish}>
-          발행
+          {mode === 'write' ? '발행' : '수정'}
         </Button>
       </div>
     </div>
