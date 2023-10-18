@@ -1,18 +1,24 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './article.module.scss';
 import { BsHeartFill } from 'react-icons/bs';
+import { AiTwotoneAlert } from 'react-icons/ai';
 import useData, { HttpMethod } from '@/hooks/useData';
 import { Article } from './articles';
 import CommentInput from '../comment/CommentInput';
 import CommentList from '../comment/CommentList';
 import { instance } from '@/api/client';
 import parser from 'html-react-parser';
+import { useRecoilState } from 'recoil';
+import { userState } from '@/store/store';
+import { AxiosError } from 'axios';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
-  const id = Number(idString);
+  const user = useRecoilState(userState);
+  const navigate = useNavigate();
 
+  const id = Number(idString);
   const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${id}`);
 
   const content = parser(article?.content || '');
@@ -27,6 +33,24 @@ const ArticleDetail = () => {
       },
     });
     console.log(response.data);
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit/${id}`);
+  };
+
+  const handleReport = async () => {
+    try {
+      const response = await instance.post('api/v1/report/create', {
+        memberId: user[0].id,
+        postId: id,
+      });
+      console.log(response.data);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error;
+      }
+    }
   };
 
   return (
@@ -45,11 +69,14 @@ const ArticleDetail = () => {
                   <BsHeartFill /> {article?.likeCount}
                 </span>
               </div>
-              <div>
-                <button className={styles.btns} type="button">
+              <div className={styles.btns}>
+                <button className={styles.btn} type="button" onClick={handleReport}>
+                  <AiTwotoneAlert size={20} />
+                </button>
+                <button className={styles.btn} type="button" onClick={handleEdit}>
                   수정
                 </button>
-                <button className={styles.btns} type="button" onClick={handleDelete}>
+                <button className={styles.btn} type="button" onClick={handleDelete}>
                   삭제
                 </button>
               </div>

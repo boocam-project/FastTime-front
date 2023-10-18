@@ -1,9 +1,25 @@
+.article-container {
+  max-width: 680px;
+  margin-inline: auto;
+  margin-block: 2rem;
+}
+
+.write-btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
 .article {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 680px;
-  margin: 0 auto;
 
   padding: 1rem 0 2rem;
   border-bottom: 1px solid $red-100;
@@ -162,8 +178,13 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+    }
 
-      .btns {
+    .btns {
+      display: flex;
+      align-items: center;
+
+      .btn {
         border: none;
         background-color: transparent;
         font-size: $--size-text;
