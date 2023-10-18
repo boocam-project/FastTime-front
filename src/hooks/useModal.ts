@@ -16,7 +16,7 @@ const useModal = (wrapperRef: RefObject<HTMLElement>) => {
       wrapperRef.current?.removeEventListener('click', () => setModalOpen(true));
     };
   }, []);
-  return modalOpen;
+  return { modalOpen, setModalOpen };
 };
 
 export default useModal;
