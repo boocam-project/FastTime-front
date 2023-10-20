@@ -2,12 +2,12 @@ import { organizeComments } from './organizeComments';
 import { useParams } from 'react-router-dom';
 
 import styles from './index.module.scss';
-import { formatTime } from './formatTime';
 import { instance } from '@/api/client';
 import { useState } from 'react';
 import CommentEdit from './CommentEdit';
 import CommentInput from './CommentInput';
 import { useQuery } from '@tanstack/react-query';
+import { formatTime } from '../community/changeTimeFormat';
 
 const fetchComments = async (postId: number) => {
   const response = await instance.get(`api/v1/comment/${postId}`);
@@ -68,7 +68,7 @@ const CommentList = () => {
                   <span className={styles.username}>
                     {comment.anonymity ? '익명' : comment.nickname}
                   </span>
-                  <span className={styles.date}>{comment.createdAt}</span>
+                  <span className={styles.date}>{formatTime(comment.createdAt)}</span>
                   {comment.updatedAt !== comment.createdAt ? <span>수정됨</span> : null}
                 </div>
                 <div className={styles.buttons}>
@@ -105,15 +105,15 @@ const CommentList = () => {
                 <div className={styles.above}>
                   <div className={styles['comment-info']}>
                     <span className={styles.username}>
-                      {comment.anonymity ? '익명' : comment.nickname}
+                      {reply.anonymity ? '익명' : reply.nickname}
                     </span>
-                    <span className={styles.date}>{formatTime(comment.createdAt)}</span>
+                    <span className={styles.date}>{formatTime(reply.createdAt)}</span>
                   </div>
                   <div className={styles.buttons}>
                     <button className={styles.edit} onClick={() => handleEditComment(reply.id)}>
                       수정
                     </button>
-                    <button className={styles.delete} onClick={() => handleDelete(comment.id)}>
+                    <button className={styles.delete} onClick={() => handleDelete(reply.id)}>
                       삭제
                     </button>
                   </div>

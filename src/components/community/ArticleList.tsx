@@ -4,6 +4,7 @@ import { Article } from './articles';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
+import { formatTime } from './changeTimeFormat';
 
 const ArticleList = () => {
   const location = useLocation();
@@ -52,7 +53,7 @@ const ArticleList = () => {
                 </div>
                 <div className={styles['article-info']}>
                   <span className={styles.user}>{article.nickname}</span>
-                  <span className={styles.date}>{article.createdAt}</span>
+                  <span className={styles.date}>{formatTime(article.createdAt)}</span>
                   <span className={styles.like}>
                     <BsHeartFill /> {article.likeCount}
                   </span>

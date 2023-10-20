@@ -22,6 +22,7 @@ import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/store';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AxiosError } from 'axios';
 
 const DocumentWithTitle = Document.extend({
   content: 'title block+',
@@ -110,9 +111,6 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
     extensions,
     content,
     // TODO: 이 로직을 어딘가로 옮겨야 함
-    onUpdate: ({ editor }) => {
-      console.log(editor.getHTML());
-    },
     editorProps: {
       handleDrop: (view, event, _slice, moved) => {
         if (!moved && event.dataTransfer?.files.length) {
@@ -139,58 +137,64 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
   const handlePublish = async () => {
     if (!editor) return;
 
-    // const articleJSON = editor.getJSON();
-    const articleHTML = editor.getHTML();
+    try {
+      // const articleJSON = editor.getJSON();
+      const articleHTML = editor.getHTML();
 
-    if (!articleHTML) return;
+      if (!articleHTML) return;
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(articleHTML, 'text/html');
-    const images = doc.querySelectorAll('img');
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(articleHTML, 'text/html');
+      const images = doc.querySelectorAll('img');
 
-    const uploadImageAndChangeURL = Array.from(images).map(async (image) => {
-      const blobUrl = image.src;
-      const blob = await createBlob(blobUrl);
-      const downloadUrl = await uploadImageToFirebase(blob);
+      const uploadImageAndChangeURL = Array.from(images).map(async (image) => {
+        const blobUrl = image.src;
+        const blob = await createBlob(blobUrl);
+        const downloadUrl = await uploadImageToFirebase(blob);
 
-      image.src = downloadUrl;
-    });
+        image.src = downloadUrl;
+      });
 
-    await Promise.all(uploadImageAndChangeURL);
+      await Promise.all(uploadImageAndChangeURL);
 
-    const titleNode = doc.querySelector('h1');
-    if (!titleNode || !titleNode.textContent) {
-      alert('제목을 입력해주세요');
-      return;
-    }
+      const titleNode = doc.querySelector('h1');
+      if (!titleNode || !titleNode.textContent) {
+        alert('제목을 입력해주세요');
+        return;
+      }
 
-    titleNode.remove();
+      titleNode.remove();
 
-    const updatedHTML = doc.body.innerHTML;
+      const updatedHTML = doc.body.innerHTML;
 
-    const article =
-      mode === 'edit'
-        ? {
-            postId,
-            memberId: user.id,
-            title: titleNode.textContent,
-            content: updatedHTML,
-          }
-        : {
-            memberId: user.id,
-            title: titleNode.textContent,
-            content: updatedHTML,
-            anonymity: anonymity,
-          };
+      const article =
+        mode === 'edit'
+          ? {
+              postId,
+              memberId: user.id,
+              title: titleNode.textContent,
+              content: updatedHTML,
+            }
+          : {
+              memberId: user.id,
+              title: titleNode.textContent,
+              content: updatedHTML,
+              anonymity: anonymity,
+            };
 
-    console.log(article);
-
-    if (mode === 'edit') {
-      const response = await instance.patch('/api/v1/post', article);
-      console.log(response.data);
-    } else {
-      const response = await instance.post('/api/v1/post', article);
-      console.log(response.data);
+      if (mode === 'edit') {
+        const response = await instance.patch('/api/v1/post', article);
+        console.log(response.data);
+        navigate(`/community/${postId}`);
+      } else {
+        const response = await instance.post('/api/v1/post', article);
+        const newPostId = response.data.data.id;
+        navigate(`/community/${newPostId}`);
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error;
+      }
     }
   };
 
