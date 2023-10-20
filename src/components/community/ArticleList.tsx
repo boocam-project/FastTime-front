@@ -1,4 +1,4 @@
-import styles from './article.module.scss';
+import styles from './index.module.scss';
 import useData, { HttpMethod } from '@/hooks/useData';
 import { Article } from './articles';
 import { Link, useLocation } from 'react-router-dom';

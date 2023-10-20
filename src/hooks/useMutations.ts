@@ -1,4 +1,5 @@
 import { instance } from '@/api/client';
+import { MUTATION_KEYS } from '@/constants/constants';
 import { Comment } from '@/data/comment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -17,6 +18,7 @@ interface NewComment {
 }
 
 const useMutations = () => {
+  const { COMMENTS } = MUTATION_KEYS;
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation<
@@ -30,7 +32,7 @@ const useMutations = () => {
       instance.patch('api/v1/comment', updatedComment),
 
     onMutate: async (updatedComment: UpdatedComment) => {
-      await queryClient.cancelQueries({ queryKey: ['comments'] });
+      await queryClient.cancelQueries({ queryKey: COMMENTS });
 
       const previousComments = queryClient.getQueryData<Comment[]>(['comments']);
       queryClient.setQueryData(['comments', updatedComment.id], updatedComment);
@@ -45,7 +47,7 @@ const useMutations = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] });
+      queryClient.invalidateQueries({ queryKey: COMMENTS });
     },
   });
 
@@ -59,7 +61,7 @@ const useMutations = () => {
     mutationFn: (newComment: NewComment) => instance.post('api/v1/comment', newComment),
 
     onMutate: async (newComment: NewComment) => {
-      await queryClient.cancelQueries({ queryKey: ['comments'] });
+      await queryClient.cancelQueries({ queryKey: COMMENTS });
 
       const tempId = `${Date.now()}-${Math.random()}`;
 
@@ -84,7 +86,7 @@ const useMutations = () => {
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['comments'] });
+      queryClient.invalidateQueries({ queryKey: COMMENTS });
     },
   });
 

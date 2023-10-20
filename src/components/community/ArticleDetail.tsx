@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import styles from './article.module.scss';
+import styles from './index.module.scss';
 import { BsHeartFill } from 'react-icons/bs';
 import { AiTwotoneAlert } from 'react-icons/ai';
 import useData, { HttpMethod } from '@/hooks/useData';
@@ -13,6 +13,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { AxiosError } from 'axios';
 import { formatTime } from './changeTimeFormat';
+import ArticleSkeletons from './articleSkeletons';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -63,18 +64,18 @@ const ArticleDetail = () => {
 
   return (
     <>
-      {isLoading ? (
-        <div>로딩중...</div>
-      ) : (
-        <>
-          <div className={styles['article-details']}>
-            <h1>{article?.title}</h1>
+      <div className={styles['article-details']}>
+        {isLoading || !article ? (
+          <ArticleSkeletons />
+        ) : (
+          <>
+            <h1>{article.title}</h1>
             <div className={styles.info}>
               <div>
-                <span>{article?.nickname}</span>
-                <span>{formatTime(article?.createdAt)}</span>
+                <span>{article.nickname}</span>
+                <span>{formatTime(article.createdAt)}</span>
                 <span>
-                  <BsHeartFill /> {article?.likeCount}
+                  <BsHeartFill /> {article.likeCount}
                 </span>
               </div>
               <div className={styles.btns}>
@@ -92,11 +93,11 @@ const ArticleDetail = () => {
               </div>
             </div>
             <div>{content}</div>
-          </div>
-          <CommentInput />
-          <CommentList />
-        </>
-      )}
+          </>
+        )}
+      </div>
+      <CommentInput />
+      <CommentList />
     </>
   );
 };
