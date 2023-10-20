@@ -4,15 +4,22 @@
   margin-block: 2rem;
 }
 
-.write-btn {
+.article-menus {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  transition: transform 0.2s ease-in-out;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 3px solid $red-300;
 
-  &:hover {
-    transform: translateY(-5px);
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 
