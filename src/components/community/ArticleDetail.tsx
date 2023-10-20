@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import styles from './index.module.scss';
+import styles from './details.module.scss';
+
 import { BsHeartFill } from 'react-icons/bs';
 import { AiTwotoneAlert } from 'react-icons/ai';
 import useData, { HttpMethod } from '@/hooks/useData';
@@ -93,11 +94,15 @@ const ArticleDetail = () => {
               </div>
             </div>
             <div>{content}</div>
+            {/* 신고, 좋아요 버튼 위치 */}
           </>
         )}
       </div>
-      <CommentInput />
-      <CommentList />
+      <div className={styles.comments}>
+        <h2>댓글</h2>
+        <CommentInput />
+        <CommentList />
+      </div>
     </>
   );
 };
