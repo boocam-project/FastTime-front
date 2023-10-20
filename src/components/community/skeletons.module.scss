@@ -1,6 +1,7 @@
 .container {
   display: grid;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .title {
@@ -14,5 +15,5 @@
 }
 
 .content {
-  height: 200px;
+  height: 100px;
 }
