@@ -12,6 +12,7 @@ import parser from 'html-react-parser';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { AxiosError } from 'axios';
+import { formatTime } from './changeTimeFormat';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -25,15 +26,21 @@ const ArticleDetail = () => {
   const isValidUser = user[0].nickname === article?.nickname;
 
   const handleDelete = async () => {
-    console.log(postId);
+    try {
+      const response = await instance.delete(`api/v1/post`, {
+        data: {
+          postId: postId,
+          memberId: 1,
+        },
+      });
+      console.log(response.data);
 
-    const response = await instance.delete(`api/v1/post`, {
-      data: {
-        postId: postId,
-        memberId: 1,
-      },
-    });
-    console.log(response.data);
+      navigate('/community');
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error;
+      }
+    }
   };
 
   const handleEdit = () => {
@@ -65,7 +72,7 @@ const ArticleDetail = () => {
             <div className={styles.info}>
               <div>
                 <span>{article?.nickname}</span>
-                <span>{article?.createdAt}</span>
+                <span>{formatTime(article?.createdAt)}</span>
                 <span>
                   <BsHeartFill /> {article?.likeCount}
                 </span>
