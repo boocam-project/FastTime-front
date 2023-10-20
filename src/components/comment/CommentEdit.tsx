@@ -17,6 +17,7 @@ const CommentEdit = ({ content, id, setEditingCommentId }: Props) => {
     setEditingCommentId(null);
 
     updateMutation.mutate({ id, content: newContent });
+    setContent('');
   };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
