@@ -7,10 +7,10 @@ const ArticleSkeletons = () => {
       <div className={styles.title}>
         <LoadingSkeleton />
       </div>
-      <div className={styles.info}>
+      <div className={styles.content}>
         <LoadingSkeleton />
       </div>
-      <div className={styles.content}>
+      <div className={styles.info}>
         <LoadingSkeleton />
       </div>
     </div>
