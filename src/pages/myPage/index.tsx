@@ -3,15 +3,25 @@ import Myboard from '../myBoard';
 import MyComenets from '../myComents';
 import styles from './myPage.module.scss';
 import { useRecoilValue } from 'recoil';
+import { useRef } from 'react';
+import Modal from '@/components/atoms/modal';
+import useModal from '@/hooks/useModal';
 
 const Mypage = () => {
   const userData = useRecoilValue(userState);
+  const mypageModalRef = useRef(null);
+  const { modalOpen, setModalOpen } = useModal(mypageModalRef);
 
   return (
     <div className={styles.container}>
       <div className={styles.userArticle}>
         <h3>{userData.nickname} 안녕하세요</h3>
-        <button>설정</button>
+        <div className={modalOpen ? styles.modalBackground : ''}>
+          <button className={styles.settingBtn} ref={mypageModalRef}>
+            설정
+          </button>
+          {modalOpen && <Modal setModalOpen={setModalOpen} />}
+        </div>
       </div>
       <div className={styles.section}>
         <div className={styles.sideArticle}>
