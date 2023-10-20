@@ -101,7 +101,7 @@ interface Props {
 
 const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
   const { createBlobUrl } = useBlobUrl();
-  const user = useRecoilValue(userState);
+  const { id } = useRecoilValue(userState);
   const [anonymity, setAnonymity] = useState(false);
   const navigate = useNavigate();
 
@@ -118,7 +118,7 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
           const fileSize = Number((file.size / 1024 / 1024).toFixed(4)); // MB
           if ((file.type === 'image/jpeg' || file.type === 'image/png') && fileSize < 10) {
             const blobUrl = createBlobUrl(file);
-            // Insert the blob URL as an image into the editor
+
             const { tr } = view.state;
             const imageNode = view.state.schema.nodes.image.create({ src: blobUrl });
             const transaction = tr.replaceSelectionWith(imageNode);
@@ -138,7 +138,6 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
     if (!editor) return;
 
     try {
-      // const articleJSON = editor.getJSON();
       const articleHTML = editor.getHTML();
 
       if (!articleHTML) return;
@@ -171,29 +170,36 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
         mode === 'edit'
           ? {
               postId,
-              memberId: user.id,
+              memberId: id,
               title: titleNode.textContent,
               content: updatedHTML,
             }
           : {
-              memberId: user.id,
+              memberId: id,
               title: titleNode.textContent,
               content: updatedHTML,
               anonymity: anonymity,
             };
 
+      let response;
+
       if (mode === 'edit') {
-        const response = await instance.patch('/api/v1/post', article);
+        response = await instance.patch('/api/v1/post', article);
         console.log(response.data);
-        navigate(`/community/${postId}`);
       } else {
-        const response = await instance.post('/api/v1/post', article);
-        const newPostId = response.data.data.id;
-        navigate(`/community/${newPostId}`);
+        response = await instance.post('/api/v1/post', article);
+        console.log(response.data);
       }
+
+      const newPostId = mode === 'edit' ? postId : response.data.data.id;
+      navigate(`/community/${newPostId}`);
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw error;
+        if (error.response?.status === 403) {
+          alert('로그인이 필요합니다.');
+        } else {
+          console.error(error);
+        }
       }
     }
   };
