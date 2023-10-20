@@ -1,6 +1,6 @@
 import styles from './modal.module.scss';
 import { instance } from '@/api/client';
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import Button from '../button';
 import Input from '../input';
 import { useForm } from 'react-hook-form';
@@ -26,7 +26,7 @@ const fetchData = async () => {
   return result.data;
 };
 
-const mutationsData = async (data: FetchDataType) => {
+const mutationsData = async (data: UserType) => {
   const response = await instance.put('/api/v1/retouch-member', data);
   return response.data;
 };
@@ -54,19 +54,21 @@ const Modal = ({ setModalOpen }: PropsType) => {
     mutationFn: mutationsData,
   });
 
-  const { isLoading } = useQuery<UserType, Error>({
+  const { data, isSuccess, isLoading } = useQuery<UserType, Error>({
     queryKey: ['getMypage'],
     queryFn: fetchData,
     refetchOnWindowFocus: false,
-    onSuccess(data) {
+  });
+  useEffect(() => {
+    if (isSuccess) {
       reset(data);
       if (data.profileImageUrl) {
         setImagePreview(data.profileImageUrl);
       } else {
         setImagePreview('/src/assets/user.png');
       }
-    },
-  });
+    }
+  }, [data]);
 
   const image = watch('profileImageUrl');
 
