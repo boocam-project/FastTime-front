@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import styles from './myComents.module.scss';
 import { instance } from '@/api/client';
 import { useRecoilValue } from 'recoil';

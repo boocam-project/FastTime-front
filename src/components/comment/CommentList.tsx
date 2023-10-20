@@ -7,7 +7,7 @@ import { instance } from '@/api/client';
 import { useState } from 'react';
 import CommentEdit from './CommentEdit';
 import CommentInput from './CommentInput';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const fetchComments = async (postId: number) => {
   const response = await instance.get(`api/v1/comment/${postId}`);
@@ -19,9 +19,10 @@ const CommentList = () => {
   const postId = Number(idString);
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [replyingId, setReplyingId] = useState<number | null>(null);
-  const { data: comments, isLoading: commentLoading } = useQuery(['comments', postId], () =>
-    fetchComments(postId)
-  );
+  const { data: comments, isLoading: commentLoading } = useQuery({
+    queryKey: ['comments'],
+    queryFn: () => fetchComments(postId),
+  });
 
   if (commentLoading) return <div>로딩중...</div>;
   if (!comments) return <div>댓글이 없습니다.</div>;
@@ -67,7 +68,7 @@ const CommentList = () => {
                   <span className={styles.username}>
                     {comment.anonymity ? '익명' : comment.nickname}
                   </span>
-                  <span className={styles.date}>{formatTime(comment.createdAt)}</span>
+                  <span className={styles.date}>{comment.createdAt}</span>
                   {comment.updatedAt !== comment.createdAt ? <span>수정됨</span> : null}
                 </div>
                 <div className={styles.buttons}>

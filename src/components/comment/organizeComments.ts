@@ -8,11 +8,13 @@ export const organizeComments = (comments: Comment[]) => {
   const commentMap: CommentMap = {};
   const rootComments: Comment[] = [];
 
-  comments.forEach((comment) => {
+  const filteredComments = comments.filter((comment) => comment.deletedAt == null);
+
+  filteredComments.forEach((comment) => {
     commentMap[comment.id] = { ...comment, children: [] };
   });
 
-  comments.forEach((comment) => {
+  filteredComments.forEach((comment) => {
     if (comment.parentCommentId) {
       commentMap[comment.parentCommentId].children?.push(commentMap[comment.id]);
     } else {
