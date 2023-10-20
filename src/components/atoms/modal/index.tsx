@@ -4,11 +4,13 @@ import { useQuery } from 'react-query';
 import Button from '../button';
 import Input from '../input';
 import { useForm } from 'react-hook-form';
-
+import { useEffect, useState } from 'react';
+import { createBlob, uploadImageToFirebase } from '@/hooks/useImageConvert';
+import useBlobUrl from '@/hooks/useBlobUrl';
 interface FetchDataType {
   nickname: string;
   email: string;
-  profileImageUrl: null | string;
+  profileImageUrl?: string;
 }
 
 const fetchData = async () => {
@@ -19,6 +21,7 @@ const fetchData = async () => {
 type PropsType = {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
 const Modal = ({ setModalOpen }: PropsType) => {
   const defaultValues = {
     nickname: '',
@@ -31,9 +34,11 @@ const Modal = ({ setModalOpen }: PropsType) => {
     formState: { errors },
     watch,
     reset,
+    handleSubmit,
   } = useForm<FetchDataType>({ defaultValues, mode: 'all' });
+  const [imagePreview, setImagePreview] = useState('/src/assets/user.png');
 
-  const { data } = useQuery<FetchDataType, Error>({
+  useQuery<FetchDataType, Error>({
     queryKey: ['get_mypage'],
     queryFn: fetchData,
     refetchOnWindowFocus: false,
@@ -46,20 +51,52 @@ const Modal = ({ setModalOpen }: PropsType) => {
     setModalOpen(false);
   };
 
+  const imgClickHandler = () => {
+    const imageInput = document.getElementById('profileImageUrl');
+    if (imageInput) {
+      imageInput.click();
+    }
+  };
+
+  const image = watch('profileImageUrl');
+
+  useEffect(() => {
+    if (image && image.length > 0) {
+      const file = image[0];
+      if (typeof file === 'string') {
+        return;
+      }
+      setImagePreview(URL.createObjectURL(file));
+    }
+  }, [image]);
+
+  const uploadImageAndChangeURL = async () => {
+    const blob = await createBlob(imagePreview);
+    const downloadUrl = await uploadImageToFirebase(blob);
+    return downloadUrl;
+  };
+
+  const submitForm = async (data: FetchDataType) => {
+    try {
+      const profileImageUrl = await uploadImageAndChangeURL();
+
+      console.log(data);
+      console.log(typeof profileImageUrl);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <form className={styles.container}>
+    <div className={styles.container}>
       <h2>프로필 설정</h2>
-      {data?.profileImageUrl ? (
-        <img className={styles.userProfile} src={data?.profileImageUrl} />
-      ) : (
-        <img className={styles.userProfile} src="/src/assets/user.png" />
-      )}
-      <div className={styles.textContainer}>
+      <form className={styles.textContainer} onSubmit={handleSubmit(submitForm)}>
+        <img src={imagePreview} className={styles.userProfile} onClick={imgClickHandler} />
         <input
           {...register('profileImageUrl')}
           id="profileImageUrl"
           type="file"
-          className="hidden"
+          className={styles.userProfileInput}
           accept="image/*"
         />
         <Input
@@ -84,16 +121,21 @@ const Modal = ({ setModalOpen }: PropsType) => {
           label="이메일"
           variant="defaultInput"
         />
-      </div>
+      </form>
       <div className={styles.btnContainer}>
-        <Button className="default-red-400" type="button" show={true}>
+        <Button
+          className="default-red-400"
+          type="submit"
+          show={true}
+          onClick={handleSubmit(submitForm)}
+        >
           수정
         </Button>
         <Button className="default-red-200" type="button" show={true} onClick={cancelHandler}>
           취소
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 
