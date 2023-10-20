@@ -185,11 +185,11 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
 
     console.log(article);
 
-    if (mode === 'write') {
-      const response = await instance.post('/api/v1/post', article);
+    if (mode === 'edit') {
+      const response = await instance.patch('/api/v1/post', article);
       console.log(response.data);
     } else {
-      const response = await instance.patch('/api/v1/post', article);
+      const response = await instance.post('/api/v1/post', article);
       console.log(response.data);
     }
   };
@@ -225,7 +225,7 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
           취소
         </Button>
         <Button type="button" className="conpact-red-200" show onClick={handlePublish}>
-          {mode === 'write' ? '발행' : '수정'}
+          {mode === 'edit' ? '수정' : '발행'}
         </Button>
       </div>
     </div>
