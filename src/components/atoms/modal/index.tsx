@@ -1,28 +1,41 @@
 import styles from './modal.module.scss';
 import { instance } from '@/api/client';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import Button from '../button';
 import Input from '../input';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { createBlob, uploadImageToFirebase } from '@/hooks/useImageConvert';
-import useBlobUrl from '@/hooks/useBlobUrl';
-interface FetchDataType {
+import { useNavigate } from 'react-router-dom';
+import { userState } from '@/store/store';
+import { useSetRecoilState } from 'recoil';
+
+interface UserType {
   nickname: string;
   email: string;
   profileImageUrl?: string;
 }
+
+type PropsType = {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const fetchData = async () => {
   const response = await instance.get('api/v1/mypage');
   const result = await response.data;
   return result.data;
 };
-type PropsType = {
-  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+
+const mutationsData = async (data: FetchDataType) => {
+  const response = await instance.put('/api/v1/retouch-member', data);
+  return response.data;
 };
 
 const Modal = ({ setModalOpen }: PropsType) => {
+  const navigation = useNavigate();
+  const setData = useSetRecoilState(userState);
+
+  const [imagePreview, setImagePreview] = useState('');
   const defaultValues = {
     nickname: '',
     email: '',
@@ -35,28 +48,25 @@ const Modal = ({ setModalOpen }: PropsType) => {
     watch,
     reset,
     handleSubmit,
-  } = useForm<FetchDataType>({ defaultValues, mode: 'all' });
-  const [imagePreview, setImagePreview] = useState('/src/assets/user.png');
+  } = useForm<UserType>({ defaultValues, mode: 'all' });
 
-  useQuery<FetchDataType, Error>({
-    queryKey: ['get_mypage'],
-    queryFn: fetchData,
-    refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      reset(data);
-    },
+  const mutation = useMutation({
+    mutationFn: mutationsData,
   });
 
-  const cancelHandler = () => {
-    setModalOpen(false);
-  };
-
-  const imgClickHandler = () => {
-    const imageInput = document.getElementById('profileImageUrl');
-    if (imageInput) {
-      imageInput.click();
-    }
-  };
+  const { isLoading } = useQuery<UserType, Error>({
+    queryKey: ['getMypage'],
+    queryFn: fetchData,
+    refetchOnWindowFocus: false,
+    onSuccess(data) {
+      reset(data);
+      if (data.profileImageUrl) {
+        setImagePreview(data.profileImageUrl);
+      } else {
+        setImagePreview('/src/assets/user.png');
+      }
+    },
+  });
 
   const image = watch('profileImageUrl');
 
@@ -70,72 +80,119 @@ const Modal = ({ setModalOpen }: PropsType) => {
     }
   }, [image]);
 
-  const uploadImageAndChangeURL = async () => {
-    const blob = await createBlob(imagePreview);
-    const downloadUrl = await uploadImageToFirebase(blob);
-    return downloadUrl;
+  const imgClickHandler = () => {
+    const imageInput = document.getElementById('profileImageUrl');
+    if (imageInput) {
+      imageInput.click();
+    }
   };
 
-  const submitForm = async (data: FetchDataType) => {
-    try {
-      const profileImageUrl = await uploadImageAndChangeURL();
+  const cancelHandler = () => {};
 
-      console.log(data);
-      console.log(typeof profileImageUrl);
+  const uploadImageAndChangeURL = async () => {
+    if (imagePreview) {
+      const blob = await createBlob(imagePreview);
+      const downloadUrl = await uploadImageToFirebase(blob);
+      return downloadUrl;
+    }
+  };
+
+  const submitForm = async (data: UserType) => {
+    const { nickname, email, profileImageUrl } = data;
+    try {
+      const firebaseImgUrl = await uploadImageAndChangeURL();
+      if (profileImageUrl) {
+        const updateData = {
+          nickname,
+          email,
+          image: firebaseImgUrl,
+        };
+        mutation.mutate(updateData, {
+          onSuccess: () => {
+            setData((prev) => ({ ...prev, nickname }));
+            setModalOpen(false);
+            navigation('/mypage');
+          },
+        });
+      } else {
+        const updateData = {
+          nickname,
+          email,
+          image: profileImageUrl,
+        };
+        mutation.mutate(updateData, {
+          onSuccess: () => {
+            setData((prev) => ({ ...prev, nickname }));
+            setModalOpen(false);
+            navigation('/mypage');
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <h2>프로필 설정</h2>
-      <form className={styles.textContainer} onSubmit={handleSubmit(submitForm)}>
-        <img src={imagePreview} className={styles.userProfile} onClick={imgClickHandler} />
-        <input
-          {...register('profileImageUrl')}
-          id="profileImageUrl"
-          type="file"
-          className={styles.userProfileInput}
-          accept="image/*"
-        />
-        <Input
-          type="text"
-          register={register('nickname', {
-            required: '닉네임을 입력해주세요.',
-          })}
-          value={watch('nickname')}
-          errorMessage={errors.nickname?.message}
-          name="nickname"
-          label="닉네임"
-          variant="defaultInput"
-        />
-        <Input
-          type="text"
-          register={register('email', {
-            required: '닉네임을 입력해주세요.',
-          })}
-          value={watch('email')}
-          errorMessage={errors.email?.message}
-          name="email"
-          label="이메일"
-          variant="defaultInput"
-        />
-      </form>
-      <div className={styles.btnContainer}>
-        <Button
-          className="default-red-400"
-          type="submit"
-          show={true}
-          onClick={handleSubmit(submitForm)}
-        >
-          수정
-        </Button>
-        <Button className="default-red-200" type="button" show={true} onClick={cancelHandler}>
-          취소
-        </Button>
-      </div>
-    </div>
+    <>
+      {isLoading ? (
+        <div>Loading..</div>
+      ) : (
+        <div className={styles.container}>
+          <h2>프로필 설정</h2>
+          <form className={styles.textContainer} onSubmit={handleSubmit(submitForm)}>
+            <img
+              src={imagePreview}
+              className={styles.userProfile}
+              onClick={imgClickHandler}
+              id="image-preview"
+            />
+            <input
+              {...register('profileImageUrl')}
+              id="profileImageUrl"
+              type="file"
+              className={styles.userProfileInput}
+              accept="image/*"
+            />
+            <Input
+              type="text"
+              register={register('nickname', {
+                required: '닉네임을 입력해주세요.',
+              })}
+              value={watch('nickname')}
+              errorMessage={errors.nickname?.message}
+              name="nickname"
+              label="닉네임"
+              variant="defaultInput"
+            />
+            <Input
+              type="text"
+              register={register('email', {
+                required: '닉네임을 입력해주세요.',
+              })}
+              value={watch('email')}
+              errorMessage={errors.email?.message}
+              name="email"
+              label="이메일"
+              variant="defaultInput"
+            />
+          </form>
+          <div className={styles.btnContainer}>
+            <Button
+              className="default-red-400"
+              type="submit"
+              show={true}
+              onClick={handleSubmit(submitForm)}
+            >
+              수정
+            </Button>
+            <Button className="default-red-200" type="button" show={true} onClick={cancelHandler}>
+              취소
+            </Button>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
