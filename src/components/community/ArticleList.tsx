@@ -25,10 +25,13 @@ const ArticleList = () => {
         <div>로딩중...</div>
       ) : (
         <div className={styles['article-container']}>
-          <Link className={styles['write-btn']} to={'/write'}>
-            <BsPencilSquare size={30} />
-            <span>글쓰기</span>
-          </Link>
+          <div className={styles['article-menus']}>
+            <h1>게시글</h1>
+            <Link to={'/write'}>
+              <BsPencilSquare size={20} />
+              <span>글쓰기</span>
+            </Link>
+          </div>
 
           {data?.map((article) => (
             <article key={article.id} className={styles.article}>

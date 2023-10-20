@@ -18,17 +18,18 @@ const ArticleDetail = () => {
   const user = useRecoilState(userState);
   const navigate = useNavigate();
 
-  const id = Number(idString);
-  const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${id}`);
+  const postId = Number(idString);
+  const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
 
   const content = parser(article?.content || '');
+  const isValidUser = user[0].nickname === article?.nickname;
 
   const handleDelete = async () => {
-    console.log(id);
+    console.log(postId);
 
     const response = await instance.delete(`api/v1/post`, {
       data: {
-        postId: id,
+        postId: postId,
         memberId: 1,
       },
     });
@@ -36,14 +37,14 @@ const ArticleDetail = () => {
   };
 
   const handleEdit = () => {
-    navigate(`/edit/${id}`);
+    navigate(`/edit/${postId}`);
   };
 
   const handleReport = async () => {
     try {
       const response = await instance.post('api/v1/report/create', {
         memberId: user[0].id,
-        postId: id,
+        postId: postId,
       });
       console.log(response.data);
     } catch (error) {
@@ -73,9 +74,11 @@ const ArticleDetail = () => {
                 <button className={styles.btn} type="button" onClick={handleReport}>
                   <AiTwotoneAlert size={20} />
                 </button>
-                <button className={styles.btn} type="button" onClick={handleEdit}>
-                  수정
-                </button>
+                {isValidUser && (
+                  <button className={styles.btn} type="button" onClick={handleEdit}>
+                    수정
+                  </button>
+                )}
                 <button className={styles.btn} type="button" onClick={handleDelete}>
                   삭제
                 </button>
