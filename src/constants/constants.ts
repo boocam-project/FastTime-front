@@ -8,3 +8,7 @@ export const PATTERNS = {
   password: PASSWORD_PATTERN,
   email: EMAIL_PATTERN,
 };
+
+export const MUTATION_KEYS = {
+  COMMENTS: ['comments'],
+};

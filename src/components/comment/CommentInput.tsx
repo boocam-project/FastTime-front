@@ -34,6 +34,7 @@ const CommentInput = ({ parentCommentId }: Props) => {
     };
 
     addMutation.mutate(data);
+    setContent('');
   };
 
   return (
