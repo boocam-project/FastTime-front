@@ -1,11 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import styles from './myComents.module.scss';
 import { instance } from '@/api/client';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/store/store';
-const fetchCommentData = async (userid: number) => {
+const fetchCommentData = async () => {
   try {
-    const response = await instance.get(`api/v1/comment/my-page/${userid}`);
+    const response = await instance.get(`api/v1/comment/my-page`);
     const result = response.data;
     return result.data;
   } catch (error) {
@@ -26,10 +24,9 @@ type ComentsType = {
 };
 
 const MyComenets = () => {
-  const userData = useRecoilValue(userState);
   const { isLoading, isError, data, error } = useQuery<ComentsType[], Error>({
     queryKey: ['my-comenets'],
-    queryFn: () => fetchCommentData(userData.id),
+    queryFn: () => fetchCommentData(),
     staleTime: 3 * 60 * 1000,
     refetchOnWindowFocus: false,
   });

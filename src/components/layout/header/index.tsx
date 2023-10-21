@@ -5,6 +5,7 @@ import ToggleBar from '../toggleBar';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { instance } from '@/api/client';
+import { AiOutlineUser } from 'react-icons/ai';
 
 const fetchLogout = async () => {
   const response = await instance.get(`api/v1/logout`);
@@ -53,7 +54,10 @@ const Header = () => {
         </div>
         <div className={styles.signin}>
           {userData.login ? (
-            <button onClick={logoutHandler}>logout</button>
+            <>
+              <button onClick={logoutHandler}>logout</button>
+              <AiOutlineUser onClick={() => navigation('/mypage')} />
+            </>
           ) : (
             <Link to={'/signin'}>signin</Link>
           )}
