@@ -4,8 +4,10 @@ const useModal = (wrapperRef: RefObject<HTMLElement>) => {
   const [modalOpen, setModalOpen] = useState(false);
   useEffect(() => {
     const handleClickOutside = (e: { target: any }) => {
-      if (e.target.className.includes('modalBackground')) {
-        setModalOpen(false);
+      if (typeof e.target.className === 'string') {
+        if (e.target.className.includes('modalBackground')) {
+          setModalOpen(false);
+        }
       }
     };
 
