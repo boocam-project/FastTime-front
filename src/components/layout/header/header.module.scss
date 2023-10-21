@@ -35,10 +35,13 @@
 
   .signin {
     text-transform: capitalize;
-    font-size: $--size-text;
-    color: $red-500;
+    font-size: 16px;
+    color: #ed224b;
     background-color: transparent;
     outline: none;
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
 
     a {
       text-decoration: none;
