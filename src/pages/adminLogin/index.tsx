@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styles from './admin.module.scss';
 import { instance } from '@/api/client';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '@/store/store';
 
 type AdminValue = {
   email: string;
@@ -25,6 +27,7 @@ const AdminLogin = () => {
   } = useForm<AdminValue>({
     shouldUseNativeValidation: true,
   });
+  const setUserData = useSetRecoilState(userState);
   const navigation = useNavigate();
   const onSubmit: SubmitHandler<AdminValue> = async (data) => {
     try {
@@ -32,7 +35,8 @@ const AdminLogin = () => {
 
       if (response.code === 200) {
         alert(response.message);
-        navigation('/admin/myPage');
+        setUserData((prev) => ({ ...prev, nickname: '관리자', login: !prev.login }));
+        navigation('/admin/board');
       }
     } catch (error) {
       alert('등록된 회원이 아닙니다.');
