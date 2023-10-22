@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/store';
-import Button from '@/components/atoms/button';
 
 interface FetchAdminBoardType {
   id: number;
