@@ -41,15 +41,6 @@ const AdminBoard = () => {
     navigation(`/admin/detail/${id}`);
   };
 
-  const handleDeleteBoard = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const target = e.target as HTMLElement;
-    if (!target.closest('#deleteBtn')) {
-      e.stopPropagation();
-      console.log('delete');
-    }
-  };
-
   if (isLoading) return <div>Loading..</div>;
   return (
     <div className={styles.container}>
@@ -61,15 +52,6 @@ const AdminBoard = () => {
             {data.map((item: FetchAdminBoardType) => (
               <li key={item.id} onClick={() => handleDetailPage(item.id)} className="detail-box">
                 <span>{item.title}</span>
-                <Button
-                  type="button"
-                  className="round-red-200"
-                  show={true}
-                  id="deleteBtn"
-                  onClick={handleDeleteBoard}
-                >
-                  삭제
-                </Button>
               </li>
             ))}
           </div>
