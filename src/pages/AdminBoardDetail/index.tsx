@@ -1,10 +1,27 @@
 import { instance } from '@/api/client';
 import ArticleSkeletons from '@/components/community/articleSkeletons';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import styles from './adminBoardDetail.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatTime } from '@/components/community/changeTimeFormat';
 import Button from '@/components/atoms/button';
+
+type Theme = 'List' | 'Delete' | 'Restore';
+
+interface MutateResultType {
+  code: number;
+  data: null;
+  message: string;
+}
+
+const fetchAdminDeleteData = async (id: string) => {
+  const response = await instance.get(`/api/v1/admin/${id}/delete`);
+  return response;
+};
+const fetchAdminRestoreData = async (id: string) => {
+  const response = await instance.get(`/api/v1/admin/${id}/pass`);
+  return response;
+};
 
 const fetchAdminBoardDetail = async (id: string) => {
   const response = await instance.get(`/api/v1/admin/${id}`);
@@ -21,11 +38,41 @@ const AdminBoardDetail = () => {
     refetchOnWindowFocus: false,
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => fetchAdminDeleteData(id),
+    onSuccess({ data }: { data: MutateResultType }) {
+      alert(data.message);
+      navigation('/admin/board');
+    },
+  });
+  const restoreMutation = useMutation({
+    mutationFn: (id: string) => fetchAdminRestoreData(id),
+    onSuccess({ data }: { data: MutateResultType }) {
+      alert(data.message);
+      navigation('/admin/board');
+    },
+  });
+
   const navigation = useNavigate();
 
-  const handleClickEvent = (type: string) => {
-    if (type === 'list') {
-      navigation('/admin/board');
+  const handleClickEvent = (type: Theme) => {
+    switch (type) {
+      case 'List':
+        navigation('/admin/board');
+        break;
+      case 'Delete':
+        if (id) {
+          deleteMutation.mutate(id);
+        }
+        break;
+      case 'Restore':
+        if (id) {
+          restoreMutation.mutate(id);
+        }
+        break;
+      default:
+        alert('error 발생');
+        break;
     }
   };
 
@@ -46,7 +93,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('delete')}
+              onClick={() => handleClickEvent('Delete')}
             >
               삭제
             </Button>
@@ -54,7 +101,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('list')}
+              onClick={() => handleClickEvent('List')}
             >
               목록
             </Button>
@@ -62,7 +109,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('abort')}
+              onClick={() => handleClickEvent('Restore')}
             >
               복구
             </Button>
