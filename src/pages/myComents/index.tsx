@@ -3,7 +3,7 @@ import styles from './myComents.module.scss';
 import { instance } from '@/api/client';
 const fetchCommentData = async () => {
   try {
-    const response = await instance.get(`api/v1/comment/my-page`);
+    const response = await instance.get(`/api/v1/comment/my-page`);
     const result = response.data;
     return result.data;
   } catch (error) {
