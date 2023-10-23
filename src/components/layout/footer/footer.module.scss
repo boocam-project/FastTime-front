@@ -110,9 +110,3 @@ ul.team-members-list li a:hover {
   color: $red-100;
   font-size: 14px;
 }
-@include desktop {
-  .footer {
-    position: absolute;
-    bottom: 0;
-  }
-}
