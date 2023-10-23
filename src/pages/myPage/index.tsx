@@ -6,20 +6,44 @@ import { useRecoilValue } from 'recoil';
 import { useRef } from 'react';
 import Modal from '@/components/atoms/modal';
 import useModal from '@/hooks/useModal';
+import { instance } from '@/api/client';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+
+const fetchWithDraw = async () => {
+  const response = await instance.delete(`/api/v1/delete`);
+  return response.data;
+};
 
 const Mypage = () => {
   const userData = useRecoilValue(userState);
   const mypageModalRef = useRef(null);
   const { modalOpen, setModalOpen } = useModal(mypageModalRef);
+  const navigator = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: fetchWithDraw,
+    onSuccess(data) {
+      alert(data.message);
+      navigator('/');
+    },
+  });
+
+  const withDrawClickHandler = () => {
+    mutation.mutate();
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.userArticle}>
         <h3>{userData.nickname} 안녕하세요</h3>
-        <div className={modalOpen ? styles.modalBackground : ''}>
+        <div className={modalOpen ? styles.modalBackground : styles.btnBox}>
           <button className={styles.settingBtn} ref={mypageModalRef}>
             설정
           </button>
+          <span className={styles.withdraw} onClick={withDrawClickHandler}>
+            회원탈퇴
+          </span>
           {modalOpen && <Modal setModalOpen={setModalOpen} />}
         </div>
       </div>
