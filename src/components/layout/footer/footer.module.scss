@@ -9,6 +9,7 @@ body {
   width: 100%;
   padding: 10px;
   overflow: hidden;
+
   @media (max-width: 1256px) {
     height: auto;
     padding: 0px 10px;
@@ -108,4 +109,10 @@ ul.team-members-list li a:hover {
 .feedback-link {
   color: $red-100;
   font-size: 14px;
+}
+@include desktop {
+  .footer {
+    position: absolute;
+    bottom: 0;
+  }
 }
