@@ -124,3 +124,9 @@ ul.team-members-list li a:hover {
   font-size: 14px;
   background-color: #ffcece81;
 }
+@include desktop {
+  .footer {
+    position: absolute;
+    bottom: 0;
+  }
+}
