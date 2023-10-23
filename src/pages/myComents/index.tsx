@@ -24,7 +24,7 @@ type ComentsType = {
   updatedAt: string;
 };
 
-type Theme = 'ADD' | 'CLOSE';
+type Theme = 'ADD' | 'RESET';
 
 const MyComenets = () => {
   const { isLoading, isError, data, error } = useQuery<ComentsType[], Error>({
@@ -47,7 +47,7 @@ const MyComenets = () => {
         }
       }
     }
-    if (type === 'CLOSE') {
+    if (type === 'RESET') {
       setPage(5);
     }
   };
@@ -59,7 +59,7 @@ const MyComenets = () => {
       <div className={styles.article}>
         <h3>내가 쓴 댓글</h3>
         <span onClick={() => clickHandleData('ADD')}>더보기</span>
-        <span onClick={() => clickHandleData('CLOSE')}>닫기</span>
+        <span onClick={() => clickHandleData('RESET')}>초기화</span>
       </div>
       <div className={styles.itemBox}>
         {data?.map((item, index) => {
