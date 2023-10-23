@@ -11,7 +11,7 @@ interface SignUpFormValues {
   email: string;
   password: string;
   confirmPassword: string;
-  // verificationCode: string;
+  verificationCode: string;
 }
 
 const SignUpForm = () => {
@@ -20,7 +20,7 @@ const SignUpForm = () => {
     watch,
     handleSubmit,
     formState: { errors },
-    // getValues,
+    getValues,
   } = useForm<SignUpFormValues>({ mode: 'onChange' });
 
   const signUp = async (data: SignUpFormValues) => {
@@ -41,22 +41,22 @@ const SignUpForm = () => {
     await signUp(data);
   };
 
-  // const handleEmailVerification = async () => {
-  //   const emailValue = getValues('email');
-  //   try {
-  //     const response = await instance.post('api/v1/emailconfirm', {
-  //       email: emailValue,
-  //     });
-  //     if (response.status === 200) {
-  //       console.log('이메일 전송 성공');
-  //     } else {
-  //       console.error('이메일 전송 실패:', response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error('서버 요청 중 오류가 발생했습니다.', error);
-  //   }
-  //   console.log(emailValue);
-  // };
+  const handleEmailVerification = async () => {
+    const emailValue = getValues('email');
+    try {
+      const response = await instance.post('api/v1/emailconfirm', {
+        email: emailValue,
+      });
+      if (response.status === 200) {
+        console.log('이메일 전송 성공');
+      } else {
+        console.error('이메일 전송 실패:', response.data);
+      }
+    } catch (error) {
+      console.error('서버 요청 중 오류가 발생했습니다.', error);
+    }
+    console.log(emailValue);
+  };
 
   return (
     <div className={styles.container}>
@@ -88,7 +88,7 @@ const SignUpForm = () => {
           label="이메일"
           variant="defaultInput"
         />
-        {/* <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
+        <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
           이메일 인증
         </Button>
         <Input
@@ -100,7 +100,7 @@ const SignUpForm = () => {
           })}
           value={watch('verificationCode')}
           variant="defaultInput"
-        /> */}
+        />
 
         <Input
           type="password"
@@ -136,7 +136,7 @@ const SignUpForm = () => {
         </Button>
         <div>
           <span>이미 계정이 있으신가요? </span>
-          <Link to="/login">로그인</Link>
+          <Link to="/signin">로그인</Link>
         </div>
       </form>
     </div>
