@@ -106,7 +106,7 @@
 
     .comment-info {
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       gap: 0.5rem;
     }
 
@@ -122,6 +122,11 @@
     }
 
     .date {
+      font-size: 12px;
+      opacity: 0.5;
+    }
+
+    .edited {
       font-size: 12px;
       opacity: 0.5;
     }
