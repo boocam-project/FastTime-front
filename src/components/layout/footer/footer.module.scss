@@ -10,10 +10,7 @@ body {
   padding: 10px;
   overflow: hidden;
   margin-top: 200px;
-  @media (max-width: 1256px) {
-    height: auto;
-    padding: 0px 10px;
-  }
+
   hr {
     border: none;
     border-top: 1px solid #d5d5d58e;
@@ -124,9 +121,10 @@ ul.team-members-list li a:hover {
   font-size: 14px;
   background-color: #ffcece81;
 }
-@include desktop {
-  .footer {
-    position: absolute;
-    bottom: 0;
-  }
-}
+
+// @include desktop {
+//   .footer {
+//     position: absolute;
+//     bottom: 0;
+//   }
+// }
