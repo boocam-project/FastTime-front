@@ -35,7 +35,7 @@ const AdminLogin = () => {
 
       if (response.code === 200) {
         alert(response.message);
-        setUserData((prev) => ({ ...prev, nickname: '관리자', login: !prev.login }));
+        setUserData((prev) => ({ ...prev, nickname: '관리자', login: true }));
         navigation('/admin/board');
       }
     } catch (error) {
