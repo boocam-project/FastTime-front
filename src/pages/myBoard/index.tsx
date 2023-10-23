@@ -35,6 +35,10 @@ const Myboard = () => {
     refetchOnWindowFocus: false,
   });
 
+  const changeDate = (date: string) => {
+    return new Date(date).toLocaleString();
+  };
+
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -50,7 +54,7 @@ const Myboard = () => {
           <li key={item.id}>
             <div className={styles.titleText}>{item.title}</div>
             <div className={styles.writeDataText}>
-              <span>{item.createdAt}</span>
+              <span>{changeDate(item.createdAt)}</span>
               <p>hit</p>
             </div>
           </li>
