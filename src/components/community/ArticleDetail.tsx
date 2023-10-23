@@ -51,8 +51,7 @@ const ArticleDetail = () => {
 
   const handleReport = async () => {
     try {
-      const response = await instance.post('api/v1/report/create', {
-        memberId: user[0].id,
+      const response = await instance.post('api/v1/report', {
         postId: postId,
       });
       console.log(response.data);

@@ -1,5 +1,5 @@
 import { instance } from '@/api/client';
-import { MUTATION_KEYS } from '@/constants/constants';
+import { QUERY_KEYS } from '@/constants/constants';
 import { Comment } from '@/data/comment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -11,14 +11,13 @@ interface UpdatedComment {
 
 interface NewComment {
   postId: number;
-  memberId: number;
   content: string;
   anonymity: boolean;
   parentCommentId?: number;
 }
 
-const useMutations = () => {
-  const { COMMENTS } = MUTATION_KEYS;
+const useCommentMutations = () => {
+  const { COMMENTS } = QUERY_KEYS;
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation<
@@ -90,7 +89,38 @@ const useMutations = () => {
     },
   });
 
-  return { updateMutation, addMutation };
+  const deleteMutation = useMutation<
+    Comment,
+    AxiosError,
+    { id: number },
+    { previousComments: Comment[] | undefined }
+  >({
+    mutationKey: ['deleteComment'],
+    mutationFn: ({ id }: { id: number }) => instance.delete(`api/v1/comment`, { data: { id } }),
+
+    onMutate: async ({ id }: { id: number }) => {
+      await queryClient.cancelQueries({ queryKey: COMMENTS });
+
+      const previousComments = queryClient.getQueryData<Comment[]>(['comments']);
+      queryClient.setQueryData(['comments'], (old) => [
+        ...(old as Comment[]).filter((comment) => comment.id !== id),
+      ]);
+
+      return { previousComments };
+    },
+
+    onError: (_err, _variables, context) => {
+      if (context) {
+        queryClient.setQueryData(['comments'], context.previousComments);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: COMMENTS });
+    },
+  });
+
+  return { updateMutation, addMutation, deleteMutation };
 };
 
-export default useMutations;
+export default useCommentMutations;

@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './index.module.scss';
 import Button from '../atoms/button';
 import { useParams } from 'react-router-dom';
-import useMutations from '@/hooks/useMutations';
+import useCommentMutations from '@/hooks/useCommentMutations';
 
 interface Props {
   parentCommentId?: number;
@@ -13,7 +13,7 @@ const CommentInput = ({ parentCommentId }: Props) => {
   const [anonymity, setAnonymity] = useState<boolean>(false);
   const { id: idString } = useParams();
   const postId = Number(idString);
-  const { addMutation } = useMutations();
+  const { addMutation } = useCommentMutations();
 
   const handleComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.currentTarget.value);
@@ -27,7 +27,6 @@ const CommentInput = ({ parentCommentId }: Props) => {
 
     const data = {
       postId,
-      memberId: 1,
       content,
       anonymity,
       parentCommentId,

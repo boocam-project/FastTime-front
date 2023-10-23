@@ -1,6 +1,6 @@
 import styles from './edit.module.scss';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import useMutations from '@/hooks/useMutations';
+import useCommentMutations from '@/hooks/useCommentMutations';
 
 interface Props {
   content: string;
@@ -10,7 +10,7 @@ interface Props {
 
 const CommentEdit = ({ content, id, setEditingCommentId }: Props) => {
   const [newContent, setContent] = useState(content);
-  const { updateMutation } = useMutations();
+  const { updateMutation } = useCommentMutations();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
