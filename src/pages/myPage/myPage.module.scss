@@ -14,6 +14,9 @@
   .settingBtn {
     border: none;
     background-color: transparent;
+    &:hover {
+      font-weight: bold;
+    }
   }
 }
 
@@ -31,6 +34,11 @@
 .withdraw {
   color: $red-300;
   font-size: $--size-subtext;
+  &:hover {
+    color: $red-500;
+    cursor: pointer;
+    font-weight: bold;
+  }
 }
 
 @include desktop {
