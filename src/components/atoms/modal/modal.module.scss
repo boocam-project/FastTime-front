@@ -13,6 +13,7 @@
 .userProfileInput {
   visibility: hidden;
 }
+
 @include desktop {
   .container {
     width: 30%;
@@ -47,6 +48,11 @@
     align-items: center;
     row-gap: 2rem;
     padding: 2rem 0;
+    .userProfile {
+      width: 12rem;
+      height: 12rem;
+      margin: 0 auto;
+    }
   }
 }
 @include mobile {
@@ -61,5 +67,10 @@
     align-items: center;
     row-gap: 2rem;
     padding: 3rem 0;
+    .userProfile {
+      width: 12rem;
+      height: 12rem;
+      margin: 0 auto;
+    }
   }
 }
