@@ -4,6 +4,16 @@
   row-gap: 0.5rem;
   list-style: none;
 }
+.article {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+
+  span:hover {
+    color: $red-300;
+    cursor: pointer;
+  }
+}
 .itemBox {
   display: flex;
   flex-direction: column;
