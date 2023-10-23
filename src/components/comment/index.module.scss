@@ -14,7 +14,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      border: 2px solid $red-200;
+      border: 1px solid $red-100;
       border-radius: 0.25rem;
       overflow: hidden;
 
@@ -58,6 +58,7 @@
   flex-direction: column;
   max-width: 680px;
   margin: 0 auto;
+  padding-inline: 0.5rem;
 
   .comments {
     position: relative;
