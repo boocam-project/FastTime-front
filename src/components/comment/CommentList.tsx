@@ -9,6 +9,9 @@ import CommentInput from './CommentInput';
 import { useQuery } from '@tanstack/react-query';
 import { formatTime } from '../community/changeTimeFormat';
 import CommentSkeletons from './CommentSkeletons';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/store';
+import useCommentMutations from '@/hooks/useCommentMutations';
 
 const fetchComments = async (postId: number) => {
   const response = await instance.get(`api/v1/comment/${postId}`);
@@ -18,8 +21,12 @@ const fetchComments = async (postId: number) => {
 const CommentList = () => {
   const { id: idString } = useParams();
   const postId = Number(idString);
+
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
   const [replyingId, setReplyingId] = useState<number | null>(null);
+
+  const { nickname } = useRecoilValue(userState);
+  const { deleteMutation } = useCommentMutations();
   const { data: comments, isLoading: commentLoading } = useQuery({
     queryKey: ['comments'],
     queryFn: () => fetchComments(postId),
@@ -31,8 +38,7 @@ const CommentList = () => {
   const handleDelete = async (id: number) => {
     console.log(id);
 
-    const response = await instance.delete('api/v1/comment', { data: { id } });
-    console.log(response.data);
+    deleteMutation.mutate({ id });
   };
 
   const handleEditComment = (id: number) => {
@@ -72,16 +78,18 @@ const CommentList = () => {
                       {comment.anonymity ? '익명' : comment.nickname}
                     </span>
                     <span className={styles.date}>{formatTime(comment.createdAt)}</span>
-                    {comment.updatedAt ? <span>수정됨</span> : null}
+                    {comment.updatedAt ? <span className={styles.edited}>수정됨</span> : null}
                   </div>
-                  <div className={styles.buttons}>
-                    <button className={styles.edit} onClick={() => handleEditComment(comment.id)}>
-                      수정
-                    </button>
-                    <button className={styles.delete} onClick={() => handleDelete(comment.id)}>
-                      삭제
-                    </button>
-                  </div>
+                  {nickname === comment.nickname && (
+                    <div className={styles.buttons}>
+                      <button className={styles.edit} onClick={() => handleEditComment(comment.id)}>
+                        수정
+                      </button>
+                      <button className={styles.delete} onClick={() => handleDelete(comment.id)}>
+                        삭제
+                      </button>
+                    </div>
+                  )}
                 </div>
                 <span className={styles.content}>{comment.content}</span>
                 <button
@@ -111,7 +119,7 @@ const CommentList = () => {
                         {reply.anonymity ? '익명' : reply.nickname}
                       </span>
                       <span className={styles.date}>{formatTime(reply.createdAt)}</span>
-                      {comment.updatedAt ? <span>수정됨</span> : null}
+                      {comment.updatedAt ? <span className={styles.edited}>수정됨</span> : null}
                     </div>
                     <div className={styles.buttons}>
                       <button className={styles.edit} onClick={() => handleEditComment(reply.id)}>

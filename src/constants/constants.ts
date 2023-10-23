@@ -9,6 +9,7 @@ export const PATTERNS = {
   email: EMAIL_PATTERN,
 };
 
-export const MUTATION_KEYS = {
+export const QUERY_KEYS = {
   COMMENTS: ['comments'],
+  ARTICLES: ['articles'],
 };
