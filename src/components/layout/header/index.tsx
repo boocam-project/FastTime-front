@@ -21,7 +21,11 @@ const Header = () => {
       const result = await fetchLogout();
       if (result.code === 200) {
         setUserData({ ...userData, login: false });
-        navigation('/signin');
+        if (userData.nickname === '관리자') {
+          navigation('/admin/login');
+        } else {
+          navigation('/signin');
+        }
       }
     };
     fetchData();
@@ -56,7 +60,11 @@ const Header = () => {
           {userData.login ? (
             <>
               <button onClick={logoutHandler}>logout</button>
-              <AiOutlineUser onClick={() => navigation('/mypage')} />
+              {userData.nickname === '관리자' ? (
+                <></>
+              ) : (
+                <AiOutlineUser onClick={() => navigation('/mypage')} />
+              )}
             </>
           ) : (
             <Link to={'/signin'}>signin</Link>
