@@ -1,0 +1,26 @@
+name: Lint Check
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  run-lint:
+    name: Run Lint
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4.0.0
+      with:
+        node-version: '18.x'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Lint
+      run: npm run lint
