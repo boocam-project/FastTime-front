@@ -153,7 +153,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
               {...register('profileImageUrl')}
               id="profileImageUrl"
               type="file"
-              className={styles.userProfileInput}
+              className={styles['user-profile-input']}
               accept="image/*"
             />
             <Input

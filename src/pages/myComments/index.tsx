@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import styles from './myComents.module.scss';
 import { instance } from '@/api/client';
 import { useState } from 'react';
+import styles from './myComments.module.scss';
+
 const fetchCommentData = async () => {
   try {
     const response = await instance.get(`/api/v1/comment/my-page`);
@@ -12,7 +13,7 @@ const fetchCommentData = async () => {
   }
 };
 
-type ComentsType = {
+type CommentsType = {
   anonymity: boolean;
   content: string;
   createdAt: string;
@@ -26,9 +27,9 @@ type ComentsType = {
 
 type Theme = 'ADD' | 'RESET';
 
-const MyComenets = () => {
-  const { isLoading, isError, data, error } = useQuery<ComentsType[], Error>({
-    queryKey: ['my-comenets'],
+const MyCommenets = () => {
+  const { isLoading, isError, data, error } = useQuery<CommentsType[], Error>({
+    queryKey: ['my-commenets'],
     queryFn: () => fetchCommentData(),
     staleTime: 3 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -74,4 +75,4 @@ const MyComenets = () => {
   );
 };
 
-export default MyComenets;
+export default MyCommenets;
