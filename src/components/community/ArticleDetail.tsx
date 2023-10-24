@@ -14,7 +14,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { AxiosError } from 'axios';
 import { formatTime } from './changeTimeFormat';
-import ArticleSkeletons from './articleSkeletons';
+import ArticleSkeletons from './ArticleSkeletons';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 
