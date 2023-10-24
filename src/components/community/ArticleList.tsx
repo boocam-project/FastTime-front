@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 import { formatTime } from './changeTimeFormat';
-import ArticleSkeletons from './articleSkeletons';
+import ArticleSkeletons from './ArticleSkeletons';
 
 const ArticleList = () => {
   const location = useLocation();
