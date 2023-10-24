@@ -59,6 +59,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
     queryFn: fetchData,
     refetchOnWindowFocus: false,
   });
+
   useEffect(() => {
     if (isSuccess) {
       reset(data);
@@ -68,7 +69,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
         setImagePreview('/src/assets/user.png');
       }
     }
-  }, [data]);
+  }, [isSuccess, reset, data]);
 
   const image = watch('profileImageUrl');
 
