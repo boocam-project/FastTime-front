@@ -1,5 +1,5 @@
 import { instance } from '@/api/client';
-import ArticleSkeletons from '@/components/community/articleSkeletons';
+import ArticleSkeletons from '@/components/community/ArticleSkeletons';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import styles from './adminBoardDetail.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
