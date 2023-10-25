@@ -9,8 +9,8 @@
 
 //   const checkSessionStatus = useCallback(async () => {
 //     try {
-//       const response = await fetch('/api/checkSessionStatus');
-//       if (response.status === 401) {
+//       const response = await fetch('???');
+//       if (response.status === 403) {
 //         setUserData({ ...userData, login: false });
 //         navigation('/signin');
 //       } else if (response.status === 200) {
