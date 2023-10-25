@@ -62,7 +62,7 @@ const MyCommenets = () => {
         <span onClick={() => clickHandleData('ADD')}>더보기</span>
         <span onClick={() => clickHandleData('RESET')}>초기화</span>
       </div>
-      <div className={styles.itemBox}>
+      <div className={styles['item-box']}>
         {data?.map((item, index) => {
           if (index < page) {
             return <li key={item.id}>{item.content}</li>;
