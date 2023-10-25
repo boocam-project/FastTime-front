@@ -49,11 +49,11 @@ const Myboard = () => {
   return (
     <div className={styles.container}>
       <h3>내가 쓴글</h3>
-      <div className={styles.boardListContainer}>
+      <div className={styles['board-list-container']}>
         {data?.map((item) => (
           <li key={item.id}>
-            <div className={styles.titleText}>{item.title}</div>
-            <div className={styles.writeDataText}>
+            <div className={styles['title-text']}>{item.title}</div>
+            <div className={styles['write-data-text']}>
               <span>{changeDate(item.createdAt)}</span>
               <p>hit</p>
             </div>
