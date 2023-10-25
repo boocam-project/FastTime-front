@@ -3,16 +3,9 @@ import styles from './myBoard.module.scss';
 import { useRecoilValue } from 'recoil';
 import { instance } from '@/api/client';
 import { userState } from '@/store/store';
+import { useState } from 'react';
 
-const fetchPostData = async (nickname: string) => {
-  try {
-    const response = await instance.get(`api/v1/post?nickname=${nickname}`);
-    const result = response.data;
-    return result.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+type ClickHandleType = 'MORE' | 'RESET';
 
 type BoardType = {
   anonymity: boolean;
@@ -24,6 +17,16 @@ type BoardType = {
   likeCount: number;
   nickname: string;
   title: string;
+};
+
+const fetchPostData = async (nickname: string) => {
+  try {
+    const response = await instance.get(`api/v1/post?nickname=${nickname}`);
+    const result = response.data;
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const Myboard = () => {
@@ -39,6 +42,20 @@ const Myboard = () => {
     return new Date(date).toLocaleString();
   };
 
+  const [page, setPage] = useState(0);
+
+  const clickHandleData = (type: ClickHandleType) => {
+    if (data) {
+      if (type === 'MORE' && page < data.length) {
+        setPage((prev) => prev + 5);
+      } else if (type === 'RESET') {
+        setPage(5);
+      } else {
+        alert('게시글이 없습니다.');
+      }
+    }
+  };
+
   if (isLoading) {
     return <span>Loading...</span>;
   }
@@ -50,15 +67,23 @@ const Myboard = () => {
     <div className={styles.container}>
       <h3>내가 쓴글</h3>
       <div className={styles['board-list-container']}>
-        {data?.map((item) => (
-          <li key={item.id}>
-            <div className={styles['title-text']}>{item.title}</div>
-            <div className={styles['write-data-text']}>
-              <span>{changeDate(item.createdAt)}</span>
-              <p>hit</p>
-            </div>
-          </li>
-        ))}
+        <div className={styles['board-btn-box']}>
+          <span onClick={() => clickHandleData('MORE')}>더보기</span>
+          <span onClick={() => clickHandleData('RESET')}>초기화</span>
+        </div>
+        {data?.map((item, index) => {
+          if (index < page) {
+            return (
+              <li key={item.id}>
+                <div className={styles['title-text']}>{item.title}</div>
+                <div className={styles['write-data-text']}>
+                  <span>{changeDate(item.createdAt)}</span>
+                  <p>hit</p>
+                </div>
+              </li>
+            );
+          }
+        })}
       </div>
     </div>
   );
