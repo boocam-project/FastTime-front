@@ -38,18 +38,14 @@ const MyCommenets = () => {
   const [page, setPage] = useState(5);
 
   const clickHandleData = (type: Theme) => {
-    if (type === 'ADD') {
-      if (data) {
-        const dataSize = data?.length;
-        if (page < dataSize) {
-          setPage(page * 2);
-        } else {
-          alert('가져올 데이터가 없습니다.');
-        }
+    if (data) {
+      if (type === 'ADD' && page < data.length) {
+        setPage((prev) => prev + 5);
+      } else if (type === 'RESET') {
+        setPage(5);
+      } else {
+        alert('가져올 데이터가 없습니다.');
       }
-    }
-    if (type === 'RESET') {
-      setPage(5);
     }
   };
 
