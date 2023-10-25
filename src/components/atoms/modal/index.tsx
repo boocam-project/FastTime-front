@@ -90,7 +90,9 @@ const Modal = ({ setModalOpen }: PropsType) => {
     }
   };
 
-  const cancelHandler = () => {};
+  const cancelHandler = () => {
+    setModalOpen(false);
+  };
 
   const uploadImageAndChangeURL = async () => {
     if (imagePreview) {
