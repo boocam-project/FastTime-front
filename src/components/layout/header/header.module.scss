@@ -59,7 +59,7 @@
 }
 
 @include mobile {
-  .menuBtn {
+  .menu-btn {
     flex: 1.5;
     text-align: center;
     cursor: pointer;
@@ -87,7 +87,7 @@
 }
 
 @include tablet {
-  .menuBtn {
+  .menu-btn {
     flex: 1;
     text-align: center;
     cursor: pointer;
@@ -116,7 +116,7 @@
   .container {
     column-gap: 3rem;
   }
-  .menuBtn {
+  .menu-btn {
     display: none;
   }
 }
