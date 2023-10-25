@@ -58,18 +58,28 @@ const MyCommenets = () => {
   return (
     <div className={styles.container}>
       <div className={styles.article}>
-        <h3>내가 쓴 댓글</h3>
-        <span onClick={() => clickHandleData('ADD')}>더보기</span>
-        <span onClick={() => clickHandleData('RESET')}>초기화</span>
+        <div className={styles['board-btn-box']}>
+          <h3>내가 쓴 댓글</h3>
+          {data && (
+            <>
+              <span onClick={() => clickHandleData('ADD')}>더보기</span>
+              <span onClick={() => clickHandleData('RESET')}>닫기</span>
+            </>
+          )}
+        </div>
       </div>
       <div className={styles['item-box']}>
-        {data?.map((item, index) => {
-          if (index < page) {
-            return <li key={item.id}>{item.content}</li>;
-          } else {
-            return;
-          }
-        })}
+        {data ? (
+          data?.map((item, index) => {
+            if (index < page) {
+              return <li key={item.id}>{item.content}</li>;
+            } else {
+              return;
+            }
+          })
+        ) : (
+          <>작성한 댓글이 없습니다.</>
+        )}
       </div>
     </div>
   );
