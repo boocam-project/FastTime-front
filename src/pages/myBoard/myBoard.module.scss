@@ -69,10 +69,9 @@
     width: 50%;
     cursor: pointer;
     box-sizing: border-box;
-    border-bottom: 1px solid transparent;
 
     &:hover {
-      border-bottom: 1px solid black;
+      text-decoration: underline $red-500;
     }
   }
 }
@@ -90,15 +89,13 @@
       row-gap: 0.2rem;
     }
   }
-
   .title-text {
-    width: 50%;
+    width: 70%;
     cursor: pointer;
     box-sizing: border-box;
-    border-bottom: 1px solid transparent;
 
     &:hover {
-      border-bottom: 1px solid black;
+      text-decoration: underline $red-500;
     }
   }
 }
@@ -107,10 +104,9 @@
     width: 70%;
     cursor: pointer;
     box-sizing: border-box;
-    border-bottom: 1px solid transparent;
 
     &:hover {
-      border-bottom: 1px solid black;
+      text-decoration: underline $red-500;
     }
   }
 }
