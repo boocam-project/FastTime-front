@@ -5,7 +5,7 @@ const useModal = (wrapperRef: RefObject<HTMLElement>) => {
   useEffect(() => {
     const handleClickOutside = (e: { target: any }) => {
       if (typeof e.target.className === 'string') {
-        if (e.target.className.includes('modalBackground')) {
+        if (e.target.className.includes('modal-background')) {
           setModalOpen(false);
         }
       }
