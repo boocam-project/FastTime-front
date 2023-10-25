@@ -3,6 +3,7 @@ import { QUERY_KEYS } from '@/constants/constants';
 import { Comment } from '@/data/comment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 interface UpdatedComment {
   id: number;
@@ -17,6 +18,7 @@ interface NewComment {
 }
 
 const useCommentMutations = () => {
+  const navigate = useNavigate();
   const { COMMENTS } = QUERY_KEYS;
   const queryClient = useQueryClient();
 
@@ -78,7 +80,12 @@ const useCommentMutations = () => {
       return { previousComments };
     },
 
-    onError: (_err, _newComment, context) => {
+    onError: (err, _newComment, context) => {
+      if (err.response?.status === 403) {
+        alert('로그인이 필요합니다.');
+        navigate('/signin');
+      }
+
       if (context) {
         queryClient.setQueryData(['comments'], context.previousComments);
       }

@@ -1,27 +1,25 @@
-import { instance } from '@/api/client';
+import APIClient, { Article, QueryParam } from '@/api/articleService';
 import { QUERY_KEYS } from '@/constants/constants';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
-export const useGetArticle = () => {
-  const fetchArticles = async () => {
-    const response = await instance.get('api/v1/post');
-    return response.data.data;
-  };
+const apiClient = new APIClient<Article>('api/v1/post');
 
-  return useQuery({
+export const useArticle = (query: QueryParam) => {
+  return useInfiniteQuery<Article[], AxiosError>({
     queryKey: QUERY_KEYS.ARTICLES,
-    queryFn: fetchArticles,
+    queryFn: ({ pageParam = 0 }) => apiClient.getAll({ ...query, page: pageParam as number }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages) => {
+      if (lastPage.length < 10) return undefined;
+      return allPages.length;
+    },
   });
 };
 
-export const useGetArticleById = (id: number) => {
-  const fetchArticle = async () => {
-    const response = await instance.get(`api/v1/post/${id}`);
-    return response.data.data;
-  };
-
-  return useQuery({
+export const useArticleById = (id: number) => {
+  return useQuery<Article, Error>({
     queryKey: ['article', id],
-    queryFn: fetchArticle,
+    queryFn: () => apiClient.getArticleById(id),
   });
 };
