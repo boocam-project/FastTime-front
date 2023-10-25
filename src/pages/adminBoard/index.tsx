@@ -32,7 +32,6 @@ const AdminBoard = () => {
   });
 
   const adminData = useRecoilValue(userState);
-  console.log(adminData);
 
   const navigation = useNavigate();
 
