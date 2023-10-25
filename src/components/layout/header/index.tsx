@@ -35,7 +35,7 @@ const Header = () => {
     <>
       <ToggleBar />
       <div className={styles.container}>
-        <div className={styles.menuBtn}>
+        <div className={styles['menu-btn']}>
           <AiOutlineMenu />
         </div>
         <div className={styles.logo}>fast time</div>

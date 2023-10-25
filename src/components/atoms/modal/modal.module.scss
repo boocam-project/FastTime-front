@@ -1,18 +1,19 @@
-.textContainer {
+.text-container {
   width: 70%;
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
 }
 
-.btnContainer {
+.btn-container {
   display: flex;
   flex-direction: row;
   column-gap: 0.5rem;
 }
-.userProfileInput {
+.user-profile-input {
   visibility: hidden;
 }
+
 @include desktop {
   .container {
     width: 30%;
@@ -26,7 +27,7 @@
     row-gap: 2rem;
     padding: 2rem 0;
   }
-  .userProfile {
+  .user-profile {
     width: 12rem;
     height: 12rem;
     margin: 0 auto;
@@ -47,6 +48,11 @@
     align-items: center;
     row-gap: 2rem;
     padding: 2rem 0;
+    .user-profile {
+      width: 12rem;
+      height: 12rem;
+      margin: 0 auto;
+    }
   }
 }
 @include mobile {
@@ -61,5 +67,11 @@
     align-items: center;
     row-gap: 2rem;
     padding: 3rem 0;
+
+    .user-profile-input {
+      width: 12rem;
+      height: 12rem;
+      margin: 0 auto;
+    }
   }
 }

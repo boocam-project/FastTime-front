@@ -142,10 +142,10 @@ const Modal = ({ setModalOpen }: PropsType) => {
       ) : (
         <div className={styles.container}>
           <h2>프로필 설정</h2>
-          <form className={styles.textContainer} onSubmit={handleSubmit(submitForm)}>
+          <form className={styles['text-container']} onSubmit={handleSubmit(submitForm)}>
             <img
               src={imagePreview}
-              className={styles.userProfile}
+              className={styles['user-profile']}
               onClick={imgClickHandler}
               id="image-preview"
             />
@@ -153,7 +153,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
               {...register('profileImageUrl')}
               id="profileImageUrl"
               type="file"
-              className={styles.userProfileInput}
+              className={styles['user-profile-input']}
               accept="image/*"
             />
             <Input
@@ -179,7 +179,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
               variant="defaultInput"
             />
           </form>
-          <div className={styles.btnContainer}>
+          <div className={styles['btn-container']}>
             <Button
               className="default-red-400"
               type="submit"
