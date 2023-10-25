@@ -23,7 +23,20 @@
     cursor: pointer;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: underline $red-500;
+    }
+  }
+}
+.board-btn-box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  span {
+    font-size: $--size-subtext;
+    &:hover {
+      color: $red-300;
+      cursor: pointer;
     }
   }
 }

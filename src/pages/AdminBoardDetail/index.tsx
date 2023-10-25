@@ -1,12 +1,12 @@
 import { instance } from '@/api/client';
-import ArticleSkeletons from '@/components/community/articleSkeletons';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import styles from './adminBoardDetail.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatTime } from '@/components/community/changeTimeFormat';
 import Button from '@/components/atoms/button';
+import ArticleSkeletons from '@/components/community/ArticleSkeletons';
 
-type Theme = 'List' | 'Delete' | 'Restore';
+type Theme = 'LIST' | 'DELETE' | 'RESTORE';
 
 interface MutateResultType {
   code: number;
@@ -38,14 +38,14 @@ const AdminBoardDetail = () => {
     refetchOnWindowFocus: false,
   });
 
-  const deleteMutation = useMutation({
+  const DELETEMutation = useMutation({
     mutationFn: (id: string) => fetchAdminDeleteData(id),
     onSuccess({ data }: { data: MutateResultType }) {
       alert(data.message);
       navigation('/admin/board');
     },
   });
-  const restoreMutation = useMutation({
+  const RESTOREMutation = useMutation({
     mutationFn: (id: string) => fetchAdminRestoreData(id),
     onSuccess({ data }: { data: MutateResultType }) {
       alert(data.message);
@@ -57,17 +57,17 @@ const AdminBoardDetail = () => {
 
   const handleClickEvent = (type: Theme) => {
     switch (type) {
-      case 'List':
+      case 'LIST':
         navigation('/admin/board');
         break;
-      case 'Delete':
+      case 'DELETE':
         if (id) {
-          deleteMutation.mutate(id);
+          DELETEMutation.mutate(id);
         }
         break;
-      case 'Restore':
+      case 'RESTORE':
         if (id) {
-          restoreMutation.mutate(id);
+          RESTOREMutation.mutate(id);
         }
         break;
       default:
@@ -93,7 +93,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('Delete')}
+              onClick={() => handleClickEvent('DELETE')}
             >
               삭제
             </Button>
@@ -101,7 +101,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('List')}
+              onClick={() => handleClickEvent('LIST')}
             >
               목록
             </Button>
@@ -109,7 +109,7 @@ const AdminBoardDetail = () => {
               className="default-red-200"
               show={true}
               type="button"
-              onClick={() => handleClickEvent('Restore')}
+              onClick={() => handleClickEvent('RESTORE')}
             >
               복구
             </Button>
