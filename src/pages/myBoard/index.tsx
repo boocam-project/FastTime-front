@@ -42,16 +42,16 @@ const Myboard = () => {
     return new Date(date).toLocaleString();
   };
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(5);
 
   const clickHandleData = (type: ClickHandleType) => {
     if (data) {
-      if (type === 'MORE' && page < data.length) {
+      if (type === 'MORE' && data.length > page) {
         setPage((prev) => prev + 5);
       } else if (type === 'RESET') {
         setPage(5);
       } else {
-        alert('게시글이 없습니다.');
+        alert('가져올 게시글이 없습니다.');
       }
     }
   };
@@ -65,25 +65,33 @@ const Myboard = () => {
   }
   return (
     <div className={styles.container}>
-      <h3>내가 쓴글</h3>
+      <div className={styles['board-btn-box']}>
+        <h3>내가 쓴글</h3>
+        {data && (
+          <>
+            <span onClick={() => clickHandleData('MORE')}>더보기</span>
+            <span onClick={() => clickHandleData('RESET')}>닫기</span>
+          </>
+        )}
+      </div>
       <div className={styles['board-list-container']}>
-        <div className={styles['board-btn-box']}>
-          <span onClick={() => clickHandleData('MORE')}>더보기</span>
-          <span onClick={() => clickHandleData('RESET')}>초기화</span>
-        </div>
-        {data?.map((item, index) => {
-          if (index < page) {
-            return (
-              <li key={item.id}>
-                <div className={styles['title-text']}>{item.title}</div>
-                <div className={styles['write-data-text']}>
-                  <span>{changeDate(item.createdAt)}</span>
-                  <p>hit</p>
-                </div>
-              </li>
-            );
-          }
-        })}
+        {data ? (
+          data?.map((item, index) => {
+            if (index < page) {
+              return (
+                <li key={item.id}>
+                  <div className={styles['title-text']}>{item.title}</div>
+                  <div className={styles['write-data-text']}>
+                    <span>{changeDate(item.createdAt)}</span>
+                    <p>hit</p>
+                  </div>
+                </li>
+              );
+            }
+          })
+        ) : (
+          <>작성한 게시글이 없습니다.</>
+        )}
       </div>
     </div>
   );
