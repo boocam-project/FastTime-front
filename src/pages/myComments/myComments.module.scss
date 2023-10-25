@@ -4,7 +4,17 @@
   row-gap: 0.5rem;
   list-style: none;
 }
-.itemBox {
+.article {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+
+  span:hover {
+    color: $red-300;
+    cursor: pointer;
+  }
+}
+.item-box {
   display: flex;
   flex-direction: column;
   row-gap: 0.3rem;
