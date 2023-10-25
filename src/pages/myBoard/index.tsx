@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { instance } from '@/api/client';
 import { userState } from '@/store/store';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type ClickHandleType = 'MORE' | 'RESET';
 
@@ -31,6 +32,7 @@ const fetchPostData = async (nickname: string) => {
 
 const Myboard = () => {
   const userData = useRecoilValue(userState);
+  const navigation = useNavigate();
   const { isLoading, isError, data, error } = useQuery<BoardType[], Error>({
     queryKey: ['myboard'],
     queryFn: () => fetchPostData(userData.nickname),
@@ -80,7 +82,12 @@ const Myboard = () => {
             if (index < page) {
               return (
                 <li key={item.id}>
-                  <div className={styles['title-text']}>{item.title}</div>
+                  <span
+                    className={styles['title-text']}
+                    onClick={() => navigation(`/community/${item.id}`)}
+                  >
+                    {item.title}
+                  </span>
                   <div className={styles['write-data-text']}>
                     <span>{changeDate(item.createdAt)}</span>
                     <p>hit</p>
