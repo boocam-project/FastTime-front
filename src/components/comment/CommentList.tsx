@@ -62,7 +62,7 @@ const CommentList = () => {
       {commentLoading || !comments ? (
         <CommentSkeletons />
       ) : (
-        organizedComments.map((comment) => (
+        organizedComments.reverse().map((comment) => (
           <ul className={styles.comments} key={comment.id}>
             {editingCommentId === comment.id ? (
               <CommentEdit
