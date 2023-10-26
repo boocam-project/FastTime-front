@@ -6,6 +6,7 @@
   align-items: center;
   margin-bottom: 5rem;
   margin-top: 2rem;
+  font-weight: 600;
 
   .logo {
     text-transform: uppercase;
@@ -27,13 +28,17 @@
     border-bottom: 2px solid transparent;
 
     a {
-      color: $black;
+      color: #b5b5b5;
       text-decoration: none;
     }
 
     &:hover {
       box-sizing: border-box;
       border-bottom: 2px solid $red-500;
+      color: $black;
+    }
+
+    .nav-link {
       color: $black;
     }
   }

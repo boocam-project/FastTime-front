@@ -17,6 +17,14 @@ const Header = () => {
   const [userData, setUserData] = useRecoilState(userState);
   const navigation = useNavigate();
 
+  const showAlert = () => {
+    window.alert('준비 중입니다');
+  };
+
+  const handleLogoClick = () => {
+    navigation('/community'); // 로고 클릭 시 '/community'로 이동
+  };
+
   const logoutHandler = () => {
     const fetchData = async () => {
       const result = await fetchLogout();
@@ -39,24 +47,34 @@ const Header = () => {
         <div className={styles['menu-btn']}>
           <AiOutlineMenu />
         </div>
-        <div className={styles.logo}>
+        <div className={styles.logo} onClick={handleLogoClick}>
           <img src={logo} alt="Logo" />
         </div>
         <div className={styles.nav}>
           <div>
-            <Link to={'/community'}>소근소근</Link>
+            <Link to={'/community'} className={styles['nav-link']}>
+              소근소근
+            </Link>
           </div>
           <div>
-            <Link to={'/'}>포트폴리오</Link>
+            <Link to={'/'} onClick={showAlert}>
+              포트폴리오
+            </Link>
           </div>
           <div>
-            <Link to={'/'}>스터디</Link>
+            <Link to={'/'} onClick={showAlert}>
+              스터디
+            </Link>
           </div>
           <div>
-            <Link to={'/'}>프로젝트</Link>
+            <Link to={'/'} onClick={showAlert}>
+              프로젝트
+            </Link>
           </div>
           <div>
-            <Link to={'/'}>구인구직</Link>
+            <Link to={'/'} onClick={showAlert}>
+              구인구직
+            </Link>
           </div>
         </div>
         <div className={styles.signin}>
