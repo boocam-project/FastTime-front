@@ -41,7 +41,9 @@ const useCommentMutations = () => {
       return { previousComments };
     },
 
-    onError: (_err, _newComment, context) => {
+    onError: (err, _newComment, context) => {
+      console.log(err.response?.data);
+
       if (context) {
         queryClient.setQueryData(['comments'], context.previousComments);
       }
@@ -81,6 +83,7 @@ const useCommentMutations = () => {
     },
 
     onError: (err, _newComment, context) => {
+      console.log(err.response);
       if (err.response?.status === 403) {
         alert('로그인이 필요합니다.');
         navigate('/signin');
