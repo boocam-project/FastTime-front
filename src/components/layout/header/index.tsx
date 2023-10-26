@@ -6,6 +6,7 @@ import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { instance } from '@/api/client';
 import { AiOutlineUser } from 'react-icons/ai';
+import logo from '@/assets/logo.svg';
 
 const fetchLogout = async () => {
   const response = await instance.get(`api/v1/logout`);
@@ -38,7 +39,9 @@ const Header = () => {
         <div className={styles['menu-btn']}>
           <AiOutlineMenu />
         </div>
-        <div className={styles.logo}>fast time</div>
+        <div className={styles.logo}>
+          <img src={logo} alt="Logo" />
+        </div>
         <div className={styles.nav}>
           <div>
             <Link to={'/community'}>소근소근</Link>

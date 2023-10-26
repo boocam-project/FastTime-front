@@ -2,6 +2,7 @@
 // import { useRecoilState } from 'recoil';
 // import { userState } from '@/store/store';
 // import { useNavigate } from 'react-router-dom';
+// import { instance } from '@/api/client';
 
 // const SessionExpirationCheck = () => {
 //   const [userData, setUserData] = useRecoilState(userState);
@@ -9,14 +10,12 @@
 
 //   const checkSessionStatus = useCallback(async () => {
 //     try {
-//       const response = await fetch('???');
+//       const response = await instance.post('/api/v1/login');
 //       if (response.status === 403) {
 //         setUserData({ ...userData, login: false });
 //         navigation('/signin');
 //       } else if (response.status === 200) {
-//         // 세션이 유효한 경우
-//         const userData = await response.json();
-//         setUserData(userData);
+//         setUserData(response.data);
 //       }
 //     } catch (error) {
 //       console.error('세션 확인 중 오류 발생', error);
