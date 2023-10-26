@@ -5,11 +5,17 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 5rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
+  font-weight: 600;
 
   .logo {
     text-transform: uppercase;
     cursor: pointer;
+    img {
+      width: 180px;
+      height: auto;
+      margin-bottom: 32px;
+    }
   }
   .nav {
     display: flex;
@@ -22,13 +28,17 @@
     border-bottom: 2px solid transparent;
 
     a {
-      color: $black;
+      color: #b5b5b5;
       text-decoration: none;
     }
 
     &:hover {
       box-sizing: border-box;
       border-bottom: 2px solid $red-500;
+      color: $black;
+    }
+
+    .nav-link {
       color: $black;
     }
   }
