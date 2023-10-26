@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -7,6 +8,7 @@ import { userState } from '@/store/store';
 import { instance } from '@/api/client';
 import { AiOutlineUser } from 'react-icons/ai';
 import logo from '@/assets/logo.svg';
+import MobileMenu from './MobileMenu';
 
 const fetchLogout = async () => {
   const response = await instance.get(`api/v1/logout`);
@@ -14,8 +16,17 @@ const fetchLogout = async () => {
 };
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userData, setUserData] = useRecoilState(userState);
+
   const navigation = useNavigate();
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  const handleMenuClose = () => {
+    setIsMenuOpen(false); // "닫기" 버튼 클릭 시 메뉴를 닫음
+  };
 
   const showAlert = () => {
     window.alert('준비 중입니다');
@@ -43,8 +54,9 @@ const Header = () => {
   return (
     <>
       <ToggleBar />
+      {isMenuOpen && <MobileMenu onClose={handleMenuClose} />}
       <div className={styles.container}>
-        <div className={styles['menu-btn']}>
+        <div className={styles['menu-btn']} onClick={toggleMenu}>
           <AiOutlineMenu />
         </div>
         <div className={styles.logo} onClick={handleLogoClick}>
