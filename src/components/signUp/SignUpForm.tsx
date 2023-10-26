@@ -30,6 +30,7 @@ const SignUpForm = () => {
         console.log('회원가입이 성공했습니다.');
       } else {
         console.error('회원가입 실패:', response.data);
+        alert(response.data);
       }
     } catch (error) {
       console.error('서버 요청 중 오류가 발생했습니다.', error);
@@ -47,15 +48,22 @@ const SignUpForm = () => {
       const response = await instance.post('api/v1/emailconfirm', {
         email: emailValue,
       });
+
       if (response.status === 200) {
         console.log('이메일 전송 성공');
+        alert('이메일 전송 성공! 인증 코드를 입력해주세요.');
       } else {
         console.error('이메일 전송 실패:', response.data);
+        alert(response.data);
       }
-    } catch (error) {
-      console.error('서버 요청 중 오류가 발생했습니다.', error);
+    } catch (error: any) {
+      if (error.response && error.response.status === 400) {
+        alert('FastCampus에 등록된 이메일이 아닙니다.');
+      } else {
+        console.error('서버 요청 중 오류가 발생했습니다.', error);
+        alert('서버 요청 중 오류가 발생했습니다.');
+      }
     }
-    console.log(emailValue);
   };
 
   return (
