@@ -5,6 +5,7 @@ import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 import { formatTime } from './changeTimeFormat';
 import ArticleSkeletons from './ArticleSkeletons';
 import { useArticle } from '@/hooks/useArticles';
+import { AiOutlineComment } from 'react-icons/ai';
 
 const ArticleList = () => {
   const skeletonItems = [1, 2, 3, 4];
@@ -77,7 +78,10 @@ const ArticleList = () => {
                       </span>
                       <span className={styles.date}>{formatTime(article.createdAt)}</span>
                       <span className={styles.like}>
-                        <BsHeartFill /> {article.likeCount}
+                        <BsHeartFill size={14} /> {article.likeCount}
+                      </span>
+                      <span>
+                        <AiOutlineComment size={18} /> {article.commentCounts}
                       </span>
                     </div>
                   </Link>

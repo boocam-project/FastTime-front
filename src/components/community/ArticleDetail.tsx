@@ -71,7 +71,10 @@ const ArticleDetail = () => {
       alert('신고가 접수되었습니다.');
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response?.status === 400) {
+        if (error.response?.status === 403) {
+          alert('로그인 후 이용해주세요.');
+          navigate('/signin');
+        } else if (error.response?.status === 400) {
           alert('이미 신고한 게시글입니다.');
         }
       }
