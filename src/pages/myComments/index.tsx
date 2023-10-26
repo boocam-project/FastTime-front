@@ -58,15 +58,7 @@ const MyCommenets = () => {
   return (
     <div className={styles.container}>
       <div className={styles.article}>
-        <div className={styles['board-btn-box']}>
-          <h3>내가 쓴 댓글</h3>
-          {data && (
-            <>
-              <span onClick={() => clickHandleData('ADD')}>더보기</span>
-              <span onClick={() => clickHandleData('RESET')}>닫기</span>
-            </>
-          )}
-        </div>
+        <h3>내가 쓴 댓글</h3>
       </div>
       <div className={styles['item-box']}>
         {data ? (
@@ -80,6 +72,10 @@ const MyCommenets = () => {
         ) : (
           <>작성한 댓글이 없습니다.</>
         )}
+      </div>
+      <div className={styles['board-btn-box']}>
+        <span onClick={() => clickHandleData('ADD')}>더보기</span>
+        <span onClick={() => clickHandleData('RESET')}>닫기</span>
       </div>
     </div>
   );
