@@ -34,16 +34,23 @@
 
   .article-info {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     color: $black;
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 0.5rem;
 
-    .like {
+    span {
       display: flex;
       align-items: center;
       gap: 0.25rem;
+      font-weight: 400;
+      opacity: 0.6;
+
+      &.user {
+        font-weight: 500;
+      }
     }
   }
 
