@@ -67,15 +67,8 @@ const Myboard = () => {
   }
   return (
     <div className={styles.container}>
-      <div className={styles['board-btn-box']}>
-        <h3>내가 쓴글</h3>
-        {data && (
-          <>
-            <span onClick={() => clickHandleData('MORE')}>더보기</span>
-            <span onClick={() => clickHandleData('RESET')}>닫기</span>
-          </>
-        )}
-      </div>
+      <h3>내가 쓴글</h3>
+
       <div className={styles['board-list-container']}>
         {data ? (
           data?.map((item, index) => {
@@ -100,6 +93,12 @@ const Myboard = () => {
           <>작성한 게시글이 없습니다.</>
         )}
       </div>
+      {data && (
+        <div className={styles['board-btn-box']}>
+          <span onClick={() => clickHandleData('MORE')}>더보기</span>
+          <span onClick={() => clickHandleData('RESET')}>닫기</span>
+        </div>
+      )}
     </div>
   );
 };

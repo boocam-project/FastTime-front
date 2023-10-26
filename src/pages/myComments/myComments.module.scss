@@ -31,11 +31,12 @@
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
+  color: $red-300;
 
   span {
     font-size: $--size-subtext;
     &:hover {
-      color: $red-300;
+      color: $red-500;
       cursor: pointer;
     }
   }
