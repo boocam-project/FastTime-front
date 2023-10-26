@@ -5,6 +5,7 @@ import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 import { formatTime } from './changeTimeFormat';
 import ArticleSkeletons from './ArticleSkeletons';
 import { useArticle } from '@/hooks/useArticles';
+import { AiOutlineComment } from 'react-icons/ai';
 
 const ArticleList = () => {
   const skeletonItems = [1, 2, 3, 4];
@@ -22,6 +23,8 @@ const ArticleList = () => {
   }, [error, navigate]);
 
   useEffect(() => {
+    if (!data) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -30,7 +33,7 @@ const ArticleList = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 1 }
     );
 
     const target = observerRef.current;
@@ -45,7 +48,7 @@ const ArticleList = () => {
       }
       observer.disconnect();
     };
-  }, [fetchNextPage]);
+  }, [fetchNextPage, data]);
 
   return (
     <>
@@ -61,9 +64,12 @@ const ArticleList = () => {
                 <span>글쓰기</span>
               </Link>
             </div>
-            {data.pages.map((page) =>
-              page.map((article) => (
-                <article key={article.id} className={styles.article}>
+            {data.pages.map((page, pageIndex) =>
+              page.map((article, articleIndex) => (
+                <article
+                  key={`${article.id}-${pageIndex}-${articleIndex}`}
+                  className={styles.article}
+                >
                   <Link to={`${article.id}`}>
                     <div className={styles['article-contents']}>
                       <div>
@@ -77,14 +83,17 @@ const ArticleList = () => {
                       </span>
                       <span className={styles.date}>{formatTime(article.createdAt)}</span>
                       <span className={styles.like}>
-                        <BsHeartFill /> {article.likeCount}
+                        <BsHeartFill size={14} /> {article.likeCount}
+                      </span>
+                      <span>
+                        <AiOutlineComment size={18} /> {article.commentCounts}
                       </span>
                     </div>
                   </Link>
                 </article>
               ))
             )}
-            {(data || !isLoading) && <div ref={observerRef} />}
+            <div ref={observerRef}></div>
           </>
         )}
       </div>

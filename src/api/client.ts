@@ -10,3 +10,17 @@ export const instance = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 403) {
+      alert('로그인이 필요합니다.');
+      window.location.href = '/signin';
+    }
+
+    return Promise.reject(error);
+  }
+);
