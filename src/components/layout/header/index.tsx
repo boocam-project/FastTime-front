@@ -22,7 +22,7 @@ const Header = () => {
   };
 
   const handleLogoClick = () => {
-    navigation('/community'); // 로고 클릭 시 '/community'로 이동
+    navigation('/community');
   };
 
   const logoutHandler = () => {
