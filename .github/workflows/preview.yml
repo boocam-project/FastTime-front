@@ -12,13 +12,18 @@ jobs:
       name: preview
       url: ${{ steps.deploy.outputs.url }}
     steps:
-      - uses: actions/checkout@v2  # updating to v2 as it's the latest stable version at the time of writing
-      - uses: actions/setup-node@v2  # updating to v2 for the same reason
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: npm
-      - run: npm ci  # using npm ci for a clean, reproducible build
+      - run: npm ci
       - run: npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - run: npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - id: deploy
-        run: echo "::set-output name=url::$(npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+        run: |
+          DEPLOY_URL=$(npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "URL=${DEPLOY_URL}" >> $GITHUB_ENV
+      - name: Set environment URL
+        id: set-url
+        run: echo "url=${{ steps.deploy.outputs.URL }}" >> $GITHUB_OUTPUT
