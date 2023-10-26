@@ -4,20 +4,20 @@ import styles from './details.module.scss';
 
 import { AiTwotoneAlert } from 'react-icons/ai';
 
+import { instance } from '@/api/client';
 import useData, { HttpMethod } from '@/hooks/useData';
-import { Article } from './articles';
+import useLikeMutations from '@/hooks/useLikeMutations';
+import { userState } from '@/store/store';
+import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
+import parser from 'html-react-parser';
+import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
+import { useRecoilState } from 'recoil';
 import CommentInput from '../comment/CommentInput';
 import CommentList from '../comment/CommentList';
-import { instance } from '@/api/client';
-import parser from 'html-react-parser';
-import { useRecoilState } from 'recoil';
-import { userState } from '@/store/store';
-import { AxiosError } from 'axios';
-import { formatTime } from './changeTimeFormat';
 import ArticleSkeletons from './ArticleSkeletons';
-import { useQuery } from '@tanstack/react-query';
-import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import useLikeMutations from '@/hooks/useLikeMutations';
+import { Article } from './articles';
+import { formatTime } from './changeTimeFormat';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -34,6 +34,9 @@ const ArticleDetail = () => {
       console.log(response.data);
 
       return response.data.data;
+    },
+    initialData: {
+      isLike: false,
     },
   });
   const { likeMutation, unlikeMutation } = useLikeMutations();

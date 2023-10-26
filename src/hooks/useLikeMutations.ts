@@ -1,4 +1,5 @@
 import { instance } from '@/api/client';
+import { LIKE_KEY } from '@/constants/constants';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface LikeProps {
@@ -39,14 +40,14 @@ const useLikeMutations = () => {
       return { previousLike };
     },
 
-    onError: (err, _newLike, context) => {
+    onError: (_err, _newLike, context) => {
       if (context) {
         queryClient.setQueryData(['like', context.previousLike], context.previousLike);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['like'] });
+      queryClient.invalidateQueries({ queryKey: LIKE_KEY });
     },
   });
 
@@ -71,14 +72,14 @@ const useLikeMutations = () => {
       return { previousLike };
     },
 
-    onError: (err, _newLike, context) => {
+    onError: (_err, _newLike, context) => {
       if (context) {
         queryClient.setQueryData(['like', context.previousLike], context.previousLike);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['like'] });
+      queryClient.invalidateQueries({ queryKey: LIKE_KEY });
     },
   });
 
