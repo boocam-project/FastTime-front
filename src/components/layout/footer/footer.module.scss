@@ -5,11 +5,11 @@ body {
 .footer {
   background-color: #ffffff;
   color: rgb(39, 39, 39);
-  height: 340px;
   width: 100%;
   padding: 10px;
   overflow: hidden;
-  margin-top: 200px;
+  min-height: 100px;
+  margin-top: 180px;
 
   hr {
     border: none;
@@ -43,12 +43,6 @@ body {
   flex: 1;
 }
 
-@media (max-width: 768px) {
-  .team-list-container {
-    flex-direction: column;
-  }
-}
-
 .footer-content {
   padding: 32px 60px 0 40px;
   display: flex;
@@ -66,12 +60,6 @@ ul.team-members-list {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-
-  @media (max-width: 1120px) {
-    flex-direction: column;
-    padding: 4px;
-    gap: 4px;
-  }
 }
 
 ul.team-members-list li {
