@@ -1,6 +1,6 @@
 import { userState } from '@/store/store';
 import Myboard from '../myBoard';
-import MyComenets from '../myComents';
+import MyComenets from '../myComments';
 import styles from './myPage.module.scss';
 import { useRecoilValue } from 'recoil';
 import { useRef } from 'react';
@@ -35,10 +35,10 @@ const Mypage = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.userArticle}>
+      <div className={styles['user-article']}>
         <h3>{userData.nickname} 안녕하세요</h3>
-        <div className={modalOpen ? styles.modalBackground : styles.btnBox}>
-          <button className={styles.settingBtn} ref={mypageModalRef}>
+        <div className={modalOpen ? styles['modal-background'] : styles['btn-box']}>
+          <button className={styles['setting-btn']} ref={mypageModalRef}>
             설정
           </button>
           <span className={styles.withdraw} onClick={withDrawClickHandler}>
@@ -48,21 +48,21 @@ const Mypage = () => {
         </div>
       </div>
       <div className={styles.section}>
-        <div className={styles.sideArticle}>
-          <div className={styles.sideArticleTop}>
+        <div className={styles['side-article']}>
+          <div className={styles['side-article-top']}>
             <div>참여하고 있는 스터디</div>
             <div>참여하고 있는 프로젝트</div>
             <div>출석률</div>
           </div>
-          <div className={styles.sideArticleMiddle}>
+          <div className={styles['side-article-middle']}>
             <div>즐겨찾기</div>
             <div>오늘할일</div>
           </div>
-          <div className={styles.sideArticleBottom}>
+          <div className={styles['side-article-bottom']}>
             <div>주간일정</div>
           </div>
         </div>
-        <div className={styles.boardArticle}>
+        <div className={styles['board-article']}>
           <Myboard />
           <MyComenets />
         </div>

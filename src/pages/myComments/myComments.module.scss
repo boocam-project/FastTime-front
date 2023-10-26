@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  list-style: none;
+}
+.article {
+  display: flex;
+  flex-direction: row;
+  column-gap: 0.5rem;
+
+  span:hover {
+    color: $red-300;
+    cursor: pointer;
+  }
+}
+.item-box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+
+  li {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline $red-500;
+    }
+  }
+}
+.board-btn-box {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+
+  span {
+    font-size: $--size-subtext;
+    &:hover {
+      color: $red-300;
+      cursor: pointer;
+    }
+  }
+}
