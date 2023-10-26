@@ -15,15 +15,9 @@ import { userState } from '@/store/store';
 import { AxiosError } from 'axios';
 import { formatTime } from './changeTimeFormat';
 import ArticleSkeletons from './ArticleSkeletons';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-
-interface LikeProps {
-  id: number;
-  memberId: number;
-  postId: number;
-  isLike: boolean;
-}
+import useLikeMutations from '@/hooks/useLikeMutations';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -32,29 +26,20 @@ const ArticleDetail = () => {
 
   const postId = Number(idString);
   const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
-  const { data } = useData<LikeProps>(HttpMethod.GET, `api/v1/record/${postId}`);
 
-  const content = parser(article?.content || '');
-  const isValidUser = user[0].nickname === article?.nickname;
-
-  const queryClient = useQueryClient();
-
-  const likeMutation = useMutation({
-    mutationKey: ['like'],
-    mutationFn: async (id: number) => {
-      const response = await instance.post(`api/v1/record`, {
-        postId: id,
-        isLike: true,
-      });
-      console.log(response.status);
+  const { data: like } = useQuery({
+    queryKey: ['like', postId],
+    queryFn: async () => {
+      const response = await instance.get(`api/v1/record/${postId}`);
+      console.log(response.data);
 
       return response.data.data;
     },
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['like'] });
-    },
   });
+  const { likeMutation, unlikeMutation } = useLikeMutations();
+
+  const content = parser(article?.content || '');
+  const isValidUser = user[0].nickname === article?.nickname;
 
   const handleDelete = async () => {
     try {
@@ -80,14 +65,24 @@ const ArticleDetail = () => {
 
   const handleReport = async () => {
     try {
-      const response = await instance.post('api/v1/report', {
+      await instance.post('api/v1/report', {
         postId: postId,
       });
-      console.log(response.data);
+      alert('신고가 접수되었습니다.');
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw error;
+        if (error.response?.status === 400) {
+          alert('이미 신고한 게시글입니다.');
+        }
       }
+    }
+  };
+
+  const handleLike = () => {
+    if (like?.isLike) {
+      unlikeMutation.mutate(postId);
+    } else {
+      likeMutation.mutate(postId);
     }
   };
 
@@ -118,19 +113,15 @@ const ArticleDetail = () => {
             <div>{content}</div>
             {/* TODO: 다른 컴포넌트로 빼면 좋을 듯 */}
             <div className={styles['bottom-menus']}>
-              <button
-                className={styles.btn}
-                type="button"
-                onClick={() => {
-                  likeMutation.mutate(postId);
-                }}
-              >
-                {data?.isLike ? (
-                  <PiHeartStraightFill size={20} />
-                ) : (
-                  <PiHeartStraightLight size={20} />
-                )}
-              </button>
+              {like && (
+                <button className={styles.btn} type="button" onClick={handleLike}>
+                  {like.isLike ? (
+                    <PiHeartStraightFill size={20} />
+                  ) : (
+                    <PiHeartStraightLight size={20} />
+                  )}
+                </button>
+              )}
               <span className={styles['like-count']}>{article.likeCount}</span>
               <button className={styles.btn} type="button" onClick={handleReport}>
                 <AiTwotoneAlert size={20} />

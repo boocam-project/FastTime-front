@@ -1,26 +1,51 @@
 import styles from './index.module.scss';
-import useData, { HttpMethod } from '@/hooks/useData';
-import { Article } from './articles';
-import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
 import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 import { formatTime } from './changeTimeFormat';
 import ArticleSkeletons from './ArticleSkeletons';
+import { useArticle } from '@/hooks/useArticles';
 
 const ArticleList = () => {
-  const location = useLocation();
-  const [queryParams, setQueryParams] = useState<Record<string, any>>({});
   const skeletonItems = [1, 2, 3, 4];
 
+  const { data, isLoading, fetchNextPage, error } = useArticle({ pageSize: 10 });
+  const navigate = useNavigate();
+  const observerRef = useRef(null);
+
+  console.log(data);
+
   useEffect(() => {
-    const params = new URLSearchParams(location.search);
+    if (error && error.status === 403) {
+      navigate('/signin');
+    }
+  }, [error, navigate]);
 
-    const pageSize = params.get('pageSize') || 10;
-    setQueryParams({ pageSize });
-    console.log(pageSize);
-  }, [location.search]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            fetchNextPage();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
 
-  const { data, isLoading } = useData<Article[]>(HttpMethod.GET, 'api/v1/post', queryParams);
+    const target = observerRef.current;
+
+    if (target) {
+      observer.observe(target);
+    }
+
+    return () => {
+      if (target) {
+        observer.unobserve(target);
+      }
+      observer.disconnect();
+    };
+  }, [fetchNextPage]);
 
   return (
     <>
@@ -36,33 +61,30 @@ const ArticleList = () => {
                 <span>글쓰기</span>
               </Link>
             </div>
-            {data?.map((article) => (
-              <article key={article.id} className={styles.article}>
-                <Link to={`${article.id}`}>
-                  <div className={styles['article-contents']}>
-                    <div>
-                      <h2 className={styles.title}>{article.title}</h2>
-                      <p className={styles.description}>{article.content}</p>
+            {data.pages.map((page) =>
+              page.map((article) => (
+                <article key={article.id} className={styles.article}>
+                  <Link to={`${article.id}`}>
+                    <div className={styles['article-contents']}>
+                      <div>
+                        <h2 className={styles.title}>{article.title}</h2>
+                        <p className={styles.description}>{article.content}</p>
+                      </div>
                     </div>
-                    <div>
-                      <img
-                        src={`https://picsum.photos/seed/${article.id}/600/300`}
-                        alt=""
-                        width={112}
-                        height={112}
-                      />
+                    <div className={styles['article-info']}>
+                      <span className={styles.user}>
+                        {article.anonymity ? '익명' : article.nickname}
+                      </span>
+                      <span className={styles.date}>{formatTime(article.createdAt)}</span>
+                      <span className={styles.like}>
+                        <BsHeartFill /> {article.likeCount}
+                      </span>
                     </div>
-                  </div>
-                  <div className={styles['article-info']}>
-                    <span className={styles.user}>{article.nickname}</span>
-                    <span className={styles.date}>{formatTime(article.createdAt)}</span>
-                    <span className={styles.like}>
-                      <BsHeartFill /> {article.likeCount}
-                    </span>
-                  </div>
-                </Link>
-              </article>
-            ))}
+                  </Link>
+                </article>
+              ))
+            )}
+            {(data || !isLoading) && <div ref={observerRef} />}
           </>
         )}
       </div>
