@@ -70,17 +70,11 @@ const ArticleList = () => {
                         <h2 className={styles.title}>{article.title}</h2>
                         <p className={styles.description}>{article.content}</p>
                       </div>
-                      <div>
-                        <img
-                          src={`https://picsum.photos/seed/${article.id}/600/300`}
-                          alt=""
-                          width={112}
-                          height={112}
-                        />
-                      </div>
                     </div>
                     <div className={styles['article-info']}>
-                      <span className={styles.user}>{article.nickname}</span>
+                      <span className={styles.user}>
+                        {article.anonymity ? '익명' : article.nickname}
+                      </span>
                       <span className={styles.date}>{formatTime(article.createdAt)}</span>
                       <span className={styles.like}>
                         <BsHeartFill /> {article.likeCount}
