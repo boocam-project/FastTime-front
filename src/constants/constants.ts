@@ -9,7 +9,6 @@ export const PATTERNS = {
   email: EMAIL_PATTERN,
 };
 
-export const QUERY_KEYS = {
-  COMMENTS: ['comments'],
-  ARTICLES: ['articles'],
-};
+export const ARTICLES_KEY = ['articles'];
+export const COMMENTS_KEY = ['comments'];
+export const LIKE_KEY = ['like'];

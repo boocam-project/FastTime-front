@@ -1,5 +1,5 @@
 import { instance } from '@/api/client';
-import { QUERY_KEYS } from '@/constants/constants';
+import { COMMENTS_KEY } from '@/constants/constants';
 import { Comment } from '@/data/comment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
@@ -19,7 +19,6 @@ interface NewComment {
 
 const useCommentMutations = () => {
   const navigate = useNavigate();
-  const { COMMENTS } = QUERY_KEYS;
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation<
@@ -33,9 +32,9 @@ const useCommentMutations = () => {
       instance.patch('api/v1/comment', updatedComment),
 
     onMutate: async (updatedComment: UpdatedComment) => {
-      await queryClient.cancelQueries({ queryKey: COMMENTS });
+      await queryClient.cancelQueries({ queryKey: COMMENTS_KEY });
 
-      const previousComments = queryClient.getQueryData<Comment[]>(['comments']);
+      const previousComments = queryClient.getQueryData<Comment[]>(COMMENTS_KEY);
       queryClient.setQueryData(['comments', updatedComment.id], updatedComment);
 
       return { previousComments };
@@ -45,12 +44,12 @@ const useCommentMutations = () => {
       console.log(err.response?.data);
 
       if (context) {
-        queryClient.setQueryData(['comments'], context.previousComments);
+        queryClient.setQueryData(COMMENTS_KEY, context.previousComments);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENTS });
+      queryClient.invalidateQueries({ queryKey: COMMENTS_KEY });
     },
   });
 
@@ -64,7 +63,7 @@ const useCommentMutations = () => {
     mutationFn: (newComment: NewComment) => instance.post('api/v1/comment', newComment),
 
     onMutate: async (newComment: NewComment) => {
-      await queryClient.cancelQueries({ queryKey: COMMENTS });
+      await queryClient.cancelQueries({ queryKey: COMMENTS_KEY });
 
       const tempId = `${Date.now()}-${Math.random()}`;
 
@@ -73,7 +72,7 @@ const useCommentMutations = () => {
         id: tempId,
       };
 
-      const previousComments = queryClient.getQueryData<Comment[]>(['comments']);
+      const previousComments = queryClient.getQueryData<Comment[]>(COMMENTS_KEY);
       queryClient.setQueryData(['comments'], (old) => [
         ...(old as Comment[]),
         newCommentWithTempId,
@@ -90,12 +89,12 @@ const useCommentMutations = () => {
       }
 
       if (context) {
-        queryClient.setQueryData(['comments'], context.previousComments);
+        queryClient.setQueryData(COMMENTS_KEY, context.previousComments);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENTS });
+      queryClient.invalidateQueries({ queryKey: COMMENTS_KEY });
     },
   });
 
@@ -109,10 +108,10 @@ const useCommentMutations = () => {
     mutationFn: ({ id }: { id: number }) => instance.delete(`api/v1/comment`, { data: { id } }),
 
     onMutate: async ({ id }: { id: number }) => {
-      await queryClient.cancelQueries({ queryKey: COMMENTS });
+      await queryClient.cancelQueries({ queryKey: COMMENTS_KEY });
 
-      const previousComments = queryClient.getQueryData<Comment[]>(['comments']);
-      queryClient.setQueryData(['comments'], (old) => [
+      const previousComments = queryClient.getQueryData<Comment[]>(COMMENTS_KEY);
+      queryClient.setQueryData(COMMENTS_KEY, (old) => [
         ...(old as Comment[]).filter((comment) => comment.id !== id),
       ]);
 
@@ -121,12 +120,12 @@ const useCommentMutations = () => {
 
     onError: (_err, _variables, context) => {
       if (context) {
-        queryClient.setQueryData(['comments'], context.previousComments);
+        queryClient.setQueryData(COMMENTS_KEY, context.previousComments);
       }
     },
 
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: COMMENTS });
+      queryClient.invalidateQueries({ queryKey: COMMENTS_KEY });
     },
   });
 
