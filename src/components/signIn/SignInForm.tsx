@@ -35,8 +35,6 @@ const SignInForm = () => {
         alert('로그인 성공');
         setData({ ...response.data.data, login: true });
         navigate('/community');
-      } else {
-        alert('이메일과 비밀번호를 다시 확인해주세요.');
       }
     } catch (error: any) {
       if (error.response && error.response.status === 500) {
