@@ -102,7 +102,7 @@ const ArticleDetail = () => {
             <h1>{article.title}</h1>
             <div className={styles.info}>
               <div>
-                <span className={styles.name}>{article.nickname}</span>
+                <span className={styles.name}>{article.anonymity ? '익명' : article.nickname}</span>
                 <span className={styles.date}>{formatTime(article.createdAt)}</span>
               </div>
               {isValidUser && (
