@@ -99,7 +99,9 @@ const CommentList = () => {
                 >
                   답글 달기
                 </button>
-                {replyingId === comment.id ? <CommentInput parentCommentId={comment.id} /> : null}
+                {replyingId === comment.id ? (
+                  <CommentInput parentCommentId={comment.id} setReplyingId={setReplyingId} />
+                ) : null}
               </li>
             )}
 
