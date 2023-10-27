@@ -11,7 +11,7 @@ export default ({ mode }) =>
         mode === 'development'
           ? {
               '/api': {
-                target: 'http://3.36.128.110:8080/',
+                target: 'https://backend.boocam.net/',
                 changeOrigin: true,
                 rewrite: (path) => path.replace(/^\/api/, ''),
                 secure: false,
