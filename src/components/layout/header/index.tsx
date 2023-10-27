@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './header.module.scss';
 import { AiOutlineMenu } from 'react-icons/ai';
-import ToggleBar from '../toggleBar';
 import { useRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { instance } from '@/api/client';
@@ -53,7 +52,6 @@ const Header = () => {
 
   return (
     <>
-      <ToggleBar />
       {isMenuOpen && <MobileMenu onClose={handleMenuClose} />}
       <div className={styles.container}>
         <div className={styles['menu-btn']} onClick={toggleMenu}>
@@ -81,11 +79,6 @@ const Header = () => {
           <div>
             <Link to={'/'} onClick={showAlert}>
               프로젝트
-            </Link>
-          </div>
-          <div>
-            <Link to={'/'} onClick={showAlert}>
-              구인구직
             </Link>
           </div>
         </div>
