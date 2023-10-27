@@ -195,11 +195,7 @@ const TextEditor = ({ oldContent, oldTitle, mode, postId }: Props) => {
       navigate(`/community/${newPostId}`);
     } catch (error) {
       if (error instanceof AxiosError) {
-        if (error.response?.status === 403) {
-          alert('로그인이 필요합니다.');
-        } else {
-          console.error(error);
-        }
+        console.error(error);
       }
     }
   };
