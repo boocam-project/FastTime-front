@@ -3,7 +3,7 @@ import styles from './signUp.module.scss';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { instance } from '@/api/client';
 
 interface SignUpFormValues {
@@ -15,6 +15,8 @@ interface SignUpFormValues {
 }
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     watch,
@@ -28,6 +30,7 @@ const SignUpForm = () => {
       const response = await instance.post('/api/v1/join', data);
       if (response.status === 200) {
         console.log('회원가입이 성공했습니다.');
+        navigate('/signin');
       } else {
         console.error('회원가입 실패:', response.data);
         alert(response.data);
