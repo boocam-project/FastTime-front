@@ -1,26 +1,13 @@
+import type { Article, Like } from '@/api/articleService';
 import { instance } from '@/api/client';
-import { LIKE_KEY } from '@/constants/constants';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
-interface LikeProps {
-  postId: number;
-  isLike: boolean;
-  memberId: number;
-  id: number;
-}
-
-interface LikeResponse {
-  code: number;
-  message: string;
-  data: LikeProps;
-}
 
 const useLikeMutations = () => {
   const queryClient = useQueryClient();
 
   const likeMutation = useMutation({
     mutationFn: async (id: number) => {
-      const response = await instance.post<LikeResponse>('api/v1/record/', {
+      const response = await instance.post('api/v1/record/', {
         postId: id,
         isLike: true,
       });
@@ -29,31 +16,39 @@ const useLikeMutations = () => {
     },
 
     onMutate: async (postId: number) => {
+      await queryClient.cancelQueries({ queryKey: ['article', postId] });
       await queryClient.cancelQueries({ queryKey: ['like', postId] });
-      const previousLike = queryClient.getQueryData<LikeResponse>(['like', postId]);
 
-      queryClient.setQueryData(['like', postId], (old: LikeProps) => ({
+      const previousPost = queryClient.getQueryData<Article>(['article', postId]);
+      const previousLikeStatus = queryClient.getQueryData<Like>(['like', postId]);
+
+      queryClient.setQueryData(['article', postId], (old: Article | undefined) => ({
         ...old,
-        isLike: true,
+        likeCount: old?.likeCount ? old.likeCount + 1 : 1,
       }));
+      queryClient.setQueryData(['like', postId], { isLike: true });
 
-      return { previousLike };
+      return { previousPost, previousLikeStatus };
     },
 
-    onError: (_err, _newLike, context) => {
-      if (context) {
-        queryClient.setQueryData(['like', context.previousLike], context.previousLike);
+    onError: (_err, postId, context) => {
+      if (context?.previousPost) {
+        queryClient.setQueryData(['article', postId], context.previousPost);
+      }
+      if (context?.previousLikeStatus) {
+        queryClient.setQueryData(['like', postId], context.previousLikeStatus);
       }
     },
 
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: LIKE_KEY });
+    onSettled: (_data, _error, postId) => {
+      queryClient.invalidateQueries({ queryKey: ['article', postId] });
+      queryClient.invalidateQueries({ queryKey: ['like', postId] });
     },
   });
 
   const unlikeMutation = useMutation({
     mutationFn: async (id: number) => {
-      const response = await instance.delete<LikeResponse>('api/v1/record/', {
+      const response = await instance.delete('api/v1/record/', {
         data: { postId: id },
       });
 
@@ -61,25 +56,33 @@ const useLikeMutations = () => {
     },
 
     onMutate: async (postId: number) => {
+      await queryClient.cancelQueries({ queryKey: ['article', postId] });
       await queryClient.cancelQueries({ queryKey: ['like', postId] });
-      const previousLike = queryClient.getQueryData<LikeResponse>(['like', postId]);
 
-      queryClient.setQueryData(['like', postId], (old: LikeProps) => ({
+      const previousPost = queryClient.getQueryData(['article', postId]);
+      const previousLikeStatus = queryClient.getQueryData(['like', postId]);
+
+      queryClient.setQueryData(['article', postId], (old: Article | undefined) => ({
         ...old,
-        isLike: false,
+        likeCount: old?.likeCount ? old.likeCount - 1 : 0,
       }));
+      queryClient.setQueryData(['like', postId], { isLike: false });
 
-      return { previousLike };
+      return { previousPost, previousLikeStatus };
     },
 
-    onError: (_err, _newLike, context) => {
-      if (context) {
-        queryClient.setQueryData(['like', context.previousLike], context.previousLike);
+    onError: (_err, postId, context) => {
+      if (context?.previousPost) {
+        queryClient.setQueryData(['article', postId], context.previousPost);
+      }
+      if (context?.previousLikeStatus) {
+        queryClient.setQueryData(['like', postId], context.previousLikeStatus);
       }
     },
 
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: LIKE_KEY });
+    onSettled: (_data, _error, postId) => {
+      queryClient.invalidateQueries({ queryKey: ['article', postId] });
+      queryClient.invalidateQueries({ queryKey: ['like', postId] });
     },
   });
 

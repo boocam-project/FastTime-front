@@ -18,7 +18,18 @@ export interface Article {
   lastModifiedAt: string | null;
 }
 
+export interface Like {
+  id: number;
+  isLike: boolean;
+  memberId: number;
+  postId: number;
+}
+
 export interface ApiResponse<T> {
+  data: T;
+}
+
+export interface ApiListResponse<T> {
   data: T[];
 }
 
@@ -35,7 +46,7 @@ class APIClient<T> {
   }
 
   getAll = async ({ page, pageSize = 10 }: QueryParam) => {
-    const response = await instance.get<ApiResponse<T>>(this.endpoint, {
+    const response = await instance.get<ApiListResponse<T>>(this.endpoint, {
       params: {
         page,
         pageSize,
@@ -51,8 +62,16 @@ class APIClient<T> {
     return response.data.data;
   };
 
-  getArticleById = (id: number) => {
-    return instance.get<T>(`${this.endpoint}/${id}`).then((res) => res.data);
+  getArticleById = async (id: number) => {
+    const response = await instance.get<ApiResponse<T>>(`${this.endpoint}/${id}`);
+
+    if (response.status === 403) {
+      const error = new Error('Forbidden');
+      error.name = 'Forbidden';
+      throw error;
+    }
+
+    return response.data.data;
   };
 
   post = (article: PostArticle) => {
