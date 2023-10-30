@@ -21,22 +21,28 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SignInFormValues>({ mode: 'onChange' });
+
   const setData = useSetRecoilState(userState);
+
   const onSubmit = async (data: SignInFormValues) => {
-    const response = await instance.post('/api/v1/login', {
-      email: data.email,
-      password: data.password,
-    });
-    console.log(response);
+    try {
+      const response = await instance.post('/api/v1/login', {
+        email: data.email,
+        password: data.password,
+      });
 
-    console.log(response.headers);
-
-    if (response.status === 200) {
-      alert('로그인 성공');
-      setData({ ...response.data.data, login: true });
-      navigate('/community');
-    } else {
-      console.log('fail');
+      if (response.status === 200) {
+        alert('로그인 성공');
+        setData({ ...response.data.data, login: true });
+        navigate('/community');
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 500) {
+        alert('이메일과 비밀번호를 다시 확인해주세요.');
+      } else {
+        console.error('서버 요청 중 오류가 발생했습니다.', error);
+        alert('서버 요청 중 오류가 발생했습니다.');
+      }
     }
   };
 
