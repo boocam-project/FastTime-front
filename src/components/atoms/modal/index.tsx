@@ -170,17 +170,6 @@ const Modal = ({ setModalOpen }: PropsType) => {
               label="닉네임"
               variant="defaultInput"
             />
-            <Input
-              type="text"
-              register={register('email', {
-                required: '닉네임을 입력해주세요.',
-              })}
-              value={watch('email')}
-              errorMessage={errors.email?.message}
-              name="email"
-              label="이메일"
-              variant="defaultInput"
-            />
           </form>
           <div className={styles['btn-container']}>
             <Button
