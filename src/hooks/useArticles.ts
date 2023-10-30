@@ -18,7 +18,7 @@ export const useArticle = (query: QueryParam) => {
 };
 
 export const useArticleById = (id: number) => {
-  return useQuery<Article, Error>({
+  return useQuery<Article, AxiosError>({
     queryKey: ['article', id],
     queryFn: () => apiClient.getArticleById(id),
   });
