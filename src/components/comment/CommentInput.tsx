@@ -6,9 +6,10 @@ import useCommentMutations from '@/hooks/useCommentMutations';
 
 interface Props {
   parentCommentId?: number;
+  setReplyingId?: (id: number | null) => void;
 }
 
-const CommentInput = ({ parentCommentId }: Props) => {
+const CommentInput = ({ parentCommentId, setReplyingId }: Props) => {
   const [content, setContent] = useState('');
   const [anonymity, setAnonymity] = useState<boolean>(false);
   const { id: idString } = useParams();
@@ -33,12 +34,12 @@ const CommentInput = ({ parentCommentId }: Props) => {
     };
 
     addMutation.mutate(data);
+    setReplyingId && setReplyingId(null);
     setContent('');
   };
 
   return (
     <div className={styles['comment-box']}>
-      {/* <h2 className={styles.title}>댓글</h2> */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles['content-write']}>
           <textarea
