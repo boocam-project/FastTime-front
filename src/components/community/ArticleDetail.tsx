@@ -5,7 +5,6 @@ import styles from './details.module.scss';
 import { AiTwotoneAlert } from 'react-icons/ai';
 
 import { instance } from '@/api/client';
-import useData, { HttpMethod } from '@/hooks/useData';
 import useLikeMutations from '@/hooks/useLikeMutations';
 import { userState } from '@/store/store';
 import { useQuery } from '@tanstack/react-query';
@@ -16,8 +15,8 @@ import { useRecoilState } from 'recoil';
 import CommentInput from '../comment/CommentInput';
 import CommentList from '../comment/CommentList';
 import ArticleSkeletons from './ArticleSkeletons';
-import { Article } from './articles';
 import { formatTime } from './changeTimeFormat';
+import { useArticleById } from '@/hooks/useArticles';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -25,7 +24,8 @@ const ArticleDetail = () => {
   const navigate = useNavigate();
 
   const postId = Number(idString);
-  const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
+  // const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
+  const { data: article, isLoading } = useArticleById(postId);
 
   const { data: like } = useQuery({
     queryKey: ['like', postId],
