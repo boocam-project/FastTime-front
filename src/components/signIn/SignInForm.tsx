@@ -33,7 +33,7 @@ const SignInForm = () => {
 
       if (response.status === 200) {
         alert('로그인 성공');
-        setData({ ...response.data.data, login: true });
+        setData({ ...response.data.data, isLogin: true });
         navigate('/community');
       }
     } catch (error: any) {
