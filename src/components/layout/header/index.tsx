@@ -72,7 +72,15 @@ const Header = () => {
       <div className={styles.header}>
         <div className={styles.logo}>
           <Link to={'/community'}>
-            FAST <span className={styles.redText}>TIME</span>
+            <Link to={'/community'}>
+              FAST
+              <img
+                src="logo.svg"
+                alt="Logo"
+                style={{ width: '20px', height: 'auto', margin: '0 5px' }}
+              />
+              TIME
+            </Link>
           </Link>
         </div>
         <button ref={buttonRef} className={styles.info}>
