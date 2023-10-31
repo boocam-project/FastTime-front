@@ -70,7 +70,9 @@ const Header = () => {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.logo}>FAST TIME</div>
+        <div className={styles.logo}>
+          <Link to={'/community'}>FAST TIME</Link>
+        </div>
         <button ref={buttonRef} className={styles.info}>
           <div className={styles['info-menu']}>
             {/* <img src="" alt="" /> */}
