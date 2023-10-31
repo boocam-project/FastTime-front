@@ -11,17 +11,15 @@ body {
   min-height: 100px;
   margin-top: 180px;
 
+  @include mobile {
+    display: none;
+  }
+
   hr {
     border: none;
     border-top: 1px solid #d5d5d58e;
     margin: 10px 0;
     border-width: 2px;
-  }
-}
-
-@media (max-width: 540px) {
-  .footer {
-    display: none;
   }
 }
 
