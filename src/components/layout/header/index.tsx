@@ -73,21 +73,12 @@ const Header = () => {
         <div className={styles.logo}>
           <Link to={'/community'}>
             <Link to={'/community'}>
-              FAST
-              <img
-                src="logo.svg"
-                alt="Logo"
-                style={{ width: '20px', height: 'auto', margin: '0 5px' }}
-              />
-              TIME
+              <img src="logo.svg" alt="Logo" style={{ width: '40px', height: 'auto' }} />
             </Link>
           </Link>
         </div>
         <button ref={buttonRef} className={styles.info}>
-          <div className={styles['info-menu']}>
-            {/* <img src="" alt="" /> */}
-            <div className={styles['user-image']}></div>
-          </div>
+          <div className={styles['info-menu']}>{/* <img src="" alt="" /> */}</div>
         </button>
 
         <div

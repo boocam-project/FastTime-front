@@ -100,7 +100,7 @@ const SignUpForm = () => {
           label="이메일"
           variant="defaultInput"
         />
-        <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
+        <Button type="button" className="default-red-300" onClick={handleEmailVerification} show>
           이메일 인증
         </Button>
         <Input
@@ -143,7 +143,7 @@ const SignUpForm = () => {
           label="비밀번호 확인"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-300" show>
+        <Button type="submit" className="default-red-400" show>
           회원가입
         </Button>
         <div>
