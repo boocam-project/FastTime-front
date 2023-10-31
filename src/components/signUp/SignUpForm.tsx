@@ -73,7 +73,7 @@ const SignUpForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>회원가입</h2>
+        <h2 style={{ fontWeight: 'normal' }}>회원가입</h2>
         <Input
           type="text"
           register={register('nickname', {
