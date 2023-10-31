@@ -1,0 +1,41 @@
+.container {
+  max-width: 768px;
+  margin-inline: auto;
+
+  @include mobile {
+    margin-inline: 1rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    font-weight: 400;
+
+    .user-name {
+      font-weight: 700;
+    }
+  }
+
+  .settings {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    margin-block: 1rem;
+
+    .btn {
+      display: flex;
+      justify-content: space-between;
+      background-color: $red-400;
+      padding: 1rem 1.5rem;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 1rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      transition: border-radius 0.15s ease;
+
+      &:hover {
+        border-radius: 0;
+      }
+    }
+  }
+}
