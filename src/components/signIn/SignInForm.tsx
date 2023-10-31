@@ -82,7 +82,7 @@ const SignInForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-300" show>
+        <Button type="submit" className="default-red-400" show>
           로그인
         </Button>
         <div>
