@@ -78,6 +78,7 @@
   align-items: center;
   height: $--nav-bar-height;
   background-color: #fff;
+  border-bottom: 1px solid $--extra-light-gray;
   z-index: 1000;
   overflow-x: auto;
   white-space: nowrap;
@@ -100,7 +101,6 @@
       position: relative;
       font-weight: 500;
       font-size: 1rem;
-      padding-bottom: 5px;
       opacity: 0.5;
       cursor: pointer;
 
@@ -128,9 +128,13 @@
         height: 2px;
         width: 100%;
         left: 0;
-        bottom: 0;
+        bottom: -5px;
         background-color: $red-500;
       }
     }
   }
+}
+
+.spacer {
+  height: 24px;
 }
