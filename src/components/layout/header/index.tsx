@@ -73,7 +73,9 @@ const Header = () => {
         <div className={styles.logo}>
           <Link to={'/community'}>
             <Link to={'/community'}>
-              <img src="logo.svg" alt="Logo" style={{ width: '40px', height: 'auto' }} />
+              FAST
+              <img src="logo.svg" alt="Logo" style={{ width: '20px', padding: '2px' }} />
+              TIME
             </Link>
           </Link>
         </div>
