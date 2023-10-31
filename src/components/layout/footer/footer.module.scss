@@ -18,6 +18,13 @@ body {
     border-width: 2px;
   }
 }
+
+@media (max-width: 540px) {
+  .footer {
+    display: none;
+  }
+}
+
 .memberName {
   color: #949494;
   font-weight: 300;
