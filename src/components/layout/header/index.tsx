@@ -71,7 +71,9 @@ const Header = () => {
     <>
       <div className={styles.header}>
         <div className={styles.logo}>
-          <Link to={'/community'}>FAST TIME</Link>
+          <Link to={'/community'}>
+            FAST <span className={styles.redText}>TIME</span>
+          </Link>
         </div>
         <button ref={buttonRef} className={styles.info}>
           <div className={styles['info-menu']}>
