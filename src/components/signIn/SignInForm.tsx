@@ -49,7 +49,7 @@ const SignInForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>로그인</h2>
+        <h2 style={{ fontWeight: 'normal' }}>로그인</h2>
         <Input
           type="text"
           register={register('email', {
