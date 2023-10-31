@@ -27,9 +27,9 @@ type CommentsType = {
 
 type Theme = 'ADD' | 'RESET';
 
-const MyCommenets = () => {
+const MyComments = () => {
   const { isLoading, isError, data, error } = useQuery<CommentsType[], Error>({
-    queryKey: ['my-commenets'],
+    queryKey: ['my-comments'],
     queryFn: () => fetchCommentData(),
     staleTime: 3 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -81,4 +81,4 @@ const MyCommenets = () => {
   );
 };
 
-export default MyCommenets;
+export default MyComments;

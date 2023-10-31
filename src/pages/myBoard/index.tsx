@@ -30,11 +30,11 @@ const fetchPostData = async (nickname: string) => {
   }
 };
 
-const Myboard = () => {
+const MyPosts = () => {
   const userData = useRecoilValue(userState);
   const navigation = useNavigate();
   const { isLoading, isError, data, error } = useQuery<BoardType[], Error>({
-    queryKey: ['myboard'],
+    queryKey: ['my-board'],
     queryFn: () => fetchPostData(userData.nickname),
     staleTime: 3 * 1000 * 60,
     refetchOnWindowFocus: false,
@@ -103,4 +103,4 @@ const Myboard = () => {
   );
 };
 
-export default Myboard;
+export default MyPosts;
