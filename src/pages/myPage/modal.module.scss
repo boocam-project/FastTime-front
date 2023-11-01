@@ -5,47 +5,85 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.2);
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease;
 
   .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     position: absolute;
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -40%);
     background-color: #fff;
     width: clamp(300px, 50%, 600px);
     padding: 2rem 2.5rem;
     border-radius: 0.3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease;
+    animation: slide-in 0.2s ease;
+
+    .title {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+
+      .close,
+      .save {
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        opacity: 0.8;
+        margin-top: 1rem;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .close {
+        background-color: transparent;
+        border: 1px solid $red-400;
+      }
+
+      .save {
+        background-color: $red-400;
+        color: #fff;
+      }
+    }
 
     @include mobile {
       top: auto;
       bottom: 0;
-      transform: translate(-50%, 10%);
+      transform: translate(-50%, 0);
       width: 100%;
       min-height: 400px;
       padding: 1rem;
+      animation: slide-in-mobile 0.2s ease;
     }
   }
+}
 
-  &.open {
-    visibility: visible;
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+  to {
     opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
 
-    .content {
-      transform: translate(-50%, -50%);
-
-      @include mobile {
-        top: auto;
-        bottom: 0;
-        transform: translate(-50%, 0);
-        width: 100%;
-        min-height: 400px;
-        padding: 1rem;
-      }
-    }
+@keyframes slide-in-mobile {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }
