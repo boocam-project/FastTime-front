@@ -15,7 +15,7 @@
     top: 50%;
     left: 50%;
     background-color: #fff;
-    width: clamp(300px, 50%, 600px);
+    width: clamp(300px, 400px, 600px);
     padding: 2rem 2.5rem;
     border-radius: 0.3rem;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -24,6 +24,12 @@
     .title {
       font-size: 1.5rem;
       font-weight: 700;
+      user-select: none;
+    }
+
+    .error {
+      font-size: 12px;
+      color: $red-400;
     }
 
     .btns {

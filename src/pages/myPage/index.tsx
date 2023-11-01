@@ -1,19 +1,11 @@
-import Input from '@/components/atoms/input';
-import { userState } from '@/store/store';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import SettingsModal from './SettingsModal';
 import styles from './index.module.scss';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/store';
 
 const MyPage = () => {
   const user = useRecoilValue(userState);
-  const [nickname, setNickname] = useState(user.nickname);
-
-  // if (!user.isLogin) {
-  //   alert('로그인이 필요합니다.');
-  //   navigate('/signin');
-  // }
-
   const [modal, setModal] = useState({
     type: '',
     isOpen: false,
@@ -23,13 +15,6 @@ const MyPage = () => {
     setModal({
       type,
       isOpen: true,
-    });
-  };
-
-  const closeModal = () => {
-    setModal({
-      type: '',
-      isOpen: false,
     });
   };
 
@@ -51,24 +36,15 @@ const MyPage = () => {
       <SettingsModal
         title="닉네임 변경"
         isOpen={modal.isOpen && modal.type === 'change-nickname'}
-        onClose={closeModal}
-      >
-        <Input name="name" label="닉네임" value={nickname} />
-      </SettingsModal>
+        setModal={setModal}
+        variant="nickname"
+      />
       <SettingsModal
         title="비밀번호 재설정"
         isOpen={modal.isOpen && modal.type === 'reset-password'}
-        onClose={closeModal}
-      >
-        <Input type="password" name="password" label="비밀번호" value="" placeholder="********" />
-        <Input
-          type="password"
-          name="confirm-password"
-          label="비밀번호 확인"
-          placeholder="********"
-          value=""
-        />
-      </SettingsModal>
+        setModal={setModal}
+        variant="password"
+      />
     </div>
   );
 };
