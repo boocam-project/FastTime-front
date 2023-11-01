@@ -12,7 +12,7 @@ interface Props extends ComponentProps<'input'> {
   errorMessage?: any;
   variant?: 'defaultInput' | 'searchInput';
   className?: string;
-  value: string;
+  // value: string;
 }
 
 const Input = ({
@@ -22,11 +22,11 @@ const Input = ({
   errorMessage,
   className,
   variant,
-  value,
+  // value,
   ...props
 }: Props) => {
   const cx = classNames.bind(styles);
-  const isValid = Boolean(errorMessage === undefined && value);
+  const isValid = Boolean(errorMessage === undefined && props.value);
 
   return (
     <div className={styles.group}>
@@ -40,6 +40,7 @@ const Input = ({
           className={cx('input', className?.split(' '), { error: errorMessage })}
           id={name}
           autoComplete="off"
+          value={props.value}
           {...register}
           {...props}
         />
