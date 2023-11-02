@@ -144,6 +144,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      <div className={styles.spacer} />
     </>
   );
 };
