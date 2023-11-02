@@ -20,7 +20,13 @@ const SignInForm = () => {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormValues>({ mode: 'onChange' });
+  } = useForm<SignInFormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
   const setData = useSetRecoilState(userState);
 

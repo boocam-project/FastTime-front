@@ -95,6 +95,7 @@ video {
   padding: 0;
   border: 0;
   vertical-align: baseline;
+  font-size: 100%;
 }
 
 ol,
@@ -123,5 +124,10 @@ p {
 
 a {
   text-decoration: none;
+  color: inherit;
+  color: inherit;
+}
+
+button {
   color: inherit;
 }

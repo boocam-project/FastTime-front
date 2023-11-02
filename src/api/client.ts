@@ -19,6 +19,9 @@ instance.interceptors.response.use(
     if (error.response.status === 403) {
       alert('로그인이 필요합니다.');
       window.location.href = '/signin';
+    } else if (error.response.status === 401) {
+      alert('권한이 없습니다.');
+      window.location.href = '/signin';
     }
 
     return Promise.reject(error);

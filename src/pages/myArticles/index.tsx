@@ -6,7 +6,7 @@ interface Props {
   nickname: string;
 }
 
-const MyComments = ({ nickname }: Props) => {
+const MyArticles = ({ nickname }: Props) => {
   const { data: articles, isLoading } = useArticleByNickname(nickname);
 
   if (isLoading) {
@@ -16,7 +16,7 @@ const MyComments = ({ nickname }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>나의 댓글 ({articles?.length})</h3>
+      <h3 className={styles.title}>나의 글 ({articles?.length})</h3>
       <ul className={styles.articles}>
         {articles && articles.length > 0 ? (
           articles?.map((article) => (
@@ -27,11 +27,11 @@ const MyComments = ({ nickname }: Props) => {
             </li>
           ))
         ) : (
-          <span>작성한 댓글이 없습니다.</span>
+          <span>작성한 게시글이 없습니다.</span>
         )}
       </ul>
     </div>
   );
 };
 
-export default MyComments;
+export default MyArticles;
