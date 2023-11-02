@@ -1,82 +1,35 @@
-import { useQuery } from '@tanstack/react-query';
-import { instance } from '@/api/client';
-import { useState } from 'react';
-import styles from './myComments.module.scss';
+import styles from './index.module.scss';
+import { Link } from 'react-router-dom';
+import { useArticleByNickname } from '@/hooks/useArticles';
 
-const fetchCommentData = async () => {
-  try {
-    const response = await instance.get(`/api/v1/comment/my-page`);
-    const result = response.data;
-    return result.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-type CommentsType = {
-  anonymity: boolean;
-  content: string;
-  createdAt: string;
-  deletedAt: null;
-  id: number;
+interface Props {
   nickname: string;
-  parentCommentId: null | number;
-  postId: number;
-  updatedAt: string;
-};
+}
 
-type Theme = 'ADD' | 'RESET';
+const MyComments = ({ nickname }: Props) => {
+  const { data: articles, isLoading } = useArticleByNickname(nickname);
 
-const MyComments = () => {
-  const { isLoading, isError, data, error } = useQuery<CommentsType[], Error>({
-    queryKey: ['my-comments'],
-    queryFn: () => fetchCommentData(),
-    staleTime: 3 * 60 * 1000,
-    refetchOnWindowFocus: false,
-  });
+  if (isLoading) {
+    // TODO: 로딩 스켈레톤 추가
+    return <span>Loading...</span>;
+  }
 
-  const [page, setPage] = useState(5);
-
-  const clickHandleData = (type: Theme) => {
-    if (type === 'ADD') {
-      if (data) {
-        const dataSize = data?.length;
-        if (page < dataSize) {
-          setPage(page * 2);
-        } else {
-          alert('가져올 데이터가 없습니다.');
-        }
-      }
-    }
-    if (type === 'RESET') {
-      setPage(5);
-    }
-  };
-
-  if (isLoading) return <span> 로딩중 ...</span>;
-  if (isError) return <span>{error.message}</span>;
   return (
     <div className={styles.container}>
-      <div className={styles.article}>
-        <h3>내가 쓴 댓글</h3>
-      </div>
-      <div className={styles['item-box']}>
-        {data ? (
-          data?.map((item, index) => {
-            if (index < page) {
-              return <li key={item.id}>{item.content}</li>;
-            } else {
-              return;
-            }
-          })
+      <h3 className={styles.title}>나의 댓글 ({articles?.length})</h3>
+      <ul className={styles.articles}>
+        {articles && articles.length > 0 ? (
+          articles?.map((article) => (
+            <li key={article.id}>
+              <Link to={`/community/${article.id}`}>
+                <span className={styles['article-title']}>{article.title}</span>
+              </Link>
+            </li>
+          ))
         ) : (
-          <>작성한 댓글이 없습니다.</>
+          <span>작성한 댓글이 없습니다.</span>
         )}
-      </div>
-      <div className={styles['board-btn-box']}>
-        <span onClick={() => clickHandleData('ADD')}>더보기</span>
-        <span onClick={() => clickHandleData('RESET')}>닫기</span>
-      </div>
+      </ul>
     </div>
   );
 };

@@ -1,11 +1,25 @@
 import { useState } from 'react';
 import SettingsModal from './SettingsModal';
 import styles from './index.module.scss';
-import { useRecoilValue } from 'recoil';
-import { userState } from '@/store/store';
+import MyArticles from '../myArticles';
+import MyComments from '../myComments';
+import { useQuery } from '@tanstack/react-query';
+import { instance } from '@/api/client';
+
+interface UserType {
+  nickname: string;
+  email: string;
+  profile: string;
+}
 
 const MyPage = () => {
-  const user = useRecoilValue(userState);
+  const { data: user, isLoading } = useQuery<UserType>({
+    queryKey: ['user'],
+    queryFn: () => {
+      return instance.get('/api/v1/mypage');
+    },
+  });
+
   const [modal, setModal] = useState({
     type: '',
     isOpen: false,
@@ -18,10 +32,15 @@ const MyPage = () => {
     });
   };
 
+  if (isLoading || !user) {
+    return <span>Loading...</span>;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>
         <span className={styles['user-name']}>{user.nickname}</span>님 안녕하세요😄
+        <span>{user?.email}</span>
       </div>
       <div className={styles.settings}>
         <button className={styles.btn} onClick={() => openModal('change-nickname')}>
@@ -45,6 +64,8 @@ const MyPage = () => {
         setModal={setModal}
         variant="password"
       />
+      <MyArticles nickname={user.nickname} />
+      <MyComments nickname={user.nickname} />
     </div>
   );
 };
