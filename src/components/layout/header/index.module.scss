@@ -104,7 +104,8 @@
       opacity: 0.5;
       cursor: pointer;
 
-      &.selected {
+      &.menu-item:first-child {
+        color: #000;
         opacity: 1;
       }
 

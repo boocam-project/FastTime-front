@@ -70,12 +70,17 @@ const Header = () => {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.logo}>FAST TIME</div>
+        <div className={styles.logo}>
+          <Link to={'/community'}>
+            <Link to={'/community'}>
+              FAST
+              <img src="logo.svg" alt="Logo" style={{ width: '20px', padding: '2px' }} />
+              TIME
+            </Link>
+          </Link>
+        </div>
         <button ref={buttonRef} className={styles.info}>
-          <div className={styles['info-menu']}>
-            {/* <img src="" alt="" /> */}
-            <div className={styles['user-image']}></div>
-          </div>
+          <div className={styles['info-menu']}>{/* <img src="" alt="" /> */}</div>
         </button>
 
         <div

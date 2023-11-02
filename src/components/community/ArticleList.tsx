@@ -58,7 +58,7 @@ const ArticleList = () => {
         ) : (
           <>
             <div className={styles['article-menus']}>
-              <h1>게시글</h1>
+              <h2 style={{ fontWeight: 'normal' }}>게시글</h2>
               <Link to={'/write'}>
                 <BsPencilSquare size={20} />
                 <span>글쓰기</span>
