@@ -55,7 +55,7 @@ const SignInForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>로그인</h2>
+        <h2 style={{ fontWeight: 'normal' }}>로그인</h2>
         <Input
           type="text"
           register={register('email', {
@@ -88,7 +88,7 @@ const SignInForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-200" show>
+        <Button type="submit" className="default-red-400" show>
           로그인
         </Button>
         <div>

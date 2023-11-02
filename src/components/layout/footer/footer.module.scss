@@ -11,6 +11,10 @@ body {
   min-height: 100px;
   margin-top: 180px;
 
+  @include mobile {
+    display: none;
+  }
+
   hr {
     border: none;
     border-top: 1px solid #d5d5d58e;
@@ -18,19 +22,21 @@ body {
     border-width: 2px;
   }
 }
-.memberName {
-  background-color: rgba(255, 221, 221, 0.489);
-  border-radius: 30px;
+
+.member-name {
+  color: #949494;
+  font-weight: 300;
 }
 
 .footer h2 {
   padding-bottom: 15px;
+  font-size: 20px;
 }
 
 .footer .footer-section p {
   font-size: 14px;
   color: #818181;
-  font-weight: 600;
+  font-weight: 300;
 }
 
 .team-list-container {
@@ -78,7 +84,7 @@ ul.team-members-list li a:hover {
 .team-list h3 {
   font-size: 12px;
   margin: 10px 0;
-  color: $red-400;
+  color: $red-500;
 }
 
 .footer .footer-bottom p {
@@ -97,11 +103,15 @@ ul.team-members-list li a:hover {
 
 .github-link span {
   margin-left: 5px;
+  font-weight: 500;
+  color: $red-300;
 }
 
 .feedback-link {
-  color: $red-400;
-  font-weight: 800;
+  color: rgb(90, 90, 90);
+  font-weight: 300;
   font-size: 14px;
-  background-color: #ffcece81;
+  :hover {
+    color: $red-500;
+  }
 }

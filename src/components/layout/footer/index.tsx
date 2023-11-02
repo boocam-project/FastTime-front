@@ -22,7 +22,7 @@ function Footer() {
               <ul className={styles['team-members-list']}>
                 {feMembers.map((member, index) => (
                   <li key={index}>
-                    <span className={styles.memberName}>{member.name}</span>
+                    <span className={styles[`member-name`]}>{member.name}</span>
                     <div className={styles['icon-text-container']}>
                       <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />
@@ -45,7 +45,7 @@ function Footer() {
               <ul className={styles['team-members-list']}>
                 {beMembers.map((member, index) => (
                   <li key={index}>
-                    <span className={styles.memberName}>{member.name}</span>
+                    <span className={styles[`member-name`]}>{member.name}</span>
                     <div className={styles['icon-text-container']}>
                       <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />

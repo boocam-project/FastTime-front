@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './signUp.module.scss';
 import Input from '../atoms/input';
@@ -16,6 +17,7 @@ interface SignUpFormValues {
 
 const SignUpForm = () => {
   const navigate = useNavigate();
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
   const {
     register,
@@ -56,6 +58,7 @@ const SignUpForm = () => {
       if (response.status === 200) {
         console.log('이메일 전송 성공');
         alert('이메일 전송 성공! 인증 코드를 입력해주세요.');
+        setIsEmailVerified(true);
       } else {
         console.error('이메일 전송 실패:', response.data);
         alert(response.data);
@@ -73,7 +76,7 @@ const SignUpForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>회원가입</h2>
+        <h2 style={{ fontWeight: 'normal' }}>회원가입</h2>
         <Input
           type="text"
           register={register('nickname', {
@@ -99,8 +102,9 @@ const SignUpForm = () => {
           name="email"
           label="이메일"
           variant="defaultInput"
+          disabled={isEmailVerified}
         />
-        <Button type="button" className="default-red-200" onClick={handleEmailVerification} show>
+        <Button type="button" className="default-red-300" onClick={handleEmailVerification} show>
           이메일 인증
         </Button>
         <Input
@@ -112,6 +116,7 @@ const SignUpForm = () => {
           })}
           value={watch('verificationCode')}
           variant="defaultInput"
+          disabled={isEmailVerified}
         />
 
         <Input
@@ -143,7 +148,7 @@ const SignUpForm = () => {
           label="비밀번호 확인"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-300" show>
+        <Button type="submit" className="default-red-400" show>
           회원가입
         </Button>
         <div>

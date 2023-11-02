@@ -10,12 +10,12 @@
 
   .form {
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: grid;
     gap: 2rem;
-    padding: 2rem 3rem;
+    padding: 1rem 2rem;
     padding-inline: clamp(1rem, 5%, 3rem);
     margin: 0 auto;
     width: clamp(300px, 50%, 500px);
