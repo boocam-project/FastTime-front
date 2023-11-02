@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './signUp.module.scss';
 import Input from '../atoms/input';
