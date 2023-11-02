@@ -74,6 +74,20 @@ class APIClient<T> {
     return response.data.data;
   };
 
+  getArticleByNickname = async (nickname: string) => {
+    const response = await instance.get<ApiListResponse<T>>(
+      `${this.endpoint}?nickname=${nickname}&page=0&pageSize=10`
+    );
+
+    if (response.status === 403) {
+      const error = new Error('Forbidden');
+      error.name = 'Forbidden';
+      throw error;
+    }
+
+    return response.data.data;
+  };
+
   post = (article: PostArticle) => {
     return instance.post(this.endpoint, article).then((res) => res.data);
   };

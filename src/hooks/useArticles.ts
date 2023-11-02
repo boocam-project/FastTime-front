@@ -23,3 +23,10 @@ export const useArticleById = (id: number) => {
     queryFn: () => apiClient.getArticleById(id),
   });
 };
+
+export const useArticleByNickname = (nickname: string) => {
+  return useQuery<Article[], AxiosError>({
+    queryKey: ['article', nickname],
+    queryFn: () => apiClient.getArticleByNickname(nickname),
+  });
+};
