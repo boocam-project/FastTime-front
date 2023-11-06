@@ -7,18 +7,21 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '@/api/client';
 
 interface UserType {
+  id: number;
   nickname: string;
   email: string;
-  profile: string;
 }
 
 const MyPage = () => {
   const { data: user, isLoading } = useQuery<UserType>({
     queryKey: ['user'],
-    queryFn: () => {
-      return instance.get('/api/v1/mypage');
+    queryFn: async () => {
+      const response = await instance.get('/api/v1/mypage');
+      return response.data.data;
     },
   });
+
+  console.log('user:', user);
 
   const [modal, setModal] = useState({
     type: '',
