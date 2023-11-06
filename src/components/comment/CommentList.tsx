@@ -123,14 +123,16 @@ const CommentList = () => {
                       <span className={styles.date}>{formatTime(reply.createdAt)}</span>
                       {comment.updatedAt ? <span className={styles.edited}>수정됨</span> : null}
                     </div>
-                    <div className={styles.buttons}>
-                      <button className={styles.edit} onClick={() => handleEditComment(reply.id)}>
-                        수정
-                      </button>
-                      <button className={styles.delete} onClick={() => handleDelete(reply.id)}>
-                        삭제
-                      </button>
-                    </div>
+                    {nickname === reply.nickname && (
+                      <div className={styles.buttons}>
+                        <button className={styles.edit} onClick={() => handleEditComment(reply.id)}>
+                          수정
+                        </button>
+                        <button className={styles.delete} onClick={() => handleDelete(reply.id)}>
+                          삭제
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <span className={styles.content}>{reply.content}</span>
                 </li>

@@ -7,18 +7,21 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '@/api/client';
 
 interface UserType {
+  id: number;
   nickname: string;
   email: string;
-  profile: string;
 }
 
 const MyPage = () => {
   const { data: user, isLoading } = useQuery<UserType>({
     queryKey: ['user'],
-    queryFn: () => {
-      return instance.get('/api/v1/mypage');
+    queryFn: async () => {
+      const response = await instance.get('/api/v1/mypage');
+      return response.data.data;
     },
   });
+
+  console.log('user:', user);
 
   const [modal, setModal] = useState({
     type: '',
@@ -39,8 +42,11 @@ const MyPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <span className={styles['user-name']}>{user.nickname}</span>님 안녕하세요😄
-        <span>{user?.email}</span>
+        <div>
+          <span className={styles['user-name']}>{user.nickname}</span> 님 안녕하세요😄
+        </div>
+
+        <span className={styles['user-email']}>{user.email}</span>
       </div>
       <div className={styles.settings}>
         <button className={styles.btn} onClick={() => openModal('change-nickname')}>

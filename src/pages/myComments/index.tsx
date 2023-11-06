@@ -1,13 +1,22 @@
+import { useQuery } from '@tanstack/react-query';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
-import { useArticleByNickname } from '@/hooks/useArticles';
+import { instance } from '@/api/client';
 
-interface Props {
-  nickname: string;
+interface Comment {
+  id: number;
+  postId: number;
+  content: string;
 }
 
-const MyComments = ({ nickname }: Props) => {
-  const { data: articles, isLoading } = useArticleByNickname(nickname);
+const MyComments = ({ nickname }: { nickname: string }) => {
+  const { data: comments, isLoading } = useQuery<Comment[]>({
+    queryKey: ['comments', nickname],
+    queryFn: async () => {
+      const response = await instance.get('/api/v1/comment/my-page');
+      return response.data.data;
+    },
+  });
 
   if (isLoading) {
     // TODO: 로딩 스켈레톤 추가
@@ -16,13 +25,13 @@ const MyComments = ({ nickname }: Props) => {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>나의 댓글 ({articles?.length})</h3>
+      <h3 className={styles.title}>나의 댓글 ({comments?.length})</h3>
       <ul className={styles.articles}>
-        {articles && articles.length > 0 ? (
-          articles?.map((article) => (
-            <li key={article.id}>
-              <Link to={`/community/${article.id}`}>
-                <span className={styles['article-title']}>{article.title}</span>
+        {comments && comments.length > 0 ? (
+          comments?.map((comment) => (
+            <li key={comment.id}>
+              <Link to={`/community/${comment.postId}`}>
+                <span className={styles.content}>{comment.content}</span>
               </Link>
             </li>
           ))
