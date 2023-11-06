@@ -42,8 +42,11 @@ const MyPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <span className={styles['user-name']}>{user.nickname}</span>님 안녕하세요😄
-        <span>{user?.email}</span>
+        <div>
+          <span className={styles['user-name']}>{user.nickname}</span> 님 안녕하세요😄
+        </div>
+
+        <span className={styles['user-email']}>{user.email}</span>
       </div>
       <div className={styles.settings}>
         <button className={styles.btn} onClick={() => openModal('change-nickname')}>

@@ -22,7 +22,7 @@ const MyArticles = ({ nickname }: Props) => {
           articles?.map((article) => (
             <li key={article.id}>
               <Link to={`/community/${article.id}`}>
-                <span className={styles['article-title']}>{article.title}</span>
+                <span className={styles.content}>{article.title}</span>
               </Link>
             </li>
           ))
