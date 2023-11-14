@@ -66,7 +66,7 @@ const SettingsModal = ({ isOpen, title, variant, setModal }: Props) => {
     try {
       const response = await instance.post('/api/v1/RePassword', {
         password,
-        confirmPassword,
+        rePassword: confirmPassword,
       });
       if (response.status === 200) {
         alert('비밀번호가 변경되었습니다.');
@@ -107,7 +107,9 @@ const SettingsModal = ({ isOpen, title, variant, setModal }: Props) => {
                 label="비밀번호"
                 placeholder="********"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
               <Input
                 type="password"
