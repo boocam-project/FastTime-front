@@ -43,13 +43,6 @@ const teamMembers: TeamMember[] = [
     blog: 'https://velog.io/example',
   },
   {
-    name: '박혜민',
-    role: 'FE',
-    link: 'https://github.com/IAMISTP',
-    email: 'example@gmail.com',
-    blog: 'https://velog.io/@example',
-  },
-  {
     name: '장문용',
     role: 'FE',
     link: 'https://github.com/moonyah',
