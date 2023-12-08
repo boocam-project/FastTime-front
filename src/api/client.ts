@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const baseURL = isProduction ? 'https://backend.boocam.net/' : '/api';
+const baseURL = isProduction ? 'https://backend.boocam.net/' : 'https://api-dev.boocam.net';
 
 export const instance = axios.create({
   baseURL,
