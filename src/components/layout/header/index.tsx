@@ -72,11 +72,9 @@ const Header = () => {
       <div className={styles.header}>
         <div className={styles.logo}>
           <Link to={'/community'}>
-            <Link to={'/community'}>
-              FAST
-              <img src="logo.svg" alt="Logo" style={{ width: '20px', padding: '2px' }} />
-              TIME
-            </Link>
+            FAST
+            <img src="logo.svg" alt="Logo" style={{ width: '20px', padding: '2px' }} />
+            TIME
           </Link>
         </div>
         <button ref={buttonRef} className={styles.info}>
