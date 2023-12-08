@@ -6,6 +6,14 @@ import react from '@vitejs/plugin-react-swc';
 export default ({ mode }) =>
   defineConfig({
     plugins: [react()],
+    build: {
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+        },
+      },
+    },
     server: {
       proxy:
         mode === 'development'

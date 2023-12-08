@@ -18,6 +18,7 @@ interface SignUpFormValues {
 const SignUpForm = () => {
   const navigate = useNavigate();
   const [isEmailVerified, setIsEmailVerified] = useState(false);
+  const [sendVerificationCode, setSendVerificationCode] = useState(false);
 
   const {
     register,
@@ -58,7 +59,7 @@ const SignUpForm = () => {
       if (response.status === 200) {
         console.log('이메일 전송 성공');
         alert('이메일 전송 성공! 인증 코드를 입력해주세요.');
-        setIsEmailVerified(true);
+        setSendVerificationCode(true);
       } else {
         console.error('이메일 전송 실패:', response.data);
         alert(response.data);
@@ -73,21 +74,21 @@ const SignUpForm = () => {
     }
   };
 
+  const checkEmailVerification = async () => {
+    try {
+      const code = getValues('verificationCode');
+      await instance.get(`/api/v1/verify/${code}`);
+      setIsEmailVerified(true);
+    } catch (error) {
+      console.error('이메일 인증 오류:', error);
+      alert('이메일 인증 오류');
+    }
+  };
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <h2 style={{ fontWeight: 'normal' }}>회원가입</h2>
-        <Input
-          type="text"
-          register={register('nickname', {
-            required: '닉네임을 입력해주세요.',
-          })}
-          value={watch('nickname')}
-          errorMessage={errors.nickname?.message}
-          name="nickname"
-          label="닉네임"
-          variant="defaultInput"
-        />
         <Input
           type="text"
           register={register('email', {
@@ -104,21 +105,38 @@ const SignUpForm = () => {
           variant="defaultInput"
           disabled={isEmailVerified}
         />
-        <Button type="button" className="default-red-300" onClick={handleEmailVerification} show>
-          이메일 인증
-        </Button>
+        {sendVerificationCode ? (
+          <>
+            <Input
+              type="text"
+              name="verificationCode"
+              label="인증 코드"
+              register={register('verificationCode', {
+                required: '인증 코드를 입력해주세요.',
+              })}
+              value={watch('verificationCode')}
+              variant="defaultInput"
+            />
+            <Button type="button" className="default-red-300" onClick={checkEmailVerification} show>
+              인증 확인
+            </Button>
+          </>
+        ) : (
+          <Button type="button" className="default-red-300" onClick={handleEmailVerification} show>
+            이메일 인증
+          </Button>
+        )}
         <Input
           type="text"
-          name="verificationCode"
-          label="인증 코드"
-          register={register('verificationCode', {
-            required: '인증 코드를 입력해주세요.',
+          register={register('nickname', {
+            required: '닉네임을 입력해주세요.',
           })}
-          value={watch('verificationCode')}
+          value={watch('nickname')}
+          errorMessage={errors.nickname?.message}
+          name="nickname"
+          label="닉네임"
           variant="defaultInput"
-          disabled={isEmailVerified}
         />
-
         <Input
           type="password"
           register={register('password', {
