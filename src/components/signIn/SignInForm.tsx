@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
+import { setTokenToLocalStorage } from './utils/getToken';
 
 interface SignInFormValues {
   email: string;
@@ -38,7 +39,11 @@ const SignInForm = () => {
       });
 
       if (response.status === 200) {
-        alert('로그인 성공');
+        const { data } = response.data;
+        const accessToken = data.token.accessToken;
+        const refreshToken = data.token.refreshToken;
+
+        setTokenToLocalStorage(accessToken, refreshToken);
         setData({ ...response.data.data, isLogin: true });
         navigate('/community');
       }
