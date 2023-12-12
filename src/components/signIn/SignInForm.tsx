@@ -33,7 +33,7 @@ const SignInForm = () => {
 
   const onSubmit = async (data: SignInFormValues) => {
     try {
-      const response = await instance.post('/api/v2/login', {
+      const response = await instance.post('/api/v1/login', {
         email: data.email,
         password: data.password,
       });
