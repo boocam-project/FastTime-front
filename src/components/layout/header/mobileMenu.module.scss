@@ -1,0 +1,30 @@
+.mobileMenu {
+  position: fixed;
+  // top: $--notice-bar-height;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fff8f8;
+  z-index: 2;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 20px;
+}
+.menuList {
+  margin-top: 80px;
+}
+
+.menuItem {
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-bottom: 1px solid #f7b9b9;
+  text-align: center;
+}

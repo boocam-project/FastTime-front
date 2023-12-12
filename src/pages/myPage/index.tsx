@@ -1,40 +1,79 @@
-import { userState } from '@/store/store';
-import Myboard from '../myBoard';
-import MyComenets from '../myComents';
-import styles from './myPage.module.scss';
-import { useRecoilValue } from 'recoil';
+import { useState } from 'react';
+import SettingsModal from './SettingsModal';
+import styles from './index.module.scss';
+import MyArticles from '../myArticles';
+import MyComments from '../myComments';
+import { useQuery } from '@tanstack/react-query';
+import { instance } from '@/api/client';
 
-const Mypage = () => {
-  const userData = useRecoilValue(userState);
+interface UserType {
+  id: number;
+  nickname: string;
+  email: string;
+}
+
+const MyPage = () => {
+  const { data: user, isLoading } = useQuery<UserType>({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const response = await instance.get('/api/v1/mypage');
+      return response.data.data;
+    },
+  });
+
+  console.log('user:', user);
+
+  const [modal, setModal] = useState({
+    type: '',
+    isOpen: false,
+  });
+
+  const openModal = (type: string) => {
+    setModal({
+      type,
+      isOpen: true,
+    });
+  };
+
+  if (isLoading || !user) {
+    return <span>Loading...</span>;
+  }
 
   return (
     <div className={styles.container}>
-      <div className={styles.userArticle}>
-        <h3>{userData.nickname} 안녕하세요</h3>
-        <button>설정</button>
-      </div>
-      <div className={styles.section}>
-        <div className={styles.sideArticle}>
-          <div className={styles.sideArticleTop}>
-            <div>참여하고 있는 스터디</div>
-            <div>참여하고 있는 프로젝트</div>
-            <div>출석률</div>
-          </div>
-          <div className={styles.sideArticleMiddle}>
-            <div>즐겨찾기</div>
-            <div>오늘할일</div>
-          </div>
-          <div className={styles.sideArticleBottom}>
-            <div>주간일정</div>
-          </div>
+      <div className={styles.title}>
+        <div>
+          <span className={styles['user-name']}>{user.nickname}</span> 님 안녕하세요😄
         </div>
-        <div className={styles.boardArticle}>
-          <Myboard />
-          <MyComenets />
-        </div>
+
+        <span className={styles['user-email']}>{user.email}</span>
       </div>
+      <div className={styles.settings}>
+        <button className={styles.btn} onClick={() => openModal('change-nickname')}>
+          <span>닉네임 변경</span>
+          <span>{user.nickname}</span>
+        </button>
+        <button className={styles.btn} onClick={() => openModal('reset-password')}>
+          <span>비밀번호 재설정</span>
+          <span>********</span>
+        </button>
+      </div>
+      <SettingsModal
+        title="닉네임 변경"
+        isOpen={modal.isOpen && modal.type === 'change-nickname'}
+        setModal={setModal}
+        variant="nickname"
+      />
+      <SettingsModal
+        title="비밀번호 재설정"
+        isOpen={modal.isOpen && modal.type === 'reset-password'}
+        setModal={setModal}
+        variant="password"
+      />
+      <MyArticles nickname={user.nickname} />
+      <MyComments nickname={user.nickname} />
     </div>
   );
 };
 
-export default Mypage;
+export default MyPage;

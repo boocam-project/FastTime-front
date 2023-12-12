@@ -8,3 +8,7 @@ export const PATTERNS = {
   password: PASSWORD_PATTERN,
   email: EMAIL_PATTERN,
 };
+
+export const ARTICLES_KEY = ['articles'];
+export const COMMENTS_KEY = ['comments'];
+export const LIKE_KEY = ['like'];

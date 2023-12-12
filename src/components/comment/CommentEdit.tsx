@@ -1,6 +1,6 @@
-import { instance } from '@/api/client';
 import styles from './edit.module.scss';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import useCommentMutations from '@/hooks/useCommentMutations';
 
 interface Props {
   content: string;
@@ -10,22 +10,14 @@ interface Props {
 
 const CommentEdit = ({ content, id, setEditingCommentId }: Props) => {
   const [newContent, setContent] = useState(content);
+  const { updateMutation } = useCommentMutations();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setEditingCommentId(null);
 
-    console.log(newContent);
-
-    try {
-      const response = await instance.patch('api/v1/comment', { id, content: newContent });
-      console.log(response.data);
-
-      if (response.status === 200) {
-        setEditingCommentId(null);
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    updateMutation.mutate({ id, content: newContent });
+    setContent('');
   };
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {

@@ -1,0 +1,27 @@
+name: preview
+on:
+  pull_request:
+  workflow_dispatch:
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    environment:
+      name: preview
+      url: ${{ steps.set-url.outputs.url }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: npm
+      - run: npm ci
+      - run: npx vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - run: npx vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - id: deploy
+        run: |
+          echo "::set-output name=url::$(npx vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+      - id: set-url
+        run: echo "::set-output name=url::${{ steps.deploy.outputs.url }}"

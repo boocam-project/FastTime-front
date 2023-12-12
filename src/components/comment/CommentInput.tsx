@@ -2,18 +2,19 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styles from './index.module.scss';
 import Button from '../atoms/button';
 import { useParams } from 'react-router-dom';
-import { useAddComment } from '@/hooks/mutations';
+import useCommentMutations from '@/hooks/useCommentMutations';
 
 interface Props {
   parentCommentId?: number;
+  setReplyingId?: (id: number | null) => void;
 }
 
-const CommentInput = ({ parentCommentId }: Props) => {
+const CommentInput = ({ parentCommentId, setReplyingId }: Props) => {
   const [content, setContent] = useState('');
   const [anonymity, setAnonymity] = useState<boolean>(false);
   const { id: idString } = useParams();
   const postId = Number(idString);
-  const { mutate } = useAddComment();
+  const { addMutation } = useCommentMutations();
 
   const handleComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.currentTarget.value);
@@ -27,24 +28,18 @@ const CommentInput = ({ parentCommentId }: Props) => {
 
     const data = {
       postId,
-      memberId: 1,
       content,
       anonymity,
       parentCommentId,
     };
 
-    mutate(data);
-    // console.log(data);
-
-    // const response = await instance.post('api/v1/comment', data, {
-    //   withCredentials: true,
-    // });
-    // console.log(response.status);
+    addMutation.mutate(data);
+    setReplyingId && setReplyingId(null);
+    setContent('');
   };
 
   return (
     <div className={styles['comment-box']}>
-      {/* <h2 className={styles.title}>댓글</h2> */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles['content-write']}>
           <textarea

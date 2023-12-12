@@ -1,0 +1,141 @@
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $--header-height;
+  padding-inline: 1rem;
+  border-bottom: 1px solid $--extra-light-gray;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .info {
+    width: 32px;
+    height: 32px;
+    background-color: $gray;
+    border-radius: 50%;
+  }
+
+  .user-modal {
+    position: absolute;
+    width: 260px;
+    top: $--header-height;
+    right: 1rem;
+    background-color: #fff;
+    border: 1px solid $--extra-light-gray;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+
+    &.open {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal-items {
+      display: flex;
+      flex-direction: column;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $--extra-light-gray;
+      }
+
+      a {
+        opacity: 0.5;
+        font-size: 14px;
+        padding: 0.75rem;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .user-name {
+        opacity: 0.5;
+        font-size: 14px;
+        padding: 0.75rem;
+        background-color: $--extra-light-gray;
+      }
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: $--nav-bar-height;
+  background-color: #fff;
+  border-bottom: 1px solid $--extra-light-gray;
+  z-index: 1000;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  @include mobile {
+    justify-content: flex-start;
+    padding-inline-start: 1rem;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menus {
+    display: flex;
+    gap: 2rem;
+    white-space: nowrap;
+
+    .menu-item {
+      position: relative;
+      font-weight: 500;
+      font-size: 1rem;
+      opacity: 0.5;
+      cursor: pointer;
+
+      &.menu-item:first-child {
+        color: #000;
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &::before {
+        position: absolute;
+        content: '';
+        height: 2px;
+        width: 0;
+        left: 0;
+        bottom: 0;
+        transition: width 0.2s ease-in-out;
+      }
+
+      &:hover::before {
+        position: absolute;
+        content: '';
+        height: 2px;
+        width: 100%;
+        left: 0;
+        bottom: -5px;
+        background-color: $red-500;
+      }
+    }
+  }
+}
+
+.spacer {
+  height: 24px;
+}
