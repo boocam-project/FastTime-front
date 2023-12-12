@@ -3,25 +3,40 @@ body {
 }
 
 .footer {
-  background-color: #333;
-  color: white;
-  height: 340px;
+  background-color: #ffffff;
+  color: rgb(39, 39, 39);
   width: 100%;
   padding: 10px;
   overflow: hidden;
-  @media (max-width: 1256px) {
-    height: auto;
-    padding: 0px 10px;
+  min-height: 100px;
+  margin-top: 180px;
+
+  @include mobile {
+    display: none;
   }
+
+  hr {
+    border: none;
+    border-top: 1px solid #d5d5d58e;
+    margin: 10px 0;
+    border-width: 2px;
+  }
+}
+
+.member-name {
+  color: #949494;
+  font-weight: 300;
 }
 
 .footer h2 {
   padding-bottom: 15px;
+  font-size: 20px;
 }
 
 .footer .footer-section p {
   font-size: 14px;
-  color: #b9b9b9;
+  color: #818181;
+  font-weight: 300;
 }
 
 .team-list-container {
@@ -32,12 +47,6 @@ body {
 
 .team-list {
   flex: 1;
-}
-
-@media (max-width: 768px) {
-  .team-list-container {
-    flex-direction: column;
-  }
 }
 
 .footer-content {
@@ -52,20 +61,11 @@ body {
   font-size: 15px;
 }
 
-// .icon-text-container a span {
-//   margin-left: 5px;
-// }
-
 ul.team-members-list {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  @media (max-width: 1120px) {
-    flex-direction: column;
-    padding: 4px;
-    gap: 4px;
-  }
 }
 
 ul.team-members-list li {
@@ -84,28 +84,34 @@ ul.team-members-list li a:hover {
 .team-list h3 {
   font-size: 12px;
   margin: 10px 0;
-  color: $red-400;
+  color: $red-500;
 }
 
 .footer .footer-bottom p {
   padding: 50px 20px;
   font-size: 12px;
-  color: #d2d2d2;
+  color: #838383;
 }
 
 .footer-section {
   margin-right: -20px;
   a.github-link {
     font-size: 12px;
-    color: $red-200;
+    color: $red-400;
   }
 }
 
 .github-link span {
   margin-left: 5px;
+  font-weight: 500;
+  color: $red-300;
 }
 
 .feedback-link {
-  color: $red-100;
+  color: rgb(90, 90, 90);
+  font-weight: 300;
   font-size: 14px;
+  :hover {
+    color: $red-500;
+  }
 }

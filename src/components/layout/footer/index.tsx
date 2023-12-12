@@ -8,6 +8,7 @@ function Footer() {
 
   return (
     <footer className={styles.footer}>
+      <hr />
       <div className={styles['footer-content']}>
         <div className={styles['footer-section']}>
           <h2>Fast Time</h2>
@@ -21,7 +22,7 @@ function Footer() {
               <ul className={styles['team-members-list']}>
                 {feMembers.map((member, index) => (
                   <li key={index}>
-                    {member.name}
+                    <span className={styles[`member-name`]}>{member.name}</span>
                     <div className={styles['icon-text-container']}>
                       <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />
@@ -44,7 +45,7 @@ function Footer() {
               <ul className={styles['team-members-list']}>
                 {beMembers.map((member, index) => (
                   <li key={index}>
-                    {member.name}
+                    <span className={styles[`member-name`]}>{member.name}</span>
                     <div className={styles['icon-text-container']}>
                       <a href={member.link} target="_blank" rel="noopener noreferrer">
                         <FaGithub />
@@ -73,7 +74,7 @@ function Footer() {
               target="_blank"
               rel="noreferrer"
             >
-              <span>Provide Feedback →</span>
+              <span>Provide Feedback :)</span>
             </a>
           </p>
           <br />

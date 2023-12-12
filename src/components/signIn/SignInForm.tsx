@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
+import { setTokenToLocalStorage } from './utils/getToken';
 
 interface SignInFormValues {
   email: string;
@@ -15,36 +16,51 @@ interface SignInFormValues {
 
 const SignInForm = () => {
   const navigate = useNavigate();
-
   const {
     register,
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormValues>({ mode: 'onChange' });
+  } = useForm<SignInFormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
+
   const setData = useSetRecoilState(userState);
+
   const onSubmit = async (data: SignInFormValues) => {
-    const response = await instance.post('/api/v1/login', {
-      email: data.email,
-      password: data.password,
-    });
-    console.log(response);
+    try {
+      const response = await instance.post('/api/v1/login', {
+        email: data.email,
+        password: data.password,
+      });
 
-    console.log(response.headers);
+      if (response.status === 200) {
+        const { data } = response.data;
+        const accessToken = data.token.accessToken;
+        const refreshToken = data.token.refreshToken;
 
-    if (response.status === 200) {
-      console.log('success');
-      setData({ ...response.data.data, login: true });
-      navigate('/community');
-    } else {
-      console.log('fail');
+        setTokenToLocalStorage(accessToken, refreshToken);
+        setData({ ...response.data.data, isLogin: true });
+        navigate('/community');
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 500) {
+        alert('이메일과 비밀번호를 다시 확인해주세요.');
+      } else {
+        console.error('서버 요청 중 오류가 발생했습니다.', error);
+        alert('서버 요청 중 오류가 발생했습니다.');
+      }
     }
   };
 
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>로그인</h2>
+        <h2 style={{ fontWeight: 'normal' }}>로그인</h2>
         <Input
           type="text"
           register={register('email', {
@@ -77,7 +93,7 @@ const SignInForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-200" show>
+        <Button type="submit" className="default-red-400" show>
           로그인
         </Button>
         <div>

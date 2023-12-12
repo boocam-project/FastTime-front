@@ -1,0 +1,34 @@
+.container {
+  width: 60%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+.article {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  list-style: none;
+
+  h3 {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid $red-400;
+  }
+}
+
+.board-list-box {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    border-bottom: 1px solid $red-200;
+    padding: 2.5rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.board-list-non-box {
+  height: 5rem;
+}
