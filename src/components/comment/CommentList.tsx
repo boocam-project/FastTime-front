@@ -7,7 +7,7 @@ import { useState } from 'react';
 import CommentEdit from './CommentEdit';
 import CommentInput from './CommentInput';
 import { useQuery } from '@tanstack/react-query';
-import { formatTime } from '../community/changeTimeFormat';
+import { formatTime } from '../../pages/articleDetail/utils/changeTimeFormat';
 import CommentSkeletons from './CommentSkeletons';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/store';
