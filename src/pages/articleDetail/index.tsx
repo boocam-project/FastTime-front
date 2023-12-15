@@ -14,8 +14,8 @@ import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useRecoilState } from 'recoil';
 import CommentInput from '../../components/comment/CommentInput';
 import CommentList from '../../components/comment/CommentList';
-import ArticleSkeletons from '../../components/community/ArticleSkeletons';
-import { formatTime } from '../../components/community/changeTimeFormat';
+import ArticleSkeletons from '../articleList/components/Skeleton';
+import { formatTime } from './utils/changeTimeFormat';
 import { useArticleById } from '@/hooks/useArticles';
 
 const ArticleDetail = () => {

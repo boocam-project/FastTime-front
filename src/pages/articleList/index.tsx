@@ -2,8 +2,8 @@ import styles from './index.module.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
-import { formatTime } from '../../components/community/changeTimeFormat';
-import ArticleSkeletons from '../../components/community/ArticleSkeletons';
+import { formatTime } from '../articleDetail/utils/changeTimeFormat';
+import ArticleSkeletons from './components/Skeleton';
 import { useArticle } from '@/hooks/useArticles';
 import { AiOutlineComment } from 'react-icons/ai';
 

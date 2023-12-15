@@ -1,5 +1,5 @@
-import LoadingSkeleton from '../skeletons';
-import styles from './skeletons.module.scss';
+import LoadingSkeleton from '../../../components/skeletons';
+import styles from './Skeleton.module.scss';
 
 const ArticleSkeletons = () => {
   return (
