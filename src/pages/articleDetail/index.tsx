@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import styles from './details.module.scss';
+import styles from './index.module.scss';
 
 import { AiTwotoneAlert } from 'react-icons/ai';
 
@@ -12,10 +12,10 @@ import { AxiosError } from 'axios';
 import parser from 'html-react-parser';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useRecoilState } from 'recoil';
-import CommentInput from '../comment/CommentInput';
-import CommentList from '../comment/CommentList';
-import ArticleSkeletons from './ArticleSkeletons';
-import { formatTime } from './changeTimeFormat';
+import CommentInput from '../../components/comment/CommentInput';
+import CommentList from '../../components/comment/CommentList';
+import ArticleSkeletons from '../../components/community/ArticleSkeletons';
+import { formatTime } from '../../components/community/changeTimeFormat';
 import { useArticleById } from '@/hooks/useArticles';
 
 const ArticleDetail = () => {
