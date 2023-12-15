@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import TextEditor from '.';
 import useData, { HttpMethod } from '@/hooks/useData';
-import { Article } from '../community/articles';
+import { Article } from '../../components/community/articles';
 
 const EditArticle = () => {
   const { id: idString } = useParams();

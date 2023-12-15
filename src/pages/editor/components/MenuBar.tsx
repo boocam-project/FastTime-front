@@ -6,7 +6,7 @@ import { BsCode, BsCardImage } from 'react-icons/bs';
 import { AiOutlineUnorderedList, AiOutlineOrderedList, AiOutlineBold } from 'react-icons/ai';
 import { BiSolidQuoteAltLeft } from 'react-icons/bi';
 import { MdHorizontalRule, MdFormatColorText } from 'react-icons/md';
-import useBlobUrl from '../../hooks/useBlobUrl';
+import useBlobUrl from '../../../hooks/useBlobUrl';
 import { TextSelection } from '@tiptap/pm/state';
 
 interface Props {
