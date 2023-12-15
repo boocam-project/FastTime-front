@@ -101,18 +101,6 @@ const MenuBar = ({ editor }: Props) => {
       </div>
 
       <div className="divider"></div>
-      {/* <button
-        onClick={() => editor.chain().focus().setParagraph().run()}
-        className={editor.isActive('paragraph') ? 'is-active' : ''}
-      >
-        본문
-      </button>
-      <button
-        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
-      >
-        소제목
-      </button> */}
 
       <div className="editor-menu-items-wrapper" onClick={() => handleMenuSelect('listMenu')}>
         <button>
