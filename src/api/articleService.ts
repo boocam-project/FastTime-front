@@ -46,7 +46,7 @@ class APIClient<T> {
   }
 
   getArticles = async (pageParam: number) => {
-    const response = await instance.get<Article[]>(this.endpoint, {
+    const response = await instance.get<{ data: Article[] }>(this.endpoint, {
       params: {
         pageParam,
         pageSize: 10,
@@ -59,7 +59,7 @@ class APIClient<T> {
       throw error;
     }
 
-    return response.data;
+    return response.data.data;
   };
 
   getArticleById = async (id: number) => {
