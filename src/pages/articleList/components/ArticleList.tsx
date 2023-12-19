@@ -1,5 +1,5 @@
-import { useGetArticles } from '@/hooks/useArticles';
-import styles from './index.module.scss';
+import { useGetArticles } from '@/pages/articleList/hooks/useArticles';
+import styles from './ArticleList.module.scss';
 import { formatTime } from '@/pages/articleDetail/utils';
 import { AiOutlineComment } from 'react-icons/ai';
 import { BsHeartFill } from 'react-icons/bs';
@@ -18,7 +18,7 @@ const ArticleList = () => {
   });
 
   return (
-    <div>
+    <>
       {data.pages.map((page) =>
         page.map((article) => (
           <article key={article.id} className={styles.article}>
@@ -44,7 +44,7 @@ const ArticleList = () => {
         ))
       )}
       <div className={styles.observer} ref={ref} />
-    </div>
+    </>
   );
 };
 

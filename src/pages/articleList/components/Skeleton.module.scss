@@ -1,19 +1,26 @@
-.container {
-  display: grid;
+.article {
+  display: flex;
   gap: 1rem;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+
+  max-width: 680px;
+  margin: 1rem auto;
 }
 
-.title {
-  width: 50%;
-  height: 40px;
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .info {
-  width: 70%;
-  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .content {
-  height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
