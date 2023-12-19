@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Suspense } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import ArticleList from './components/ArticleList';
+import ArticleSkeletons from './components/Skeleton';
 
 const ArticleListPage = () => {
   return (
@@ -15,7 +16,7 @@ const ArticleListPage = () => {
         </Link>
       </div>
       {/* TODO: 에러 바운더리 추가 */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<ArticleSkeletons />}>
         <ArticleList />
       </Suspense>
     </>
