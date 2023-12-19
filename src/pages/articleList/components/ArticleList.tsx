@@ -8,7 +8,7 @@ import { PAGE_SIZE } from '../constants';
 import useIntersect from '../hooks/useIntersect';
 
 const ArticleList = () => {
-  const { data, hasNextPage, fetchNextPage, isFetching } = useGetArticles({ size: PAGE_SIZE });
+  const { data, hasNextPage, fetchNextPage, isFetching } = useGetArticles({ pageSize: PAGE_SIZE });
 
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);

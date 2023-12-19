@@ -1,11 +1,12 @@
-import APIClient, { Article } from '@/api/articleService';
+import { ENDPOINTS } from '@/api/apiConfig';
+import APIService, { Article } from '@/api/articleService';
 import { ARTICLES_KEY } from '@/constants/constants';
 import { InfiniteData, useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-const apiClient = new APIClient<Article>('api/v1/post');
+const api = new APIService<Article>(ENDPOINTS.articles);
 
-export const useGetArticles = ({ size }: { size: number }) => {
+export const useGetArticles = ({ pageSize }: { pageSize: number }) => {
   return useSuspenseInfiniteQuery<
     Article[],
     AxiosError,
@@ -14,7 +15,7 @@ export const useGetArticles = ({ size }: { size: number }) => {
     number
   >({
     queryKey: ARTICLES_KEY,
-    queryFn: ({ pageParam }) => apiClient.getArticles({ pageParam, size }),
+    queryFn: ({ pageParam }) => api.getArticles({ page: pageParam, pageSize }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length < 10) return undefined;
@@ -26,13 +27,13 @@ export const useGetArticles = ({ size }: { size: number }) => {
 export const useGetArticleById = (id: number) => {
   return useQuery<Article, AxiosError>({
     queryKey: ['article', id],
-    queryFn: () => apiClient.getArticleById(id),
+    queryFn: () => api.getArticleById(id),
   });
 };
 
 export const useArticleByNickname = (nickname: string) => {
   return useQuery<Article[], AxiosError>({
     queryKey: ['article', nickname],
-    queryFn: () => apiClient.getArticleByNickname(nickname),
+    queryFn: () => api.getArticlesByNickname(nickname),
   });
 };

@@ -25,65 +25,32 @@ export interface Like {
   postId: number;
 }
 
-export interface ApiResponse<T> {
-  data: T;
-}
-
-export interface ApiListResponse<T> {
-  data: T[];
-}
-
-export interface QueryParam {
-  page?: number;
-  pageSize?: number;
-}
-
-class APIClient<T> {
+class APIService<T> {
   endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
   }
 
-  getArticles = async ({ pageParam, size }: { pageParam: number; size: number }) => {
-    const response = await instance.get<{ data: Article[] }>(this.endpoint, {
+  getArticles = async ({ page, pageSize }: { page: number; pageSize: number }) => {
+    const response = await instance.get<{ data: T[] }>(this.endpoint, {
       params: {
-        pageParam,
-        size,
+        page,
+        pageSize,
       },
     });
-
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
 
     return response.data.data;
   };
 
   getArticleById = async (id: number) => {
-    const response = await instance.get<ApiResponse<T>>(`${this.endpoint}/${id}`);
-
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
+    const response = await instance.get<{ data: T }>(`${this.endpoint}/${id}`);
 
     return response.data.data;
   };
 
-  getArticleByNickname = async (nickname: string) => {
-    const response = await instance.get<ApiListResponse<T>>(
-      `${this.endpoint}?nickname=${nickname}&page=0&pageSize=10`
-    );
-
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
+  getArticlesByNickname = async (nickname: string) => {
+    const response = await instance.get<{ data: T[] }>(`${this.endpoint}?nickname=${nickname}`);
 
     return response.data.data;
   };
@@ -93,4 +60,4 @@ class APIClient<T> {
   };
 }
 
-export default APIClient;
+export default APIService;
