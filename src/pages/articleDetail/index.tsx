@@ -16,7 +16,7 @@ import CommentInput from '../../components/comment/CommentInput';
 import CommentList from '../../components/comment/CommentList';
 import ArticleSkeletons from '../articleList/components/Skeleton';
 import { formatTime } from './utils/changeTimeFormat';
-import { useArticleById } from '@/hooks/useArticles';
+import { useGetArticleById } from '@/hooks/useArticles';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -25,7 +25,7 @@ const ArticleDetail = () => {
 
   const postId = Number(idString);
   // const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
-  const { data: article, isLoading } = useArticleById(postId);
+  const { data: article, isLoading } = useGetArticleById(postId);
 
   const { data: like } = useQuery({
     queryKey: ['like', postId],
