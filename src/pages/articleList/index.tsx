@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 import { Suspense } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
-import ArticleList from './components/ArticlesList';
+import ArticleList from './components/ArticleList';
 
 const ArticleListPage = () => {
   return (
