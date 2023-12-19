@@ -6,7 +6,7 @@ import ArticleDetail from '@/pages/articleDetail';
 import TextEditor from '@/pages/editor';
 import SignUp from '@/components/signUp';
 import MyPage from '@/pages/myPage';
-import ArticleList from '@/pages/articleList';
+import ArticleListPage from '@/pages/articleList';
 import EditArticle from '@/pages/editor/EditArticle';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/community',
-        element: <ArticleList />,
+        element: <ArticleListPage />,
       },
       {
         path: '/community/:id',
