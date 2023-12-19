@@ -1,22 +1,6 @@
+import { Article, ArticleList } from '@/pages/articleDetail/types';
 import { instance } from './client';
-
-export interface PostArticle {
-  title: string;
-  content: string;
-  anonymity: boolean;
-}
-
-export interface Article {
-  id: number;
-  nickname: string;
-  title: string;
-  anonymity: boolean;
-  content: string;
-  likeCount: number;
-  commentCounts: number;
-  createdAt: string | null;
-  lastModifiedAt: string | null;
-}
+import { ENDPOINTS } from './apiConfig';
 
 export interface Like {
   id: number;
@@ -25,15 +9,11 @@ export interface Like {
   postId: number;
 }
 
-class APIService<T> {
-  endpoint: string;
-
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
+class ArticleService {
+  private endpoint = ENDPOINTS.articles;
 
   getArticles = async ({ page, pageSize }: { page: number; pageSize: number }) => {
-    const response = await instance.get<{ data: T[] }>(this.endpoint, {
+    const response = await instance.get<{ data: ArticleList }>(this.endpoint, {
       params: {
         page,
         pageSize,
@@ -44,20 +24,22 @@ class APIService<T> {
   };
 
   getArticleById = async (id: number) => {
-    const response = await instance.get<{ data: T }>(`${this.endpoint}/${id}`);
+    const response = await instance.get<{ data: Article }>(`${this.endpoint}/${id}`);
 
     return response.data.data;
   };
 
   getArticlesByNickname = async (nickname: string) => {
-    const response = await instance.get<{ data: T[] }>(`${this.endpoint}?nickname=${nickname}`);
+    const response = await instance.get<{ data: ArticleList }>(
+      `${this.endpoint}?nickname=${nickname}`
+    );
 
     return response.data.data;
   };
 
-  post = (article: PostArticle) => {
-    return instance.post(this.endpoint, article).then((res) => res.data);
+  post = async (article: Pick<Article, 'title' | 'content' | 'isAnonymity'>) => {
+    return await instance.post(this.endpoint, article);
   };
 }
 
-export default APIService;
+export default ArticleService;
