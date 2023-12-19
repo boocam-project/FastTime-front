@@ -1,5 +1,6 @@
-import type { Article, Like } from '@/api/articleService';
+import type { Like } from '@/api/articleService';
 import { instance } from '@/api/client';
+import { Article } from '@/pages/articleDetail/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useLikeMutations = () => {
