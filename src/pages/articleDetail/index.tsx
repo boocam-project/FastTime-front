@@ -16,7 +16,7 @@ import CommentInput from '../../components/comment/CommentInput';
 import CommentList from '../../components/comment/CommentList';
 import ArticleSkeletons from '../articleList/components/Skeleton';
 import { formatTime } from './utils/changeTimeFormat';
-import { useGetArticleById } from '@/hooks/useArticles';
+import { useGetArticleById } from '@/pages/articleList/hooks/useArticles';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
