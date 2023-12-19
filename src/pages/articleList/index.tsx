@@ -4,13 +4,13 @@ import { useEffect, useRef } from 'react';
 import { BsHeartFill, BsPencilSquare } from 'react-icons/bs';
 import { formatTime } from '../articleDetail/utils/changeTimeFormat';
 import ArticleSkeletons from './components/Skeleton';
-import { useArticle } from '@/hooks/useArticles';
+import { useGetArticles } from '@/hooks/useArticles';
 import { AiOutlineComment } from 'react-icons/ai';
 
 const ArticleList = () => {
   const skeletonItems = [1, 2, 3, 4];
 
-  const { data, isLoading, fetchNextPage, error } = useArticle({ pageSize: 10 });
+  const { data, isLoading, fetchNextPage, error } = useGetArticles();
   const navigate = useNavigate();
   const observerRef = useRef(null);
 
