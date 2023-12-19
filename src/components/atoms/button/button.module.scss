@@ -73,7 +73,7 @@ button {
   }
 }
 
-@mixin conpact-red-style($bgColor) {
+@mixin compact-red-style($bgColor) {
   color: $white;
   background-color: $bgColor;
   padding: 12px 32px;
@@ -138,7 +138,7 @@ button {
 .conpact-red {
   @each $index, $color in $red-list {
     &-#{$index} {
-      @include conpact-red-style($color);
+      @include compact-red-style($color);
 
       &.full {
         width: 100%;

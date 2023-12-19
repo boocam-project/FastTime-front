@@ -45,11 +45,11 @@ class APIClient<T> {
     this.endpoint = endpoint;
   }
 
-  getAll = async ({ page, pageSize = 10 }: QueryParam) => {
-    const response = await instance.get<ApiListResponse<T>>(this.endpoint, {
+  getArticles = async (pageParam: number) => {
+    const response = await instance.get<{ data: Article[] }>(this.endpoint, {
       params: {
-        page,
-        pageSize,
+        pageParam,
+        pageSize: 10,
       },
     });
 

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import styles from './details.module.scss';
+import styles from './index.module.scss';
 
 import { AiTwotoneAlert } from 'react-icons/ai';
 
@@ -12,11 +12,11 @@ import { AxiosError } from 'axios';
 import parser from 'html-react-parser';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import { useRecoilState } from 'recoil';
-import CommentInput from '../comment/CommentInput';
-import CommentList from '../comment/CommentList';
-import ArticleSkeletons from './ArticleSkeletons';
-import { formatTime } from './changeTimeFormat';
-import { useArticleById } from '@/hooks/useArticles';
+import CommentInput from '../../components/comment/CommentInput';
+import CommentList from '../../components/comment/CommentList';
+import ArticleSkeletons from '../articleList/components/Skeleton';
+import { formatTime } from './utils/changeTimeFormat';
+import { useGetArticleById } from '@/hooks/useArticles';
 
 const ArticleDetail = () => {
   const { id: idString } = useParams();
@@ -25,7 +25,7 @@ const ArticleDetail = () => {
 
   const postId = Number(idString);
   // const { data: article, isLoading } = useData<Article>(HttpMethod.GET, `api/v1/post/${postId}`);
-  const { data: article, isLoading } = useArticleById(postId);
+  const { data: article, isLoading } = useGetArticleById(postId);
 
   const { data: like } = useQuery({
     queryKey: ['like', postId],
