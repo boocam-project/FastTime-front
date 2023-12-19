@@ -2,12 +2,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import SignIn from '@/components/signIn';
 
-import ArticleDetail from '@/components/community/ArticleDetail';
-import TextEditor from '@/components/editor';
+import ArticleDetail from '@/pages/articleDetail';
+import TextEditor from '@/pages/editor';
 import SignUp from '@/components/signUp';
 import MyPage from '@/pages/myPage';
-import ArticleList from '@/components/community/ArticleList';
-import EditArticle from '@/components/editor/EditArticle';
+import ArticleList from '@/pages/articleList';
+import EditArticle from '@/pages/editor/EditArticle';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
