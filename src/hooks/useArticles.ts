@@ -1,12 +1,12 @@
 import APIClient, { Article } from '@/api/articleService';
 import { ARTICLES_KEY } from '@/constants/constants';
-import { InfiniteData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { InfiniteData, useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 const apiClient = new APIClient<Article>('api/v1/post');
 
-export const useGetArticles = () => {
-  return useInfiniteQuery<
+export const useGetArticles = ({ size }: { size: number }) => {
+  return useSuspenseInfiniteQuery<
     Article[],
     AxiosError,
     InfiniteData<Article[]>,
@@ -14,7 +14,7 @@ export const useGetArticles = () => {
     number
   >({
     queryKey: ARTICLES_KEY,
-    queryFn: ({ pageParam }) => apiClient.getArticles(pageParam),
+    queryFn: ({ pageParam }) => apiClient.getArticles({ pageParam, size }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length < 10) return undefined;
