@@ -1,16 +1,16 @@
-import { ENDPOINTS } from '@/api/apiConfig';
-import APIService, { Article } from '@/api/articleService';
+import ArticleService from '@/api/articleService';
 import { ARTICLES_KEY } from '@/constants/constants';
+import { Article, ArticleList } from '@/pages/articleDetail/types';
 import { InfiniteData, useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-const api = new APIService<Article>(ENDPOINTS.articles);
+const api = new ArticleService();
 
 export const useGetArticles = ({ pageSize }: { pageSize: number }) => {
   return useSuspenseInfiniteQuery<
-    Article[],
+    ArticleList,
     AxiosError,
-    InfiniteData<Article[]>,
+    InfiniteData<ArticleList>,
     typeof ARTICLES_KEY,
     number
   >({
@@ -32,7 +32,7 @@ export const useGetArticleById = (id: number) => {
 };
 
 export const useArticleByNickname = (nickname: string) => {
-  return useQuery<Article[], AxiosError>({
+  return useQuery<ArticleList, AxiosError>({
     queryKey: ['article', nickname],
     queryFn: () => api.getArticlesByNickname(nickname),
   });
