@@ -1,12 +1,17 @@
-import { ComponentProps } from 'react';
+import styles from './Button.module.scss';
+import { ComponentProps, ReactNode } from 'react';
 
 type ButtonProps = ComponentProps<'button'> & {
-  children: string;
+  children: ReactNode;
   variant: 'primary' | 'secondary' | 'text';
 };
 
 const Button = ({ children }: ButtonProps) => {
-  return <button type="button">{children}</button>;
+  return (
+    <button className={styles.button} type="button">
+      {children}
+    </button>
+  );
 };
 
 export default Button;
