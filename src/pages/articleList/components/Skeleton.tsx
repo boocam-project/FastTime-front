@@ -10,11 +10,13 @@ const ArticleSkeletons = () => {
       <div className={styles.left}>
         <div className={styles.info}>
           <Skeleton width="2rem" height="2rem" borderRadius="50%" />
-          <Skeleton width="10rem" height="0.5rem" />
+          <div className={styles.name}>
+            <Skeleton height="0.5rem" />
+          </div>
         </div>
         <div className={styles.content}>
-          <Skeleton width="20rem" />
-          <Skeleton width="16rem" />
+          <Skeleton />
+          <Skeleton />
         </div>
       </div>
       <div className={styles.image}>
