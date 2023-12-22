@@ -1,6 +1,6 @@
 import ArticleService from '@/api/articleService';
 import { ARTICLES_KEY } from '@/constants/constants';
-import { Article, ArticleList } from '@/pages/articleDetail/types';
+import { ArticleList } from '@/pages/articleDetail/types';
 import { InfiniteData, useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -21,13 +21,6 @@ export const useGetArticles = ({ pageSize }: { pageSize: number }) => {
       if (lastPage.length < 10) return undefined;
       return allPages.length;
     },
-  });
-};
-
-export const useGetArticleById = (id: number) => {
-  return useQuery<Article, AxiosError>({
-    queryKey: ['article', id],
-    queryFn: () => api.getArticleById(id),
   });
 };
 
