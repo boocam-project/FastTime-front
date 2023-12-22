@@ -12,9 +12,10 @@ import CommentSkeletons from './CommentSkeletons';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/store';
 import useCommentMutations from '@/hooks/useCommentMutations';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 const fetchComments = async (postId: number) => {
-  const response = await instance.get(`api/v1/comment/${postId}`);
+  const response = await instance.get(`${ENDPOINTS.comments}/${postId}`);
   return response.data.data;
 };
 
