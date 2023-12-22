@@ -14,7 +14,15 @@
   background-color: #f8607a;
   transition: background-color 0.2s ease;
 
-  &:hover {
-    background-color: #d94f6d;
+  &.secondary {
+    color: $gray;
+    background-color: #fff;
+    border: 1px solid $gray;
+
+    &:hover {
+      color: $black;
+      background-color: #fff;
+      border: 1px solid $black;
+    }
   }
 }
