@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import SignIn from '@/components/signIn';
 
-import ArticleDetail from '@/pages/articleDetail';
+import ArticleDetailPage from '@/pages/articleDetail';
 import SignUp from '@/components/signUp';
 import MyPage from '@/pages/myPage';
 import ArticleListPage from '@/pages/articleList';
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/community/:id',
-        element: <ArticleDetail />,
+        element: <ArticleDetailPage />,
       },
       { path: '/mypage', element: <MyPage /> },
       { path: '/admin/login', element: <AdminLogin /> },
