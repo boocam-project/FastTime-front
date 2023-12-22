@@ -1,4 +1,5 @@
 import styles from './Button.module.scss';
+import classNames from 'classnames/bind';
 import { ComponentProps, ReactNode } from 'react';
 
 type ButtonProps = ComponentProps<'button'> & {
@@ -6,9 +7,11 @@ type ButtonProps = ComponentProps<'button'> & {
   variant: 'primary' | 'secondary' | 'text';
 };
 
-const Button = ({ children }: ButtonProps) => {
+const cx = classNames.bind(styles);
+
+const Button = ({ children, variant = 'primary' }: ButtonProps) => {
   return (
-    <button className={styles.button} type="button">
+    <button className={cx({ button: true, secondary: variant === 'secondary' })} type="button">
       {children}
     </button>
   );
