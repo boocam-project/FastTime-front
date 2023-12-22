@@ -8,6 +8,7 @@ import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { setTokenToLocalStorage } from './utils/getToken';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 interface SignInFormValues {
   email: string;
@@ -33,7 +34,7 @@ const SignInForm = () => {
 
   const onSubmit = async (data: SignInFormValues) => {
     try {
-      const response = await instance.post('/api/v2/login', {
+      const response = await instance.post(ENDPOINTS.login, {
         email: data.email,
         password: data.password,
       });
