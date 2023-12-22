@@ -1,4 +1,5 @@
-import MenuBar from '@/components/editor/MenuBar';
+import './styles.scss';
+import MenuBar from '@/pages/editor/components/editor/MenuBar';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { extensions } from './extensions';
 import useBlobUrl from '@/hooks/useBlobUrl';
