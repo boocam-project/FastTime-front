@@ -3,14 +3,14 @@ import App from '../App';
 import SignIn from '@/components/signIn';
 
 import ArticleDetail from '@/pages/articleDetail';
-import TextEditor from '@/pages/editor';
 import SignUp from '@/components/signUp';
 import MyPage from '@/pages/myPage';
 import ArticleListPage from '@/pages/articleList';
-import EditArticle from '@/pages/editor/EditArticle';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
+import WritePage from '@/pages/editor/write';
+import EditPage from '@/pages/editor/edit';
 
 export const router = createBrowserRouter([
   {
@@ -43,13 +43,12 @@ export const router = createBrowserRouter([
       { path: '/admin/detail/:id', element: <AdminBoardDetail /> },
     ],
   },
-
   {
     path: '/write',
-    element: <TextEditor />,
+    element: <WritePage />,
   },
   {
     path: '/edit/:id',
-    element: <EditArticle />,
+    element: <EditPage />,
   },
 ]);
