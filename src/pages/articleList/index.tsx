@@ -4,6 +4,9 @@ import { Suspense } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import ArticleList from './components/ArticleList';
 import ArticleSkeletons from './components/Skeleton';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorFallback';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 const ArticleListPage = () => {
   return (
@@ -16,9 +19,15 @@ const ArticleListPage = () => {
         </Link>
       </div>
       {/* TODO: 에러 바운더리 추가 */}
-      <Suspense fallback={<ArticleSkeletons />}>
-        <ArticleList />
-      </Suspense>
+      <QueryErrorResetBoundary>
+        {({ reset }) => (
+          <ErrorBoundary onReset={reset} fallbackRender={ErrorFallback}>
+            <Suspense fallback={<ArticleSkeletons />}>
+              <ArticleList />
+            </Suspense>
+          </ErrorBoundary>
+        )}
+      </QueryErrorResetBoundary>
     </>
   );
 };

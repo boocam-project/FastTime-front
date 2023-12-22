@@ -5,11 +5,8 @@ import {
 import axios from 'axios';
 import { getNewAccessToken } from './authApi';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const baseURL = isProduction ? 'https://backend.boocam.net/' : 'https://api-dev.boocam.net';
-
 export const instance = axios.create({
-  baseURL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',

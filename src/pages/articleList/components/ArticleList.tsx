@@ -8,7 +8,7 @@ import { PAGE_SIZE } from '../constants';
 import useIntersect from '../hooks/useIntersect';
 
 const ArticleList = () => {
-  const { data, hasNextPage, fetchNextPage, isFetching } = useGetArticles({ size: PAGE_SIZE });
+  const { data, hasNextPage, fetchNextPage, isFetching } = useGetArticles({ pageSize: PAGE_SIZE });
 
   const ref = useIntersect(async (entry, observer) => {
     observer.unobserve(entry.target);
@@ -26,11 +26,13 @@ const ArticleList = () => {
               <div className={styles.articleContents}>
                 <div>
                   <h2 className={styles.title}>{article.title}</h2>
-                  <p className={styles.description}>{article.content}</p>
+                  {/* <p className={styles.description}>{article.content}</p> */}
                 </div>
               </div>
               <div className={styles.articleInfo}>
-                <span className={styles.user}>{article.anonymity ? '익명' : article.nickname}</span>
+                <span className={styles.user}>
+                  {article.isAnonymity ? '익명' : article.nickname}
+                </span>
                 <span className={styles.date}>{formatTime(article.createdAt)}</span>
                 <span className={styles.like}>
                   <BsHeartFill size={14} /> {article.likeCount}
