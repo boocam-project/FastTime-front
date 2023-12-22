@@ -1,4 +1,4 @@
-import Title from '@/pages/editor/components/Title';
+import Title from '@/components/editor/Title';
 import Color from '@tiptap/extension-color';
 import Document from '@tiptap/extension-document';
 import Heading from '@tiptap/extension-heading';
