@@ -12,5 +12,6 @@ export const useGetArticleById = () => {
   return useSuspenseQuery<Article, AxiosError>({
     queryKey: ['article', id],
     queryFn: () => api.getArticleById(parseInt(id!)),
+    staleTime: 1000 * 10,
   });
 };
