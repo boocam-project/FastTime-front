@@ -1,8 +1,8 @@
 import DefaultEditor from '@/pages/editor/components/editor';
-import { useGetArticleById } from '../../../articleDetail/hooks/useGetArticle';
+import { useArticle } from '../../../articleDetail/hooks/useArticle';
 
 const EditEditor = () => {
-  const { data: article, isLoading } = useGetArticleById();
+  const { data: article, isLoading } = useArticle();
 
   if (isLoading) return null;
 

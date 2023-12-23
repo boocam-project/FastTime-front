@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 const api = new ArticleService();
 
-export const useGetArticleById = () => {
+export const useArticle = () => {
   const { id } = useParams();
 
   return useSuspenseQuery<Article, AxiosError>({
