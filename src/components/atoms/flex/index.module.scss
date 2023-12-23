@@ -1,0 +1,8 @@
+.flex {
+  @include flex-center;
+  gap: var(--gap);
+
+  &.column {
+    flex-direction: column;
+  }
+}
