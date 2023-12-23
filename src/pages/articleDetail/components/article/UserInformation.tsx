@@ -1,6 +1,6 @@
-import { useArticle } from '../hooks/useArticle';
+import { useArticle } from '../../hooks/useArticle';
 import styles from './UserInformation.module.scss';
-import { formatTime } from '../utils';
+import { formatTime } from '../../utils';
 
 const UserInformation = () => {
   const { data: article } = useArticle();
