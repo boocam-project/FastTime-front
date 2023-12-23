@@ -6,9 +6,8 @@ import useLikeMutations from '@/hooks/useLikeMutations';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import CommentInput from '../../components/comment/CommentInput';
-import CommentList from '../../components/comment/CommentList';
-import Article from './components/Article';
+import Article from './components/article/Article';
+import CommentArea from './components/comment';
 
 const ArticleDetailPage = () => {
   const navigate = useNavigate();
@@ -73,8 +72,7 @@ const ArticleDetailPage = () => {
       </div>
       <div className={styles.comments}>
         <h2>댓글</h2>
-        <CommentInput />
-        <CommentList />
+        <CommentArea />
       </div>
     </>
   );
