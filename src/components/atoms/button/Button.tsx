@@ -9,9 +9,13 @@ type ButtonProps = ComponentProps<'button'> & {
 
 const cx = classNames.bind(styles);
 
-const Button = ({ children, variant = 'primary' }: ButtonProps) => {
+const Button = ({ children, variant = 'primary', ...props }: ButtonProps) => {
   return (
-    <button className={cx({ button: true, secondary: variant === 'secondary' })} type="button">
+    <button
+      {...props}
+      className={cx({ button: true, secondary: variant === 'secondary' })}
+      type="button"
+    >
       {children}
     </button>
   );
