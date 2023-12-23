@@ -8,8 +8,7 @@ import { AxiosError } from 'axios';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
 import CommentInput from '../../components/comment/CommentInput';
 import CommentList from '../../components/comment/CommentList';
-import ArticleContents from './components/ArticleContents';
-import { Suspense } from 'react';
+import Article from './components/Article';
 
 const ArticleDetailPage = () => {
   const navigate = useNavigate();
@@ -58,9 +57,7 @@ const ArticleDetailPage = () => {
   return (
     <>
       <div className={styles['article-details']}>
-        <Suspense>
-          <ArticleContents />
-        </Suspense>
+        <Article />
         {/* TODO: 다른 컴포넌트로 빼면 좋을 듯 */}
         <div className={styles['bottom-menus']}>
           {like && (

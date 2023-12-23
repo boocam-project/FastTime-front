@@ -1,5 +1,9 @@
+import { useArticle } from '../hooks/useArticle';
+
 const ArticleTitle = () => {
-  return <div>ArticleTitle</div>;
+  const { data: article } = useArticle();
+
+  return <h1>{article.title}</h1>;
 };
 
 export default ArticleTitle;
