@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 
 const api = new ArticleService();
 
-export const useGetArticles = ({ pageSize }: { pageSize: number }) => {
+export const useArticles = ({ pageSize }: { pageSize: number }) => {
   return useSuspenseInfiniteQuery<
     ArticleList,
     AxiosError,
