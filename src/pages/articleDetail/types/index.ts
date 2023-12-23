@@ -6,8 +6,8 @@ export type Article = {
   isAnonymity: boolean;
   likeCount: number;
   hateCount: number;
-  createdAt: string | null;
-  lastModifiedAt: string | null;
+  createdAt: string;
+  lastModifiedAt: string;
 };
 
 export type ArticleList = (Omit<Article, 'content'> & { commentCounts: number })[];
