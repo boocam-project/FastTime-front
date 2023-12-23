@@ -1,4 +1,4 @@
-import { useArticle } from '../hooks/useArticle';
+import { useArticle } from '../../hooks/useArticle';
 
 const ArticleTitle = () => {
   const { data: article } = useArticle();

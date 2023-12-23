@@ -1,5 +1,5 @@
 import parser from 'html-react-parser';
-import { useArticle } from '../hooks/useArticle';
+import { useArticle } from '../../hooks/useArticle';
 
 const ArticleMain = () => {
   const { data: article } = useArticle();
