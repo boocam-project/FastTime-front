@@ -1,7 +1,10 @@
+import styles from './CommentInput.module.scss';
+import { ENDPOINTS } from '@/api/apiConfig';
 import { instance } from '@/api/client';
 import Button from '@/components/atoms/button/Button';
-import { ChangeEvent, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import useAutoSizeTextArea from '../../hooks/useAutoSizeTextArea';
 
 const CommentInput = () => {
   const { id } = useParams();
@@ -10,26 +13,41 @@ const CommentInput = () => {
     anonymity: false,
     parentCommentId: null,
   });
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setComment((prev) => ({ ...prev, content: e.target.value }));
-  };
+  useAutoSizeTextArea(textAreaRef.current, comment.content);
 
   const handleSubmit = async () => {
-    console.log(comment);
-    await instance.post(`/api/v1/comments/${parseInt(id!)}`, comment);
+    const response = await instance.post(`${ENDPOINTS.comments}/${parseInt(id!)}`, comment);
+
+    console.log(response.data);
   };
 
   return (
-    <>
-      <label>
-        댓글 입력
-        <input type="text" value={comment.content} onChange={handleChange} />
-      </label>
-      <Button variant="primary" onClick={handleSubmit}>
-        등록
-      </Button>
-    </>
+    <div className={styles.box}>
+      <textarea
+        ref={textAreaRef}
+        rows={1}
+        className={styles.textArea}
+        value={comment.content}
+        onChange={(e) => setComment((prev) => ({ ...prev, content: e.target.value }))}
+        placeholder="댓글을 입력하세요."
+      />
+      <div className={styles.actions}>
+        <label htmlFor="isAnonymity">
+          익명{' '}
+          <input
+            id="isAnonymity"
+            type="checkbox"
+            checked={comment.anonymity}
+            onChange={(e) => setComment((prev) => ({ ...prev, anonymity: e.target.checked }))}
+          />
+        </label>
+        <Button variant="primary" onClick={handleSubmit}>
+          등록
+        </Button>
+      </div>
+    </div>
   );
 };
 
