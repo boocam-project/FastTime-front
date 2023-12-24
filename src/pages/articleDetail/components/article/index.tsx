@@ -5,7 +5,7 @@ import UserActions from './UserActions';
 import { Suspense } from 'react';
 import ArticleMain from './ArticleMain';
 
-const Article = () => {
+const ArticleArea = () => {
   return (
     <Suspense>
       <ArticleTitle />
@@ -18,4 +18,4 @@ const Article = () => {
   );
 };
 
-export default Article;
+export default ArticleArea;
