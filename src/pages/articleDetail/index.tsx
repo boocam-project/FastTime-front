@@ -6,8 +6,9 @@ import useLikeMutations from '@/hooks/useLikeMutations';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import Article from './components/article/Article';
+import ArticleArea from './components/article';
 import CommentArea from './components/comment';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 const ArticleDetailPage = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const ArticleDetailPage = () => {
   const { data: like } = useQuery({
     queryKey: ['like', postId],
     queryFn: async () => {
-      const response = await instance.get(`api/v1/record/${postId}`);
+      const response = await instance.get(`${ENDPOINTS.like}/${postId}`);
       console.log(response.data);
 
       return response.data.data;
@@ -56,7 +57,7 @@ const ArticleDetailPage = () => {
   return (
     <>
       <div className={styles['article-details']}>
-        <Article />
+        <ArticleArea />
         {/* TODO: 다른 컴포넌트로 빼면 좋을 듯 */}
         <div className={styles['bottom-menus']}>
           {like && (
@@ -64,14 +65,12 @@ const ArticleDetailPage = () => {
               {like.isLike ? <PiHeartStraightFill size={20} /> : <PiHeartStraightLight size={20} />}
             </button>
           )}
-          {/* <span className={styles['like-count']}>{article.likeCount}</span> */}
           <button className={styles.btn} type="button" onClick={handleReport}>
             <AiTwotoneAlert size={20} />
           </button>
         </div>
       </div>
       <div className={styles.comments}>
-        <h2>댓글</h2>
         <CommentArea />
       </div>
     </>
