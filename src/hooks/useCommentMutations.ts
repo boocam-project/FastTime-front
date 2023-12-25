@@ -1,6 +1,7 @@
 import { instance } from '@/api/client';
+import { Comment } from '@/api/commentService';
 import { COMMENTS_KEY } from '@/constants/constants';
-import { Comment } from '@/data/comment';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
@@ -102,7 +103,7 @@ const useCommentMutations = () => {
 
       const previousComments = queryClient.getQueryData<Comment[]>(COMMENTS_KEY);
       queryClient.setQueryData(COMMENTS_KEY, (old) => [
-        ...(old as Comment[]).filter((comment) => comment.id !== id),
+        ...(old as Comment[]).filter((comment) => comment.commentId !== id),
       ]);
 
       return { previousComments };
