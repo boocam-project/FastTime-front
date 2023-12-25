@@ -6,7 +6,7 @@ export const createBlob = async (blobUrl: string) => {
 };
 
 export const uploadImageToFirebase = async (blob: Blob) => {
-  const storageRef = ref(storage, `images/${new Date().getTime()}_${blob.type}`);
+  const storageRef = ref(storage, `images2/${new Date().getTime()}_${blob.type}`);
   const uploadTask = await uploadBytesResumable(storageRef, blob);
   const downloadUrl = await getDownloadURL(uploadTask.ref);
 
