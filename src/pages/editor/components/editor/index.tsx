@@ -20,7 +20,11 @@ const DefaultEditor = ({ article }: DefaultEditorProps) => {
     content,
     // TODO: 이 로직을 어딘가로 옮겨야 함
     onUpdate: ({ editor }) => {
-      setClientEditor({ content: editor.getHTML(), summary: editor.getText() });
+      setClientEditor((prev) => ({
+        ...prev,
+        content: editor.getHTML(),
+        summary: editor.getText(),
+      }));
     },
     editorProps: {
       handleDrop: (view, event, _slice, moved) => {

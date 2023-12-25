@@ -3,6 +3,7 @@ import { atom } from 'recoil';
 type EditorState = {
   content: string;
   summary: string;
+  isAnonymity: boolean;
 };
 
 export const editorState = atom<EditorState>({
@@ -10,5 +11,6 @@ export const editorState = atom<EditorState>({
   default: {
     content: '',
     summary: '',
+    isAnonymity: false,
   },
 });
