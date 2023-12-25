@@ -9,6 +9,13 @@ export interface Like {
   postId: number;
 }
 
+export type ArticleRequest = {
+  title: string;
+  content: string;
+  isAnonymity: boolean;
+  id?: number;
+};
+
 class ArticleService {
   private endpoint = ENDPOINTS.articles;
 
@@ -38,7 +45,18 @@ class ArticleService {
   };
 
   post = async (article: Pick<Article, 'title' | 'content' | 'isAnonymity'>) => {
-    return await instance.post(this.endpoint, article);
+    const response = await instance.post<{ data: string }>(this.endpoint, article);
+
+    return response.data.data;
+  };
+
+  edit = async (article: Pick<Article, 'title' | 'content' | 'isAnonymity'> & { id?: number }) => {
+    const response = await instance.put<{ data: Article }>(
+      `${this.endpoint}/${article.id}`,
+      article
+    );
+
+    return response.data.data;
   };
 }
 
