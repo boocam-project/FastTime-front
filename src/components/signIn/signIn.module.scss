@@ -4,10 +4,12 @@
   position: relative;
   width: 100%;
   height: 100%;
+  background-color: $bgcGray;
 
   h2 {
     font-size: 2rem;
     text-align: center;
+    color: $gray-200;
   }
 
   .form {
@@ -17,11 +19,13 @@
     transform: translate(-50%, -50%);
     display: grid;
     gap: 2rem;
-    padding: 1rem 2rem;
+    padding: 7rem 7rem;
     padding-inline: clamp(1rem, 5%, 3rem);
     margin: 0 auto;
     width: clamp(300px, 50%, 500px);
     background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.06);
 
     a {
       color: v.$red-300;
