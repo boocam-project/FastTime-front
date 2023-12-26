@@ -3,7 +3,7 @@ import styles from './signIn.module.scss';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
@@ -70,10 +70,11 @@ const SignInForm = () => {
               message: '유효한 이메일을 입력해주세요.',
             },
           })}
+          placeholder="아이디(이메일)"
           value={watch('email')}
           errorMessage={errors.email?.message}
           name="email"
-          label="이메일"
+          label="아이디(이메일)"
           variant="defaultInput"
         />
         <Input
@@ -87,19 +88,20 @@ const SignInForm = () => {
               message: '영문, 숫자, 특수문자를 포함해주세요.',
             },
           })}
+          placeholder="비밀번호"
           value={watch('password')}
           errorMessage={errors.password?.message}
           name="password"
           label="비밀번호"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-400" show>
+        <Button type="submit" className="default-gray-200" show>
           로그인
         </Button>
-        <div>
+        {/* <div>
           <span>아직 아이디가 없나요? </span>
           <Link to="/signup">회원가입</Link>
-        </div>
+        </div> */}
       </form>
     </div>
   );

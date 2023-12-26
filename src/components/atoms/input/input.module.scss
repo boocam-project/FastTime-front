@@ -41,7 +41,7 @@
       transition: border-bottom 0.2s ease-in-out;
 
       &:focus-within {
-        border-bottom: 1px solid $blue;
+        border-bottom: 1px solid $red-400;
       }
 
       &.error {
@@ -51,6 +51,11 @@
       &.search {
         border: none;
       }
+    }
+    .input::placeholder {
+      color: #c8c8c8;
+      font-size: 0.8rem;
+      font-weight: 100;
     }
 
     .icon {
@@ -68,8 +73,18 @@
     color: $gray;
   }
 
-  .message {
-    font-size: 12px;
-    color: $red-400;
+  div {
+    display: flex;
+    align-items: center;
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-right: 0.3rem;
+    }
+
+    .message {
+      font-size: 12px;
+      color: $red-400;
+    }
   }
 }
