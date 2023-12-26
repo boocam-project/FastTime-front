@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 import { userState } from '@/store/store';
 import { useRecoilState } from 'recoil';
 
-type MenuType = 'community' | 'study' | 'project' | 'portfolio';
+type MenuType = 'community' | 'study' | 'contest' | 'portfolio';
 
 const Header = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuType | null>(null);
@@ -46,7 +46,7 @@ const Header = () => {
       if (menuItem) {
         if (menuItem !== 'community') {
           alert('준비중입니다.');
-          navigate(`/community`);
+          navigate(`/`);
         }
         setSelectedMenu(menuItem);
       }
@@ -70,16 +70,71 @@ const Header = () => {
   return (
     <>
       <div className={styles.header}>
-        <div className={styles.logo}>
-          <Link to={'/community'}>
-            FAST
-            <img src="logo.svg" alt="Logo" style={{ width: '20px', padding: '2px' }} />
-            TIME
-          </Link>
+        <div>
+          <div className={styles.logo}>
+            <Link to={'/'}>
+              <img src="logotest.svg" alt="Logo" />
+            </Link>
+          </div>
+          <div className={styles.nav}>
+            <ul className={styles.menus} onClick={handleMenuClick}>
+              <li
+                className={cx(['menu-item'], {
+                  selected: selectedMenu === 'community',
+                })}
+                data-menu="community"
+              >
+                <Link to={'/community'}>소근소근</Link>
+              </li>
+              <li
+                className={cx(['menu-item'], {
+                  selected: selectedMenu === 'study',
+                })}
+                data-menu="study"
+              >
+                <Link to={'/study'}>스터디</Link>
+              </li>
+              <li
+                className={cx(['menu-item'], {
+                  selected: selectedMenu === 'contest',
+                })}
+                data-menu="contest"
+              >
+                <Link to={'/contest'}>정보공유</Link>
+              </li>
+              <li
+                className={cx(['menu-item'], {
+                  selected: selectedMenu === 'portfolio',
+                })}
+                data-menu="portfolio"
+              >
+                <Link to={'/portfolio'}>포트폴리오</Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <button ref={buttonRef} className={styles.info}>
-          <div className={styles['info-menu']}>{/* <img src="" alt="" /> */}</div>
-        </button>
+
+        {user.isLogin ? (
+          // 로그인 상태일 때 보여줄 UI
+          <div className={styles.loginStatus}>
+            <p>
+              <b>사용자</b> 님, 안녕하세요!
+            </p>
+            <button ref={buttonRef} className={styles.info}>
+              <div className={styles['info-menu']}>{/* <img src="" alt="" /> */}</div>
+            </button>
+          </div>
+        ) : (
+          // 로그아웃 상태일 때 보여줄 UI
+          <div className={styles.logoutStatus}>
+            <button type="button" className={styles.loginBtn}>
+              <Link to={'/signin'}>로그인</Link>
+            </button>
+            <button type="button" className={styles.logoutBtn}>
+              <Link to={'/signup'}>회원가입</Link>
+            </button>
+          </div>
+        )}
 
         <div
           ref={modalRef}
@@ -90,7 +145,7 @@ const Header = () => {
             <>
               <div className={styles['modal-items']}>
                 {/* TODO: settings로 주소 바꾸기 */}
-                <Link to={'/mypage'}>계정</Link>
+                <Link to={'/mypage'}>계정관리</Link>
               </div>
               <div className={styles['modal-items']}>
                 {/* 로그아웃이 완료 되면서 게시글 페이지로 이동 */}
@@ -111,42 +166,6 @@ const Header = () => {
         </div>
       </div>
 
-      <div className={styles.nav}>
-        <ul className={styles.menus} onClick={handleMenuClick}>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'community',
-            })}
-            data-menu="community"
-          >
-            <Link to={'/community'}>소근소근</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'study',
-            })}
-            data-menu="study"
-          >
-            <Link to={'/study'}>스터디</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'project',
-            })}
-            data-menu="project"
-          >
-            <Link to={'/project'}>프로젝트</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'portfolio',
-            })}
-            data-menu="portfolio"
-          >
-            <Link to={'/portfolio'}>포트폴리오</Link>
-          </li>
-        </ul>
-      </div>
       <div className={styles.spacer} />
     </>
   );
