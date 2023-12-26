@@ -11,6 +11,8 @@ import EditArticle from '@/components/editor/EditArticle';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
+import Main from '@/pages/main';
+import Contest from '@/pages/contest';
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +21,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <SignIn />,
+        element: <Main />,
       },
       {
         path: '/signin',
@@ -30,6 +32,10 @@ export const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
+        path: '/contest',
+        element: <Contest />,
+      },
+      {
         path: '/community',
         element: <ArticleList />,
       },
@@ -37,10 +43,22 @@ export const router = createBrowserRouter([
         path: '/community/:id',
         element: <ArticleDetail />,
       },
-      { path: '/mypage', element: <MyPage /> },
-      { path: '/admin/login', element: <AdminLogin /> },
-      { path: '/admin/board', element: <AdminBoard /> },
-      { path: '/admin/detail/:id', element: <AdminBoardDetail /> },
+      {
+        path: '/mypage',
+        element: <MyPage />,
+      },
+      {
+        path: '/admin/login',
+        element: <AdminLogin />,
+      },
+      {
+        path: '/admin/board',
+        element: <AdminBoard />,
+      },
+      {
+        path: '/admin/detail/:id',
+        element: <AdminBoardDetail />,
+      },
     ],
   },
 
