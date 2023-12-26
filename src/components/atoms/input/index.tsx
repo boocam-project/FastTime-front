@@ -50,7 +50,10 @@ const Input = ({
       </div>
 
       {variant === 'defaultInput' && errorMessage && (
-        <span className={styles.message}>{errorMessage}</span>
+        <div>
+          <img src="/wranIcon.png" alt="wranImg"></img>
+          <span className={styles.message}>{errorMessage}</span>
+        </div>
       )}
     </div>
   );

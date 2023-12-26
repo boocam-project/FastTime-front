@@ -1,11 +1,11 @@
 @use '@/styles/abstracts/variables' as v;
 
 @function next-color($current-index) {
-  $keys: map-keys($red-list);
+  $keys: map-keys($gray-list);
   $currentIndex: index($keys, $current-index);
 
   @if $currentIndex and $currentIndex < length($keys) {
-    @return map-get($red-list, nth($keys, $currentIndex + 1));
+    @return map-get($gray-list, nth($keys, $currentIndex + 1));
   }
   @return null;
 }
@@ -16,6 +16,12 @@ $red-list: (
   '300': v.$red-300,
   '400': v.$red-400,
   '500': v.$red-500,
+);
+
+$gray-list: (
+  '100': $gray-100,
+  '200': $gray-200,
+  '300': $gray-300,
 );
 
 button {
@@ -57,6 +63,20 @@ button {
   &:disabled {
     color: v.$gray;
     background-color: v.$light-gray;
+    padding: 6px 16px;
+  }
+}
+
+@mixin default-gray-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  padding: 6px 16px;
+  font-size: $--size-subtext;
+  transition: all 0.3s;
+
+  &:disabled {
+    color: $gray;
+    background-color: $light-gray;
     padding: 6px 16px;
   }
 }
@@ -117,6 +137,20 @@ button {
   @each $index, $color in $red-list {
     &-#{$index} {
       @include default-red-style($color);
+
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
+    }
+  }
+}
+
+.default-gray {
+  @each $index, $color in $gray-list {
+    &-#{$index} {
+      @include default-gray-style($color);
+      padding: 0.8rem;
+      border-radius: 4px;
 
       &:hover {
         background-color: next-color($index) or $color;
