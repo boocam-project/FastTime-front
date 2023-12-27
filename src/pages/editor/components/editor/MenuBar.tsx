@@ -6,8 +6,8 @@ import { BsCode, BsCardImage } from 'react-icons/bs';
 import { AiOutlineUnorderedList, AiOutlineOrderedList, AiOutlineBold } from 'react-icons/ai';
 import { BiSolidQuoteAltLeft } from 'react-icons/bi';
 import { MdHorizontalRule, MdFormatColorText } from 'react-icons/md';
-import useBlobUrl from '../../../hooks/useBlobUrl';
 import { TextSelection } from '@tiptap/pm/state';
+import { getFirebaseUrlFromImage } from '../../utils/imageConvert';
 
 interface Props {
   editor: Editor;
@@ -15,7 +15,7 @@ interface Props {
 
 const MenuBar = ({ editor }: Props) => {
   const [menuOpen, setMenuOpen] = useState<string | null>(null);
-  const { url, createBlobUrl } = useBlobUrl();
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
     if (url) {
@@ -37,11 +37,11 @@ const MenuBar = ({ editor }: Props) => {
     }
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    createBlobUrl(file);
-
+    const firebaseUrl = await getFirebaseUrlFromImage(file);
+    setUrl(firebaseUrl!);
     e.target.value = '';
   };
 

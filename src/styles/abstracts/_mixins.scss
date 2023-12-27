@@ -17,3 +17,10 @@
     @content;
   }
 }
+
+@mixin flex-center($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+}

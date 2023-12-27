@@ -37,7 +37,7 @@
         align-items: center;
         justify-content: flex-end;
         gap: 0.25rem;
-        font-size: $--size-subtext;
+        font-size: $text-sm;
         padding: 0.25rem;
 
         label {
@@ -83,7 +83,7 @@
         display: flex;
         align-items: center;
         gap: 0.25rem;
-        font-size: $--size-subtext;
+        font-size: $text-sm;
         opacity: 0.5;
         background-color: transparent;
 
@@ -112,14 +112,14 @@
     }
 
     .username {
-      font-size: $--size-subtext;
+      font-size: $text-sm;
       font-weight: 500;
       opacity: 0.75;
     }
 
     .content {
       margin-top: 0.25rem;
-      font-size: $--size-text;
+      font-size: $text-md;
     }
 
     .date {
@@ -135,7 +135,7 @@
     .reply-btn {
       display: flex;
       margin-top: 0.3rem;
-      font-size: $--size-subtext;
+      font-size: $text-sm;
       opacity: 0.5;
       background-color: transparent;
 
