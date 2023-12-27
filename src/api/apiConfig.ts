@@ -2,7 +2,7 @@ export const API_VERSION = '/api/v2';
 
 export const ENDPOINTS = {
   articles: `${API_VERSION}/articles`,
-  login: `${API_VERSION}/login`,
+  login: `/api/v1/login`,
   refreshToken: `${API_VERSION}/refresh`,
   members: `/api/v1/members`,
   comments: `/api/v1/comments`,
