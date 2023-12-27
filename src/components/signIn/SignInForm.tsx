@@ -8,6 +8,7 @@ import { instance } from '@/api/client';
 import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/store';
 import { setTokenToLocalStorage } from './utils/getToken';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 interface SignInFormValues {
   email: string;
@@ -33,7 +34,7 @@ const SignInForm = () => {
 
   const onSubmit = async (data: SignInFormValues) => {
     try {
-      const response = await instance.post('/api/v1/login', {
+      const response = await instance.post(ENDPOINTS.login, {
         email: data.email,
         password: data.password,
       });
@@ -82,10 +83,6 @@ const SignInForm = () => {
             required: '비밀번호를 입력해주세요.',
             minLength: { value: 10, message: '10글자 이상 입력해주세요.' },
             maxLength: { value: 20, message: '20글자 이하로 입력해주세요.' },
-            pattern: {
-              value: PATTERNS.password,
-              message: '영문, 숫자, 특수문자를 포함해주세요.',
-            },
           })}
           value={watch('password')}
           errorMessage={errors.password?.message}

@@ -1,0 +1,10 @@
+.users {
+  @include flex-center;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  border-bottom: 1px solid $light-gray;
+}
