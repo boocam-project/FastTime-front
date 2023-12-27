@@ -1,0 +1,15 @@
+.info {
+  @include flex-center;
+  align-items: flex-end;
+  gap: 0.5rem;
+
+  .name {
+    font-size: $text-sm;
+    font-weight: $font-regular;
+  }
+
+  .date {
+    opacity: 0.5;
+    font-size: 12px;
+  }
+}

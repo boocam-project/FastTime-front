@@ -1,0 +1,32 @@
+.article {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+
+  max-width: 680px;
+  margin: 1rem auto;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  width: 20rem;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .name {
+    min-width: 5rem;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

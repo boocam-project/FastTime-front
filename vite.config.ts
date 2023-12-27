@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
-export default ({ mode }) =>
+export default () =>
   defineConfig({
     plugins: [react()],
     build: {
@@ -13,20 +13,6 @@ export default ({ mode }) =>
           drop_console: true,
         },
       },
-    },
-    server: {
-      proxy:
-        mode === 'development'
-          ? {
-              '/api': {
-                target: 'https://backend.boocam.net/',
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, ''),
-                secure: false,
-                ws: true,
-              },
-            }
-          : undefined,
     },
     css: {
       preprocessorOptions: {
