@@ -1,0 +1,28 @@
+.contents {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+
+  .title {
+    position: relative;
+
+    margin-bottom: 0.5rem;
+
+    font-size: $text-xl;
+    font-weight: $font-medium;
+
+    &::before {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      height: 1rem;
+      width: 100%;
+      z-index: -1;
+      background-color: $red-100;
+      opacity: 0.5;
+    }
+  }
+}

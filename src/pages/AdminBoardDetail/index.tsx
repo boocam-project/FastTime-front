@@ -2,9 +2,9 @@ import { instance } from '@/api/client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import styles from './adminBoardDetail.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { formatTime } from '@/components/community/changeTimeFormat';
+import { formatTime } from '@/pages/articleDetail/utils/changeTimeFormat';
 import Button from '@/components/atoms/button';
-import ArticleSkeletons from '@/components/community/ArticleSkeletons';
+import ArticleSkeletons from '@/pages/articleList/components/Skeleton';
 
 type Theme = 'LIST' | 'DELETE' | 'RESTORE';
 

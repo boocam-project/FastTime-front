@@ -5,10 +5,10 @@ import Button from '../button';
 import Input from '../input';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { createBlob, uploadImageToFirebase } from '@/hooks/useImageConvert';
 import { useNavigate } from 'react-router-dom';
 import { userState } from '@/store/store';
 import { useSetRecoilState } from 'recoil';
+import { uploadImageToFirebase } from '@/pages/editor/utils/imageConvert';
 
 interface UserType {
   nickname: string;
@@ -96,7 +96,7 @@ const Modal = ({ setModalOpen }: PropsType) => {
 
   const uploadImageAndChangeURL = async () => {
     if (imagePreview) {
-      const blob = await createBlob(imagePreview);
+      const blob = await fetch(imagePreview).then((res) => res.blob());
       const downloadUrl = await uploadImageToFirebase(blob);
       return downloadUrl;
     }

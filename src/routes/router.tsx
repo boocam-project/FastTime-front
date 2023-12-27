@@ -2,15 +2,15 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import SignIn from '@/components/signIn';
 
-import ArticleDetail from '@/components/community/ArticleDetail';
-import TextEditor from '@/components/editor';
+import ArticleDetailPage from '@/pages/articleDetail';
 import SignUp from '@/components/signUp';
 import MyPage from '@/pages/myPage';
-import ArticleList from '@/components/community/ArticleList';
-import EditArticle from '@/components/editor/EditArticle';
+import ArticleListPage from '@/pages/articleList';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
+import WritePage from '@/pages/editor/write';
+import EditPage from '@/pages/editor/edit';
 
 export const router = createBrowserRouter([
   {
@@ -31,11 +31,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/community',
-        element: <ArticleList />,
+        element: <ArticleListPage />,
       },
       {
         path: '/community/:id',
-        element: <ArticleDetail />,
+        element: <ArticleDetailPage />,
       },
       { path: '/mypage', element: <MyPage /> },
       { path: '/admin/login', element: <AdminLogin /> },
@@ -43,13 +43,12 @@ export const router = createBrowserRouter([
       { path: '/admin/detail/:id', element: <AdminBoardDetail /> },
     ],
   },
-
   {
     path: '/write',
-    element: <TextEditor />,
+    element: <WritePage />,
   },
   {
     path: '/edit/:id',
-    element: <EditArticle />,
+    element: <EditPage />,
   },
 ]);
