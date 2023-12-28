@@ -1,0 +1,28 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+
+  font-weight: 400;
+  font-size: $text-sm;
+
+  color: #fff;
+  background-color: #f8607a;
+  transition: background-color 0.2s ease;
+
+  &.secondary {
+    color: $gray;
+    background-color: #fff;
+    border: 1px solid $gray;
+
+    &:hover {
+      color: $black;
+      background-color: #fff;
+      border: 1px solid $black;
+    }
+  }
+}

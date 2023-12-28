@@ -1,22 +1,6 @@
+import { Article, ArticleList } from '@/pages/articleDetail/types';
 import { instance } from './client';
-
-export interface PostArticle {
-  title: string;
-  content: string;
-  anonymity: boolean;
-}
-
-export interface Article {
-  id: number;
-  nickname: string;
-  title: string;
-  anonymity: boolean;
-  content: string;
-  likeCount: number;
-  commentCounts: number;
-  createdAt: string | null;
-  lastModifiedAt: string | null;
-}
+import { ENDPOINTS } from './apiConfig';
 
 export interface Like {
   id: number;
@@ -25,72 +9,55 @@ export interface Like {
   postId: number;
 }
 
-export interface ApiResponse<T> {
-  data: T;
-}
+export type ArticleRequest = {
+  title: string;
+  content: string;
+  isAnonymity: boolean;
+  id?: number;
+};
 
-export interface ApiListResponse<T> {
-  data: T[];
-}
+class ArticleService {
+  private endpoint = ENDPOINTS.articles;
 
-export interface QueryParam {
-  page?: number;
-  pageSize?: number;
-}
-
-class APIClient<T> {
-  endpoint: string;
-
-  constructor(endpoint: string) {
-    this.endpoint = endpoint;
-  }
-
-  getAll = async ({ page, pageSize = 10 }: QueryParam) => {
-    const response = await instance.get<ApiListResponse<T>>(this.endpoint, {
+  getArticles = async ({ page, pageSize }: { page: number; pageSize: number }) => {
+    const response = await instance.get<{ data: ArticleList }>(this.endpoint, {
       params: {
         page,
         pageSize,
       },
     });
 
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
-
     return response.data.data;
   };
 
   getArticleById = async (id: number) => {
-    const response = await instance.get<ApiResponse<T>>(`${this.endpoint}/${id}`);
-
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
+    const response = await instance.get<{ data: Article }>(`${this.endpoint}/${id}`);
 
     return response.data.data;
   };
 
-  getArticleByNickname = async (nickname: string) => {
-    const response = await instance.get<ApiListResponse<T>>(
-      `${this.endpoint}?nickname=${nickname}&page=0&pageSize=10`
+  getArticlesByNickname = async (nickname: string) => {
+    const response = await instance.get<{ data: ArticleList }>(
+      `${this.endpoint}?nickname=${nickname}`
     );
 
-    if (response.status === 403) {
-      const error = new Error('Forbidden');
-      error.name = 'Forbidden';
-      throw error;
-    }
+    return response.data.data;
+  };
+
+  post = async (article: Pick<Article, 'title' | 'content' | 'isAnonymity'>) => {
+    const response = await instance.post<{ data: string }>(this.endpoint, article);
 
     return response.data.data;
   };
 
-  post = (article: PostArticle) => {
-    return instance.post(this.endpoint, article).then((res) => res.data);
+  edit = async (article: Pick<Article, 'title' | 'content' | 'isAnonymity'> & { id?: number }) => {
+    const response = await instance.put<{ data: Article }>(
+      `${this.endpoint}/${article.id}`,
+      article
+    );
+
+    return response.data.data;
   };
 }
 
-export default APIClient;
+export default ArticleService;
