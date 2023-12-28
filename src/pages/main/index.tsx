@@ -1,9 +1,9 @@
-import Myslide from '@/components/slide/Myslide';
+import Carousel from '@/components/slide/Carousel';
 
 const Main = () => {
   return (
     <>
-      <Myslide></Myslide>
+      <Carousel></Carousel>
     </>
   );
 };
