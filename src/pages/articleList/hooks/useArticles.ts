@@ -1,19 +1,13 @@
 import ArticleService from '@/api/articleService';
 import { ARTICLES_KEY } from '@/constants/constants';
 import { ArticleList } from '@/pages/articleDetail/types';
-import { InfiniteData, useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useSuspenseInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 const api = new ArticleService();
 
 export const useArticles = ({ pageSize }: { pageSize: number }) => {
-  return useSuspenseInfiniteQuery<
-    ArticleList,
-    AxiosError,
-    InfiniteData<ArticleList>,
-    typeof ARTICLES_KEY,
-    number
-  >({
+  return useSuspenseInfiniteQuery({
     queryKey: ARTICLES_KEY,
     queryFn: ({ pageParam }) => api.getArticles({ page: pageParam, pageSize }),
     initialPageParam: 0,
