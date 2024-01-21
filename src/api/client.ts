@@ -6,7 +6,7 @@ import axios from 'axios';
 import { getNewAccessToken } from './authApi';
 
 export const instance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
