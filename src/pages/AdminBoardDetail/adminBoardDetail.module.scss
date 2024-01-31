@@ -1,3 +1,6 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .container {
   width: 60%;
   height: 100%;
@@ -13,11 +16,11 @@
   height: 100%;
 }
 .info-box {
-  border-bottom: 2px solid $red-300;
+  border-bottom: 2px solid v.$red-300;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
 }
 .button-box {
   display: flex;
@@ -26,19 +29,19 @@
   justify-content: end;
 }
 
-@include desktop {
+@include m.desktop {
   .title {
     font-size: xx-large;
     font-weight: bold;
   }
 }
-@include tablet {
+@include m.tablet {
   .title {
     font-size: xx-large;
     font-weight: bold;
   }
 }
-@include mobile {
+@include m.mobile {
   .title {
     font-size: xx-large;
     font-weight: bold;

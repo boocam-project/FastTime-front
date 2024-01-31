@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as v;
+
 .editor-container {
   position: relative;
   display: flex;
@@ -94,7 +96,7 @@
       }
 
       &.color-accent::before {
-        background-color: $red-400;
+        background-color: v.$red-400;
       }
 
       &.color-black::before {
@@ -111,13 +113,13 @@
 
   height: 100%;
 
-  padding-bottom: $--editor-footer-height;
+  padding-bottom: v.$editor-footer-height;
 
   & > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
-    max-height: calc(100% - $--editor-footer-height);
+    max-height: calc(100% - v.$editor-footer-height);
   }
 
   .tiptap {
@@ -232,7 +234,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  height: $--editor-footer-height;
+  height: v.$editor-footer-height;
 
   border-top: 1px solid #dbdbdb;
 }
