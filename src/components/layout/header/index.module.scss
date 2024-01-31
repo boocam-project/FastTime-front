@@ -1,11 +1,14 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .header {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: $--header-height;
+  height: v.$header-height;
   padding-inline: 1rem;
-  border-bottom: 1px solid $--extra-light-gray;
+  border-bottom: 1px solid v.$extra-light-gray;
 
   img {
     width: 100%;
@@ -20,17 +23,17 @@
   .info {
     width: 32px;
     height: 32px;
-    background-color: $gray;
+    background-color: v.$gray;
     border-radius: 50%;
   }
 
   .user-modal {
     position: absolute;
     width: 260px;
-    top: $--header-height;
+    top: v.$header-height;
     right: 1rem;
     background-color: #fff;
-    border: 1px solid $--extra-light-gray;
+    border: 1px solid v.$extra-light-gray;
     border-radius: 0.25rem;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
     z-index: 1001;
@@ -48,7 +51,7 @@
       flex-direction: column;
 
       &:not(:last-child) {
-        border-bottom: 1px solid $--extra-light-gray;
+        border-bottom: 1px solid v.$extra-light-gray;
       }
 
       a {
@@ -66,7 +69,7 @@
         opacity: 0.5;
         font-size: 14px;
         padding: 0.75rem;
-        background-color: $--extra-light-gray;
+        background-color: v.$extra-light-gray;
       }
     }
   }
@@ -76,14 +79,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: $--nav-bar-height;
+  height: v.$nav-bar-height;
   background-color: #fff;
-  border-bottom: 1px solid $--extra-light-gray;
+  border-bottom: 1px solid v.$extra-light-gray;
   z-index: 1000;
   overflow-x: auto;
   white-space: nowrap;
 
-  @include mobile {
+  @include m.mobile {
     justify-content: flex-start;
     padding-inline-start: 1rem;
   }
@@ -130,7 +133,7 @@
         width: 100%;
         left: 0;
         bottom: -5px;
-        background-color: $red-500;
+        background-color: v.$red-500;
       }
     }
   }

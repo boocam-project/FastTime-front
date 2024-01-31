@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as v;
+
 .button {
   display: flex;
   justify-content: center;
@@ -8,21 +10,21 @@
   border-radius: 4px;
 
   font-weight: 400;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
 
   color: #fff;
   background-color: #f8607a;
   transition: background-color 0.2s ease;
 
   &.secondary {
-    color: $gray;
+    color: v.$gray;
     background-color: #fff;
-    border: 1px solid $gray;
+    border: 1px solid v.$gray;
 
     &:hover {
-      color: $black;
+      color: v.$black;
       background-color: #fff;
-      border: 1px solid $black;
+      border: 1px solid v.$black;
     }
   }
 }

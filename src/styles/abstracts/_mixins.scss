@@ -1,19 +1,21 @@
+@use './variables' as v;
+
 @mixin mobile {
-  @media (max-width: $--mobile) {
+  @media (max-width: v.$mobile) {
     @content;
   }
 }
 
 /*반응형, 브라우저 크기가 768이상, 1023px 이하일때*/
 @mixin tablet {
-  @media (min-width: $--mobile) and (max-width: $--tablet) {
+  @media (min-width: v.$mobile) and (max-width: v.$tablet) {
     @content;
   }
 }
 
 /*반응형, 브라우저 크기가 1024px 이상일때*/
 @mixin desktop {
-  @media (min-width: $--desktop) {
+  @media (min-width: v.$desktop) {
     @content;
   }
 }
