@@ -1,4 +1,4 @@
-import { BsCheck2 } from 'react-icons/bs';
+import { ReactComponent as Check } from '@/assets/icons/check.svg';
 
 interface Props {
   isValid: boolean;
@@ -8,7 +8,7 @@ interface Props {
 const InputIcon = ({ isValid, type }: Props) => {
   switch (type) {
     case 'defaultInput':
-      return isValid && <BsCheck2 fill="#2273ed" />;
+      return isValid && <Check />;
     default:
       return null;
   }
