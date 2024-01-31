@@ -19,6 +19,7 @@
     "@tiptap/extension-list-item": "^2.1.11",
     "@tiptap/extension-placeholder": "^2.1.11",
     "@tiptap/extension-text-style": "^2.1.11",
+    "@tiptap/extension-underline": "^2.2.1",
     "@tiptap/react": "^2.1.11",
     "@tiptap/starter-kit": "^2.1.11",
     "aws-sdk": "^2.1532.0",
