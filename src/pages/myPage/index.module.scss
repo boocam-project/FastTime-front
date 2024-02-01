@@ -1,10 +1,13 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .container {
   display: grid;
   gap: 1rem;
   max-width: 768px;
   margin-inline: auto;
 
-  @include mobile {
+  @include m.mobile {
     margin-inline: 1rem;
   }
 
@@ -33,7 +36,7 @@
     .btn {
       display: flex;
       justify-content: space-between;
-      background-color: $red-400;
+      background-color: v.$red-400;
       padding: 1rem 1.5rem;
       color: #fff;
       font-size: 14px;

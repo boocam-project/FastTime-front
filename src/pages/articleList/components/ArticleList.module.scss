@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as m;
+
 .article {
   display: flex;
   flex-direction: column;
@@ -7,13 +9,13 @@
   margin: 0 auto;
 
   padding: 1rem 0 2rem;
-  border-bottom: 1px solid $red-100;
+  border-bottom: 1px solid m.$red-100;
 
   .articleInfo {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: $black;
+    color: m.$black;
     font-weight: 400;
     font-size: 14px;
     margin-bottom: 0.5rem;
