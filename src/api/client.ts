@@ -7,7 +7,7 @@ import { getNewAccessToken } from './authApi';
 import toast from 'react-hot-toast';
 
 export const instance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
