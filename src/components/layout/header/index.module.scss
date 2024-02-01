@@ -46,7 +46,7 @@
       opacity: 1;
     }
 
-    .modal-items {
+    .modalItem {
       display: flex;
       flex-direction: column;
 
@@ -100,12 +100,26 @@
     gap: 2rem;
     white-space: nowrap;
 
-    .menu-item {
+    .menuItem {
       position: relative;
       font-weight: 500;
       font-size: 1rem;
       opacity: 0.5;
       cursor: pointer;
+
+      &.selected {
+        opacity: 1;
+
+        &::before {
+          position: absolute;
+          content: '';
+          height: 2px;
+          width: 100%;
+          left: 0;
+          bottom: -5px;
+          background-color: v.$red-500;
+        }
+      }
 
       &.menu-item:first-child {
         color: #000;
