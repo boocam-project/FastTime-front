@@ -2,17 +2,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './index.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { instance } from '@/api/client';
-import { AxiosError } from 'axios';
-import { userState } from '@/store/store';
 import { useRecoilState } from 'recoil';
+import { authState } from '@/recoil/authState';
+import { MENU_ITEMS } from '@/constants/menus';
+import toast from 'react-hot-toast';
+import { signOut } from '@/components/signIn/utils/logout';
 
 type MenuType = 'community' | 'study' | 'project' | 'portfolio';
 
 const Header = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuType | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useRecoilState(authState);
   const navigate = useNavigate();
 
   const cx = classNames.bind(styles);
@@ -54,17 +55,12 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    try {
-      const response = await instance.get('api/v1/logout');
-      if (response.status === 200) {
-        setUser({ ...user, isLogin: false });
-        navigate('/signin');
-      }
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        throw error;
-      }
-    }
+    setUser({ memberId: null, email: null, nickname: null, image: null, loggedIn: false });
+    toast.promise(signOut(), {
+      loading: '잠시만 기다려주세요',
+      success: '로그아웃 되었습니다.',
+      error: '로그아웃에 실패했습니다',
+    });
   };
 
   return (
@@ -78,7 +74,7 @@ const Header = () => {
           </Link>
         </div>
         <button ref={buttonRef} className={styles.info}>
-          <div className={styles['info-menu']}>{/* <img src="" alt="" /> */}</div>
+          <div className={styles.infoMenu}>{/* <img src="" alt="" /> */}</div>
         </button>
 
         <div
@@ -86,13 +82,13 @@ const Header = () => {
           className={cx(['user-modal'], { open: isMenuOpen })}
           onClick={() => setIsMenuOpen(false)}
         >
-          {user.isLogin ? (
+          {user.loggedIn ? (
             <>
-              <div className={styles['modal-items']}>
+              <div className={styles.modalItem}>
                 {/* TODO: settings로 주소 바꾸기 */}
                 <Link to={'/mypage'}>계정</Link>
               </div>
-              <div className={styles['modal-items']}>
+              <div className={styles.modalItem}>
                 {/* 로그아웃이 완료 되면서 게시글 페이지로 이동 */}
                 <a onClick={handleLogout}>로그아웃</a>
                 <div className={styles['user-name']}>{user.nickname}</div>
@@ -100,10 +96,10 @@ const Header = () => {
             </>
           ) : (
             <>
-              <div className={styles['modal-items']}>
+              <div className={styles.modalItem}>
                 <Link to={'/signin'}>로그인</Link>
               </div>
-              <div className={styles['modal-items']}>
+              <div className={styles.modalItem}>
                 <Link to={'/signup'}>회원가입</Link>
               </div>
             </>
@@ -113,38 +109,17 @@ const Header = () => {
 
       <div className={styles.nav}>
         <ul className={styles.menus} onClick={handleMenuClick}>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'community',
-            })}
-            data-menu="community"
-          >
-            <Link to={'/community'}>소근소근</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'study',
-            })}
-            data-menu="study"
-          >
-            <Link to={'/study'}>스터디</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'project',
-            })}
-            data-menu="project"
-          >
-            <Link to={'/project'}>프로젝트</Link>
-          </li>
-          <li
-            className={cx(['menu-item'], {
-              selected: selectedMenu === 'portfolio',
-            })}
-            data-menu="portfolio"
-          >
-            <Link to={'/portfolio'}>포트폴리오</Link>
-          </li>
+          {MENU_ITEMS.map((menu) => (
+            <li
+              key={menu.path}
+              className={cx('menuItem', {
+                selected: selectedMenu === menu.path,
+              })}
+              data-menu={menu.path}
+            >
+              <Link to={`/${menu.path}`}>{menu.name}</Link>
+            </li>
+          ))}
         </ul>
       </div>
       <div className={styles.spacer} />
