@@ -1,3 +1,6 @@
+@use '@/styles/abstracts/mixins' as m;
+@use '@/styles/abstracts/variables' as v;
+
 body {
   margin: 0;
 }
@@ -11,7 +14,7 @@ body {
   min-height: 100px;
   margin-top: 180px;
 
-  @include mobile {
+  @include m.mobile {
     display: none;
   }
 
@@ -84,7 +87,7 @@ ul.team-members-list li a:hover {
 .team-list h3 {
   font-size: 12px;
   margin: 10px 0;
-  color: $red-500;
+  color: v.$red-500;
 }
 
 .footer .footer-bottom p {
@@ -97,14 +100,14 @@ ul.team-members-list li a:hover {
   margin-right: -20px;
   a.github-link {
     font-size: 12px;
-    color: $red-400;
+    color: v.$red-400;
   }
 }
 
 .github-link span {
   margin-left: 5px;
   font-weight: 500;
-  color: $red-300;
+  color: v.$red-300;
 }
 
 .feedback-link {
@@ -112,6 +115,6 @@ ul.team-members-list li a:hover {
   font-weight: 300;
   font-size: 14px;
   :hover {
-    color: $red-500;
+    color: v.$red-500;
   }
 }

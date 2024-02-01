@@ -1,4 +1,6 @@
+@use '@/styles/abstracts/mixins' as m;
+
 .link {
-  @include flex-center;
+  @include m.flex-center;
   gap: 0.5rem;
 }

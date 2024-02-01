@@ -1,13 +1,12 @@
+@use '@/styles/abstracts/variables' as v;
+
 .container {
   position: relative;
   padding: 1rem;
   border-radius: 1rem;
-  border: 2px solid $red-400;
+  border: 2px solid v.$red-400;
 
   .title {
     margin-bottom: 1rem;
-  }
-
-  .content {
   }
 }

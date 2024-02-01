@@ -1,11 +1,14 @@
+@use '@/styles/abstracts/mixins' as m;
+@use '@/styles/abstracts/variables' as v;
+
 .info {
-  @include flex-center;
+  @include m.flex-center;
   align-items: flex-end;
   gap: 0.5rem;
 
   .name {
-    font-size: $text-sm;
-    font-weight: $font-regular;
+    font-size: v.$text-sm;
+    font-weight: v.$font-regular;
   }
 
   .date {
