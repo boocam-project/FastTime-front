@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import styles from './index.module.scss';
 import { Link } from 'react-router-dom';
 import { instance } from '@/api/client';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 interface Comment {
   id: number;
@@ -13,7 +14,7 @@ const MyComments = ({ nickname }: { nickname: string }) => {
   const { data: comments, isLoading } = useQuery<Comment[]>({
     queryKey: ['comments', nickname],
     queryFn: async () => {
-      const response = await instance.get('/api/v1/comment/my-page');
+      const response = await instance.get(`${ENDPOINTS.comments}/`);
       return response.data.data;
     },
   });
