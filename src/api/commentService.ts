@@ -23,21 +23,19 @@ export type Comment = {
 };
 
 export type CommentParams = {
-  page: number;
+  page?: number;
   pageSize?: number;
-  articleId: number;
+  articleId?: number;
+  parentCommentId?: number;
+  memberId?: number;
 };
 
 class CommentService {
   private endpoint = ENDPOINTS.comments;
 
-  getComments = async ({ page = 0, pageSize = 10, articleId }: CommentParams) => {
+  getComments = async (params: CommentParams) => {
     const response = await instance.get<{ data: CommentResponseData }>(`${this.endpoint}`, {
-      params: {
-        page,
-        pageSize,
-        articleId,
-      },
+      params,
     });
 
     return response.data.data;
