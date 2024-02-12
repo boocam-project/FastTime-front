@@ -60,4 +60,4 @@ class ArticleService {
   };
 }
 
-export default ArticleService;
+export default new ArticleService();
