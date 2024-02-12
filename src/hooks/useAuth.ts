@@ -4,10 +4,10 @@ import { authState } from '@/recoil/authState';
 import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 const useAuth = () => {
-  const setUser = useSetRecoilState(authState);
+  const [user, setUser] = useRecoilState(authState);
   const navigate = useNavigate();
 
   const { mutate } = useMutation({
@@ -22,7 +22,7 @@ const useAuth = () => {
     },
   });
 
-  return { mutate };
+  return { mutate, user };
 };
 
 export default useAuth;
