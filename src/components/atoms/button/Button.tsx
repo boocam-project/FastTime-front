@@ -13,7 +13,7 @@ const Button = ({ children, variant = 'primary', ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={cx({ button: true, secondary: variant === 'secondary' })}
+      className={cx({ button: true, secondary: variant === 'secondary', text: variant === 'text' })}
       type="button"
     >
       {children}
