@@ -6,19 +6,33 @@ import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAutoSizeTextArea from '../../hooks/useAutoSizeTextArea';
 
-const CommentInput = () => {
+interface CommentInputProps {
+  parentCommentId?: number;
+}
+
+const CommentInput = ({ parentCommentId }: CommentInputProps) => {
   const { id } = useParams();
   const [comment, setComment] = useState({
     content: '',
     anonymity: false,
-    parentCommentId: null,
   });
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   useAutoSizeTextArea(textAreaRef.current, comment.content);
 
   const handleSubmit = async () => {
-    const response = await instance.post(`${ENDPOINTS.comments}/${parseInt(id!)}`, comment);
+    let response;
+
+    if (parentCommentId) {
+      response = await instance.post(`${ENDPOINTS.comments}/${parseInt(id!)}`, {
+        ...comment,
+        parentCommentId,
+      });
+    } else {
+      response = await instance.post(`${ENDPOINTS.comments}/${parseInt(id!)}`, {
+        ...comment,
+      });
+    }
 
     console.log(response.data);
   };
@@ -34,16 +48,16 @@ const CommentInput = () => {
         placeholder="댓글을 입력하세요."
       />
       <div className={styles.actions}>
-        <label htmlFor="isAnonymity">
+        <label htmlFor={parentCommentId ? 'isAnonymityChild' : 'isAnonymity'}>
           익명{' '}
           <input
-            id="isAnonymity"
+            id={parentCommentId ? 'isAnonymityChild' : 'isAnonymity'}
             type="checkbox"
             checked={comment.anonymity}
             onChange={(e) => setComment((prev) => ({ ...prev, anonymity: e.target.checked }))}
           />
         </label>
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
           등록
         </Button>
       </div>
