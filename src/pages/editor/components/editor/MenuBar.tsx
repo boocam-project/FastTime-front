@@ -1,5 +1,5 @@
 import { Editor } from '@tiptap/react';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, memo, useEffect, useState } from 'react';
 
 import { PiTextItalicLight, PiTextStrikethroughLight, PiTextUnderlineLight } from 'react-icons/pi';
 import { BsCode, BsCardImage } from 'react-icons/bs';
@@ -159,4 +159,4 @@ const MenuBar = ({ editor }: Props) => {
   );
 };
 
-export default MenuBar;
+export default memo(MenuBar);
