@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as v;
+
 @function next-color($current-index) {
   $keys: map-keys($red-list);
   $currentIndex: index($keys, $current-index);
@@ -9,11 +11,11 @@
 }
 
 $red-list: (
-  '100': $red-100,
-  '200': $red-200,
-  '300': $red-300,
-  '400': $red-400,
-  '500': $red-500,
+  '100': v.$red-100,
+  '200': v.$red-200,
+  '300': v.$red-300,
+  '400': v.$red-400,
+  '500': v.$red-500,
 );
 
 button {
@@ -23,66 +25,66 @@ button {
 }
 
 @mixin tag-red-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 8px 12px;
   border-radius: 50px;
-  font-size: $text-xs;
+  font-size: v.$text-xs;
 }
 
 @mixin round-red-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 4px 16px;
   border-radius: 50px;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
   transition: all 0.3s;
 
   &:disabled {
-    color: $gray;
-    background-color: $light-gray;
+    color: v.$gray;
+    background-color: v.$light-gray;
     padding: 4px 16px;
   }
 }
 
 @mixin default-red-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 6px 16px;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
   transition: all 0.3s;
 
   &:disabled {
-    color: $gray;
-    background-color: $light-gray;
+    color: v.$gray;
+    background-color: v.$light-gray;
     padding: 6px 16px;
   }
 }
 
 @mixin large-red-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 12px 32px;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
   transition: all 0.3s;
 
   &:disabled {
-    color: $gray;
-    background-color: $light-gray;
+    color: v.$gray;
+    background-color: v.$light-gray;
     padding: 12px 32px;
   }
 }
 
 @mixin compact-red-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 12px 32px;
-  font-size: $text-sm;
+  font-size: v.$text-sm;
   transition: all 0.3s;
 
   &:disabled {
-    color: $gray;
-    background-color: $light-gray;
+    color: v.$gray;
+    background-color: v.$light-gray;
     padding: 12px 32px;
   }
 }

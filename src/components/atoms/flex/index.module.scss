@@ -1,5 +1,7 @@
+@use '@/styles/abstracts/mixins' as m;
+
 .flex {
-  @include flex-center;
+  @include m.flex-center;
   gap: var(--gap);
 
   &.column {
