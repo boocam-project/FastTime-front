@@ -9,8 +9,10 @@ import ArticleListPage from '@/pages/articleList';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
-import WritePage from '@/pages/editor/write';
-import EditPage from '@/pages/editor/edit';
+import { Suspense, lazy } from 'react';
+
+const WritePage = lazy(() => import('@/pages/editor/write'));
+const EditPage = lazy(() => import('@/pages/editor/edit'));
 
 export const router = createBrowserRouter([
   {
@@ -45,10 +47,18 @@ export const router = createBrowserRouter([
   },
   {
     path: '/write',
-    element: <WritePage />,
+    element: (
+      <Suspense>
+        <WritePage />
+      </Suspense>
+    ),
   },
   {
     path: '/edit/:id',
-    element: <EditPage />,
+    element: (
+      <Suspense>
+        <EditPage />
+      </Suspense>
+    ),
   },
 ]);

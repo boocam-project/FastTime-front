@@ -5,7 +5,7 @@ interface ParentCommentProps {
 }
 
 const ParentComment = ({ comment }: ParentCommentProps) => {
-  return <div>{comment.content}</div>;
+  return <p>{comment.content}</p>;
 };
 
 export default ParentComment;

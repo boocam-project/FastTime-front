@@ -14,7 +14,9 @@
 
   color: #fff;
   background-color: #f8607a;
-  transition: background-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
 
   &.secondary {
     color: v.$gray;
@@ -25,6 +27,15 @@
       color: v.$black;
       background-color: #fff;
       border: 1px solid v.$black;
+    }
+  }
+
+  &.text {
+    color: v.$gray;
+    background-color: #fff;
+
+    &:hover {
+      color: v.$black;
     }
   }
 }
