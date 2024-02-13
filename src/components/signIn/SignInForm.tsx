@@ -3,12 +3,8 @@ import styles from './signIn.module.scss';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
-import { Link, useNavigate } from 'react-router-dom';
-import { instance } from '@/api/client';
-import { useSetRecoilState } from 'recoil';
-import { userState } from '@/store/store';
-import { setTokenToLocalStorage } from './utils/getToken';
-import { ENDPOINTS } from '@/api/apiConfig';
+import { Link } from 'react-router-dom';
+import useAuth from '@/hooks/useAuth';
 
 interface SignInFormValues {
   email: string;
@@ -16,7 +12,7 @@ interface SignInFormValues {
 }
 
 const SignInForm = () => {
-  const navigate = useNavigate();
+  const { mutate } = useAuth();
   const {
     register,
     watch,
@@ -30,32 +26,8 @@ const SignInForm = () => {
     },
   });
 
-  const setData = useSetRecoilState(userState);
-
   const onSubmit = async (data: SignInFormValues) => {
-    try {
-      const response = await instance.post(ENDPOINTS.login, {
-        email: data.email,
-        password: data.password,
-      });
-
-      if (response.status === 200) {
-        const { data } = response.data;
-        const accessToken = data.token.accessToken;
-        const refreshToken = data.token.refreshToken;
-
-        setTokenToLocalStorage(accessToken, refreshToken);
-        setData({ ...response.data.data, isLogin: true });
-        navigate('/community');
-      }
-    } catch (error: any) {
-      if (error.response && error.response.status === 500) {
-        alert('이메일과 비밀번호를 다시 확인해주세요.');
-      } else {
-        console.error('서버 요청 중 오류가 발생했습니다.', error);
-        alert('서버 요청 중 오류가 발생했습니다.');
-      }
-    }
+    mutate(data);
   };
 
   return (

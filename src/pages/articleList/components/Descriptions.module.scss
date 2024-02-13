@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as v;
+
 .contents {
   display: flex;
   flex-direction: column;
@@ -10,8 +12,8 @@
 
     margin-bottom: 0.5rem;
 
-    font-size: $text-xl;
-    font-weight: $font-medium;
+    font-size: v.$text-xl;
+    font-weight: v.$font-medium;
 
     &::before {
       position: absolute;
@@ -21,7 +23,7 @@
       height: 1rem;
       width: 100%;
       z-index: -1;
-      background-color: $red-100;
+      background-color: v.$red-100;
       opacity: 0.5;
     }
   }

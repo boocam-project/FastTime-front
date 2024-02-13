@@ -5,6 +5,7 @@ import MyArticles from '../myArticles';
 import MyComments from '../myComments';
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '@/api/client';
+import { ENDPOINTS } from '@/api/apiConfig';
 
 interface UserType {
   id: number;
@@ -16,7 +17,7 @@ const MyPage = () => {
   const { data: user, isLoading } = useQuery<UserType>({
     queryKey: ['user'],
     queryFn: async () => {
-      const response = await instance.get('/api/v1/mypage');
+      const response = await instance.get(`${ENDPOINTS.members}/me/page`);
       return response.data.data;
     },
   });

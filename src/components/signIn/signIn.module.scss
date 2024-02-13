@@ -1,3 +1,5 @@
+@use '@/styles/abstracts/variables' as v;
+
 .container {
   position: relative;
   width: 100%;
@@ -22,7 +24,7 @@
     background-color: #fff;
 
     a {
-      color: $red-300;
+      color: v.$red-300;
 
       &:hover {
         text-decoration: underline;

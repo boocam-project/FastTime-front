@@ -1,3 +1,6 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .overlay {
   position: fixed;
   width: 100%;
@@ -29,7 +32,7 @@
 
     .error {
       font-size: 12px;
-      color: $red-400;
+      color: v.$red-400;
     }
 
     .btns {
@@ -51,16 +54,16 @@
 
       .close {
         background-color: transparent;
-        border: 1px solid $red-400;
+        border: 1px solid v.$red-400;
       }
 
       .save {
-        background-color: $red-400;
+        background-color: v.$red-400;
         color: #fff;
       }
     }
 
-    @include mobile {
+    @include m.mobile {
       top: auto;
       bottom: 0;
       transform: translate(-50%, 0);

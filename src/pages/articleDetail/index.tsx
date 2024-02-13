@@ -5,7 +5,10 @@ import { instance } from '@/api/client';
 import useLikeMutations from '@/hooks/useLikeMutations';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
+
+import { ReactComponent as HeartFill } from '@/assets/icons/heart_filled.svg';
+import { ReactComponent as HeartLine } from '@/assets/icons/heart_lined.svg';
+
 import ArticleArea from './components/article';
 import CommentArea from './components/comment';
 import { ENDPOINTS } from '@/api/apiConfig';
@@ -62,7 +65,7 @@ const ArticleDetailPage = () => {
         <div className={styles['bottom-menus']}>
           {like && (
             <button className={styles.btn} type="button" onClick={handleLike}>
-              {like.isLike ? <PiHeartStraightFill size={20} /> : <PiHeartStraightLight size={20} />}
+              {like.isLike ? <HeartFill /> : <HeartLine />}
             </button>
           )}
           <button className={styles.btn} type="button" onClick={handleReport}>
