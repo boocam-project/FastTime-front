@@ -1,8 +1,6 @@
-import ArticleService, { ArticleRequest } from '@/api/articleService';
+import api, { ArticleRequest } from '@/api/articleService';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-
-const api = new ArticleService();
 
 const usePostArticle = () => {
   const navigate = useNavigate();
