@@ -9,6 +9,8 @@ import ArticleListPage from '@/pages/articleList';
 import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
+import CampReviewListPage from '@/pages/campReviewList';
+import ReviewDetailListPage from '@/pages/reviewDetailList';
 import { Suspense, lazy } from 'react';
 
 const WritePage = lazy(() => import('@/pages/editor/write'));
@@ -38,6 +40,14 @@ export const router = createBrowserRouter([
       {
         path: '/community/:id',
         element: <ArticleDetailPage />,
+      },
+      {
+        path: '/review',
+        element: <CampReviewListPage />,
+      },
+      {
+        path: '/review/detail',
+        element: <ReviewDetailListPage />,
       },
       { path: '/mypage', element: <MyPage /> },
       { path: '/admin/login', element: <AdminLogin /> },
