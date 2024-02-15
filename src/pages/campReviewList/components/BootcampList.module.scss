@@ -1,0 +1,13 @@
+@use '@/styles/abstracts/variables' as m;
+
+.listWrapContainer {
+  margin-top: 2rem;
+}
+
+.listContainer {
+  margin-top: 1rem;
+
+  padding: 1rem;
+
+  border: 1px solid;
+}
