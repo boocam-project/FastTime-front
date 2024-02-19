@@ -1,0 +1,19 @@
+@use '@/styles/abstracts/variables' as v;
+
+.tagContainer {
+  display: flex;
+  align-items: center;
+
+  width: 200px;
+
+  border-radius: 0.3rem;
+
+  font-size: v.$text-sm;
+
+  padding: 0.4rem;
+  margin: 0.4rem;
+}
+
+.grow {
+  flex-grow: 1;
+}

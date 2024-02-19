@@ -1,0 +1,22 @@
+@use '@/styles/abstracts/variables' as v;
+
+.title {
+  // font-size: v.$text-sm;
+
+  margin: 1rem 0.4rem 0 0.4rem;
+  font-weight: v.$font-medium;
+}
+
+.tagList {
+  display: flex;
+
+  flex-wrap: wrap;
+}
+
+.tagListContainer {
+  margin-bottom: 1rem;
+}
+
+.ListTitle {
+  margin: 0 0.4rem;
+}
