@@ -1,33 +1,17 @@
-import './slick.css';
-import './slick-theme.css';
-import Slider, { CustomArrowProps } from 'react-slick';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-// import CustomArrowProps from 'react-slick';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 
+import Slider, { CustomArrowProps } from 'react-slick';
+import { FaChevronRight, FaChevronLeft } from 'react-icons/fa6';
 const Carousel = () => {
   const SampleNextArrow = (props: CustomArrowProps) => {
     const { className, style, onClick } = props;
-    return (
-      <FontAwesomeIcon
-        icon={faChevronRight}
-        className={className}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <FaChevronRight className={className} style={{ ...style }} onClick={onClick} />;
   };
 
   const SamplePrevArrow = (props: CustomArrowProps) => {
     const { className, style, onClick } = props;
-    return (
-      <FontAwesomeIcon
-        icon={faChevronLeft}
-        className={className}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <FaChevronLeft className={className} style={{ ...style }} onClick={onClick} />;
   };
 
   const settings = {
