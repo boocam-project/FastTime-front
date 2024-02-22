@@ -1,10 +1,10 @@
 import { reviewFormState } from '@/recoil/reviewFormState';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styles from './SetRating.module.scss';
 
 const SetRating = () => {
-  const [_, setReview] = useRecoilState(reviewFormState);
+  const setReview = useSetRecoilState(reviewFormState);
 
   const [rating, setRating] = useState(5);
 
