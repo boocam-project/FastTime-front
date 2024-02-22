@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styles from './ReviewTag.module.scss';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { reviewFormState } from '@/recoil/reviewFormState';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ReviewTag = ({ icon, text, type, id }: Props) => {
-  const [_, setReview] = useRecoilState(reviewFormState);
+  const setReview = useSetRecoilState(reviewFormState);
   const [isClicked, setIsClicked] = useState(false);
 
   const getBackground = () => {
