@@ -1,11 +1,22 @@
-@use '@/styles/abstracts/variables' as m;
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .listWrapContainer {
-  margin-top: 2rem;
+  margin: 2rem;
 
   display: grid;
   grid-template-columns: repeat(2, 300px);
   grid-gap: 20px;
+
+  @include m.mobile {
+    grid-template-columns: repeat(1, 300px);
+  }
 }
 
 .listContainer {
@@ -13,7 +24,11 @@
   padding: 1rem;
 
   border-radius: 1rem;
-  border: 1px solid #eee;
+  border: 1px solid v.$extra-light-gray;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.listContainer:hover {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -46,7 +61,6 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
 }
-
 .imgTextBox {
   position: absolute;
   top: 50%;
@@ -54,10 +68,10 @@
 
   transform: translate(-50%, -50%);
 
-  font-weight: 500;
-  font-size: 1.5rem;
+  font-weight: v.$font-medium;
+  font-size: v.$text-xl;
   text-align: center;
-  color: #fff;
+  color: v.$white;
 
   z-index: 10;
 }
@@ -65,15 +79,14 @@
 .title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
-  font-size: 1.1rem;
+  font-size: v.$text-lg;
+  font-weight: v.$font-medium;
 
-  padding-top: 0.5rem;
+  margin: 0.5rem 0;
 }
-
-.subTitle {
-  margin-bottom: 1rem;
-
-  font-size: 0.8rem;
-  color: #888;
+.title > div:nth-of-type(2) {
+  font-size: v.$text-sm;
+  font-weight: v.$font-regular;
 }
