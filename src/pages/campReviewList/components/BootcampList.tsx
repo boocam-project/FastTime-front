@@ -44,10 +44,15 @@ const BootcampList = () => {
               </div>
               <Button variant="primary">리뷰 상세 보기</Button>
             </li>
-            // <li>
-            //   <div>{bootcamp.bootcamp}</div>
-            //   <div>{bootcamp.totalReviews}</div>
-            //   <div>{bootcamp.averageRating.toFixed(1)}</div>
+            // <li key={index} className={styles.listContainer}>
+            //   <div className={styles.title}>
+            //     <div>{bootcamp.bootcamp}</div>
+            //   </div>
+            //   <div className={styles.description}>
+            //     <div className={styles.rating}>⭐ {bootcamp.averageRating.toFixed(1)}</div>
+            //     <div className={styles.totalReviews}>리뷰 {bootcamp.totalReviews}개</div>
+            //     <Button variant="primary">리뷰 상세 보기</Button>
+            //   </div>
             // </li>
           );
         })}
