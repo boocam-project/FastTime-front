@@ -4,55 +4,55 @@ import Button from '@/components/atoms/button/Button';
 const BootcampList = () => {
   const list = [
     {
-      id: 0,
-      title: '42 Seoul',
-      subTitle: '소프트웨어 개발',
-      score: 4.2,
-      type: 'etc',
+      bootcamp: '42 Seoul',
+      averageRating: 4.2,
+      totalReviews: 20,
     },
     {
-      id: 1,
-      title: '우아한테크코스',
-      subTitle: '웹 백엔드',
-      score: 4.0,
-      type: 'back',
+      bootcamp: '우아한테크코스',
+      averageRating: 4.0,
+      totalReviews: 100,
     },
     {
-      id: 2,
-      title: '패스트캠퍼스',
-      subTitle: '프론트엔드 개발 부트캠프',
-      score: 1.2,
-      type: 'front',
+      bootcamp: '패스트캠퍼스',
+      averageRating: 1.2,
+      totalReviews: 1,
     },
   ];
 
-  const getImage = (type: string) => {
-    if (type === 'front') return '/images/front.png';
-    if (type === 'back') return '/images/back.png';
-    if (type === 'ai') return '/images/ai.png';
+  const selectRandomImage = () => {
+    const images = ['/images/ai.png', '/images/back.png', '/images/front.png'];
 
-    return '/images/data.png';
+    const randomIndex = Math.floor(Math.random() * images.length);
+
+    return images[randomIndex];
   };
 
   return (
-    <ul className={styles.listWrapContainer}>
-      {list.map((v) => {
-        return (
-          <li key={v.id} className={styles.listContainer}>
-            <div className={styles.imgWrapper}>
-              <div className={styles.imgTextBox}>{v.title}</div>
-              <img src={getImage(v.type)} />
-            </div>
-            <div className={styles.title}>
-              <div>{v.title}</div>
-              <div>⭐ {v.score.toFixed(1)}</div>
-            </div>
-            <div className={styles.subTitle}>{v.subTitle}</div>
-            <Button variant="primary">리뷰 상세 보기</Button>
-          </li>
-        );
-      })}
-    </ul>
+    <div className={styles.Container}>
+      <ul className={styles.listWrapContainer}>
+        {list.map((bootcamp, index) => {
+          return (
+            <li key={index} className={styles.listContainer}>
+              <div className={styles.imgWrapper}>
+                <div className={styles.imgTextBox}>{bootcamp.bootcamp}</div>
+                <img src={selectRandomImage()} />
+              </div>
+              <div className={styles.title}>
+                <div>⭐ {bootcamp.averageRating.toFixed(1)}</div>
+                <div>총 리뷰: {bootcamp.totalReviews}개</div>
+              </div>
+              <Button variant="primary">리뷰 상세 보기</Button>
+            </li>
+            // <li>
+            //   <div>{bootcamp.bootcamp}</div>
+            //   <div>{bootcamp.totalReviews}</div>
+            //   <div>{bootcamp.averageRating.toFixed(1)}</div>
+            // </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 };
 
