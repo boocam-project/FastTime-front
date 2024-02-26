@@ -1,6 +1,7 @@
 @use '@/styles/abstracts/variables' as v;
 @use '@/styles/abstracts/mixins' as m;
 
+// 스타일 1
 .Container {
   display: flex;
   justify-content: center;
@@ -90,3 +91,61 @@
   font-size: v.$text-sm;
   font-weight: v.$font-regular;
 }
+
+// 스타일 2
+// .listContainer {
+//   margin-top: 1rem;
+//   padding: 1.5rem;
+
+//   border-radius: 1rem;
+//   border: 1px solid v.$extra-light-gray;
+//   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+// }
+
+// .listContainer:hover {
+//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+// }
+
+// .title {
+//   font-size: v.$text-xl;
+
+//   @include m.mobile {
+//     text-align: center;
+//   }
+// }
+
+// .description {
+//   display: flex;
+//   align-items: center;
+
+//   padding-top: 1rem;
+
+//   @include m.mobile {
+//     justify-content: center;
+//     flex-direction: column;
+//   }
+// }
+
+// .rating {
+//   font-size: v.$text-lg;
+//   font-weight: v.$font-medium;
+
+//   margin-right: 1.5rem;
+
+//   @include m.mobile {
+//     margin-right: 0;
+//     padding: 0.3rem;
+//   }
+// }
+
+// .totalReviews {
+//   font-size: v.$text-md;
+//   color: v.$gray;
+
+//   margin-right: 1.5rem;
+
+//   @include m.mobile {
+//     margin-right: 0;
+//     padding: 0.3rem;
+//   }
+// }
