@@ -1,7 +1,7 @@
 import Button from '@/components/atoms/button/Button';
 import Input from '@/components/atoms/input';
 import { reviewFormState } from '@/recoil/reviewFormState';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import SelectTag from './components/SelectTag';
 import SetRating from './components/SetRating';
 import styles from './index.module.scss';
@@ -17,7 +17,7 @@ export interface Tag {
 }
 
 const WriteReviewPage = () => {
-  const [review] = useRecoilState(reviewFormState);
+  const review = useRecoilValue(reviewFormState);
   const [titleInput, setTitleInput] = useState('');
   const [contentInput, setContentInput] = useState('');
 
