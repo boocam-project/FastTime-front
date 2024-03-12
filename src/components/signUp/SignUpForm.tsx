@@ -104,6 +104,7 @@ const SignUpForm = () => {
           label="이메일"
           variant="defaultInput"
           disabled={isEmailVerified}
+          subButton="이메일 인증"
         />
         {sendVerificationCode ? (
           <>
@@ -122,7 +123,7 @@ const SignUpForm = () => {
             </Button>
           </>
         ) : (
-          <Button type="button" className="default-red-300" onClick={handleEmailVerification} show>
+          <Button type="button" className="default-gray-100" onClick={handleEmailVerification} show>
             이메일 인증
           </Button>
         )}
@@ -166,7 +167,7 @@ const SignUpForm = () => {
           label="비밀번호 확인"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-red-400" show>
+        <Button type="submit" className="default-gray-200" show>
           회원가입
         </Button>
         <div>

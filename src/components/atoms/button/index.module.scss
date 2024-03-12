@@ -30,6 +30,14 @@ button {
   cursor: pointer;
 }
 
+@mixin subBtn-gray-style($bgColor) {
+  color: $white;
+  background-color: $bgColor;
+  // padding: 6px 24px;
+  border-radius: 6px;
+  font-size: $--size-smalltext;
+}
+
 @mixin tag-red-style($bgColor) {
   color: v.$white;
   background-color: $bgColor;
@@ -106,6 +114,18 @@ button {
     color: v.$gray;
     background-color: v.$light-gray;
     padding: 12px 32px;
+  }
+}
+
+.subBtn-gray {
+  @each $index, $color in $gray-list {
+    &-#{$index} {
+      @include subBtn-gray-style($color);
+
+      &:hover {
+        background-color: next-color($index) or $color;
+      }
+    }
   }
 }
 
