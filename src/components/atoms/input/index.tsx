@@ -2,8 +2,9 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './input.module.scss';
 import { ComponentProps } from 'react';
 import classNames from 'classnames/bind';
+import Button from '../button';
 import { CiSearch } from 'react-icons/ci';
-import InputIcon from './InputIcon';
+// import InputIcon from './InputIcon';
 
 interface Props extends ComponentProps<'input'> {
   name: string;
@@ -13,6 +14,7 @@ interface Props extends ComponentProps<'input'> {
   variant?: 'defaultInput' | 'searchInput';
   className?: string;
   // value: string;
+  subButton?: string;
 }
 
 const Input = ({
@@ -23,10 +25,11 @@ const Input = ({
   className,
   variant,
   // value,
+  subButton,
   ...props
 }: Props) => {
   const cx = classNames.bind(styles);
-  const isValid = Boolean(errorMessage === undefined && props.value);
+  // const isValid = Boolean(errorMessage === undefined && props.value);
 
   return (
     <div className={styles.group}>
@@ -44,9 +47,14 @@ const Input = ({
           {...register}
           {...props}
         />
-        <div className={styles.icon}>
+        {/* <div className={styles.icon}>
           <InputIcon type={variant} isValid={isValid} />
-        </div>
+        </div> */}
+        {subButton && (
+          <Button type="button" className="subBtn-gray-200" show>
+            {subButton}
+          </Button>
+        )}
       </div>
 
       {variant === 'defaultInput' && errorMessage && (
