@@ -2,7 +2,7 @@ import {
   getTokenFromLocalStorage,
   setTokenToLocalStorage,
 } from '@/components/signIn/utils/getToken';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { getNewAccessToken } from './authApi';
 import toast from 'react-hot-toast';
 
@@ -26,6 +26,26 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
+interface FailedRequest {
+  resolve: (token: string | null) => void;
+  reject: (reason?: any) => void;
+}
+
+let isRefreshing = false;
+let failedQueue: FailedRequest[] = [];
+
+const processQueue = (error: AxiosError | null, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
 instance.interceptors.response.use(
   async (response) => {
     return response;
@@ -33,36 +53,50 @@ instance.interceptors.response.use(
   async (error) => {
     const {
       config,
-      response: { status, data },
+      response: { status },
     } = error;
 
     if (status === 403 || status === 401) {
       const originalRequest = config;
-      const { accessToken, refreshToken } = getTokenFromLocalStorage();
+      if (!isRefreshing) {
+        isRefreshing = true;
+        const { accessToken, refreshToken } = getTokenFromLocalStorage();
 
-      if (accessToken && refreshToken) {
+        if (!accessToken || !refreshToken) return;
+
         try {
-          const { data, code } = await getNewAccessToken(accessToken, refreshToken);
-          if (code === 200) {
-            const { accessToken: newAccessToken, refreshToken: newRefreshToken } = data.token;
-            setTokenToLocalStorage(newAccessToken, newRefreshToken);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
-            originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+          const { data } = await getNewAccessToken(accessToken, refreshToken);
 
-            return axios(originalRequest);
+          const { accessToken: newAccessToken, refreshToken: newRefreshToken } = data.token;
+          setTokenToLocalStorage(newAccessToken, newRefreshToken);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
+          originalRequest.headers.authorization = `Bearer ${newAccessToken}`;
+
+          processQueue(null, newAccessToken);
+          return axios(originalRequest);
+        } catch (refreshError) {
+          if (refreshError instanceof AxiosError) {
+            processQueue(refreshError, null);
+            toast.error('접근 권한이 없습니다.');
           }
-        } catch (error) {
-          // TODO: 토스트 한 번만 뜨게하기, 리다이렉트 효과적으로 처리할 방법
-          toast.error('접근 권한이 없습니다.');
+        } finally {
+          isRefreshing = false;
         }
       }
-      // 리프레시 토큰이 없거나 만료되었을 때
-      if (data.path.startsWith('/api/v2/articles')) {
-        toast.error('접근 권한이 없습니다.');
-        return Promise.reject(error);
-      }
-      toast.error('다시 로그인 해주세요.');
-      return Promise.reject(error);
+
+      return new Promise((resolve, reject) => {
+        failedQueue.push({
+          resolve: () => {
+            originalRequest.headers.authorization = `Bearer ${
+              getTokenFromLocalStorage().accessToken
+            }`;
+            resolve(axios(originalRequest));
+          },
+          reject: () => {
+            reject(error);
+          },
+        });
+      });
     }
     return Promise.reject(error);
   }
