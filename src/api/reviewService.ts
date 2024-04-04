@@ -25,6 +25,18 @@ export type ReviewRequest = {
   content: string;
 };
 
+export interface SummaryResponse {
+  code: number;
+  message: string;
+  data: Summary[];
+}
+
+export interface Summary {
+  bootcamp: string;
+  averageRating: number;
+  totalReviews: number;
+}
+
 class ReviewService {
   private endpoint = ENDPOINTS.reviews;
 
@@ -45,6 +57,12 @@ class ReviewService {
       `${this.endpoint}/${id}`,
       review
     );
+
+    return response.data.data;
+  };
+
+  summary = async () => {
+    const response = await instance.put<{ data: SummaryResponse }>(`${this.endpoint}/summary`);
 
     return response.data.data;
   };
