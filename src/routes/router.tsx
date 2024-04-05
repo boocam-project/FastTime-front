@@ -11,6 +11,7 @@ import AdminBoardDetail from '@/pages/AdminBoardDetail';
 import AdminBoard from '@/pages/adminBoard';
 import CampReviewListPage from '@/pages/campReviewList';
 import ReviewDetailListPage from '@/pages/reviewDetailList';
+import ActivityPage from '@/pages/activity';
 import { Suspense, lazy } from 'react';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      { path: '/activity', element: <ActivityPage /> },
       { path: '/mypage', element: <MyPage /> },
       { path: '/admin/login', element: <AdminLogin /> },
       { path: '/admin/board', element: <AdminBoard /> },
