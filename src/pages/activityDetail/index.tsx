@@ -121,6 +121,7 @@ const ActivityDetailPage = () => {
                     : itemBDetail.data.homepageUrl
                 }
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 {tabName === 'competitions'
                   ? itemADetail.data.homepageUrl || ''
