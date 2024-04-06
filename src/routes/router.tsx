@@ -1,17 +1,18 @@
+import SignIn from '@/components/signIn';
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import SignIn from '@/components/signIn';
 
-import ArticleDetailPage from '@/pages/articleDetail';
 import SignUp from '@/components/signUp';
-import MyPage from '@/pages/myPage';
-import ArticleListPage from '@/pages/articleList';
-import AdminLogin from '@/pages/adminLogin';
 import AdminBoardDetail from '@/pages/AdminBoardDetail';
-import AdminBoard from '@/pages/adminBoard';
-import CampReviewListPage from '@/pages/campReviewList';
-import ReviewDetailListPage from '@/pages/reviewDetailList';
 import ActivityPage from '@/pages/activity';
+import ActivityDetailPage from '@/pages/activityDetail';
+import AdminBoard from '@/pages/adminBoard';
+import AdminLogin from '@/pages/adminLogin';
+import ArticleDetailPage from '@/pages/articleDetail';
+import ArticleListPage from '@/pages/articleList';
+import CampReviewListPage from '@/pages/campReviewList';
+import MyPage from '@/pages/myPage';
+import ReviewDetailListPage from '@/pages/reviewDetailList';
 import { Suspense, lazy } from 'react';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
@@ -61,6 +62,7 @@ export const router = createBrowserRouter([
         ),
       },
       { path: '/activity', element: <ActivityPage /> },
+      { path: '/activity/:id', element: <ActivityDetailPage /> },
       { path: '/mypage', element: <MyPage /> },
       { path: '/admin/login', element: <AdminLogin /> },
       { path: '/admin/board', element: <AdminBoard /> },
