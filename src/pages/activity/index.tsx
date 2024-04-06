@@ -86,6 +86,8 @@ const ActivityPage = () => {
                 organization={item.organization}
                 imageUrl={item.imageUrl}
                 dDay={item.dDay}
+                itemId={item.id}
+                type="competitions"
                 key={item.id}
               />
             );
@@ -99,6 +101,8 @@ const ActivityPage = () => {
                 organization={item.organization}
                 imageUrl={item.imageUrl}
                 dDay={item.dDay}
+                itemId={item.id}
+                type="activities"
                 key={item.id}
               />
             );
