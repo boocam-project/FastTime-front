@@ -10,4 +10,5 @@ export const ENDPOINTS = {
   report: `/api/v1/report`,
   like: `/api/v1/article-like`,
   reviews: `${API_VERSION}/reviews`,
+  resume: `${API_VERSION}/resume`,
 };
