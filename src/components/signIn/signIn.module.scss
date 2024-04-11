@@ -1,31 +1,53 @@
 @use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
 
 .container {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: $bgcGray;
+  background-color: v.$bgcGray;
+
+  @include m.mobile {
+    background-color: #fff;
+    height: 100vh;
+  }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.7rem;
     text-align: center;
-    color: $gray-200;
+    color: v.$gray-200;
+    padding-bottom: 4rem;
+
+    @include m.mobile {
+      font-size: 1.4rem;
+      padding-bottom: 5rem;
+    }
   }
 
   .form {
     position: absolute;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: grid;
-    gap: 2rem;
+    gap: 1.8rem;
     padding: 7rem 7rem;
-    padding-inline: clamp(1rem, 5%, 3rem);
+    padding-inline: clamp(1rem, 11%, 5rem);
     margin: 0 auto;
-    width: clamp(300px, 50%, 500px);
+    width: clamp(300px, 50%, 600px);
     background-color: #fff;
-    border-radius: 6px;
+    border-radius: 12px;
     box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.06);
+
+    .logoImageDiv {
+      display: none;
+      justify-content: center;
+      align-items: center;
+
+      @include m.mobile {
+        display: flex;
+      }
+    }
 
     a {
       color: v.$red-300;
@@ -33,6 +55,44 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+    .signInBtn {
+      margin-top: 3rem;
+      @include m.mobile {
+        margin-top: 2em;
+        padding: 0.7rem 0;
+        font-size: 1rem;
+      }
+    }
+
+    .bottomWrapper {
+      text-align: center;
+      color: v.$gray-200;
+      font-size: 15px;
+      div {
+        display: flex;
+        justify-content: center;
+        padding: 0.4rem 0;
+      }
+    }
+
+    @include m.mobile {
+      width: 100%;
+      // height: 100%;
+      top: 50;
+      left: 50;
+      transform: translate(-50%, -50%);
+      box-shadow: none;
+      padding: 0rem 1.2rem;
+      gap: 1.4rem;
+    }
+
+    @include m.tablet {
+      width: 100%;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+      box-shadow: none;
     }
   }
 }

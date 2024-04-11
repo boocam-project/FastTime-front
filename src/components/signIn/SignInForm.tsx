@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 import styles from './signIn.module.scss';
+import styles2 from '../atoms/button/index.module.scss';
+import classNames from 'classnames/bind';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
@@ -17,6 +19,9 @@ interface SignInFormValues {
 }
 
 const SignInForm = () => {
+  const cx = classNames.bind(styles);
+  const cx2 = classNames.bind(styles2);
+
   const { mutate } = useAuth();
   const {
     register,
@@ -38,6 +43,9 @@ const SignInForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.logoImageDiv}>
+          <img src="/src/assets/new_logo.png" alt="Logo" style={{ width: '140px' }} />
+        </div>
         <h2 style={{ fontWeight: 'normal' }}>로그인</h2>
         <Input
           type="text"
@@ -69,7 +77,7 @@ const SignInForm = () => {
           label="비밀번호"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-gray-200" show>
+        <Button type="submit" className={cx('signInBtn') + ' ' + cx2('default-gray-200')} show>
           로그인
         </Button>
         {/* <div>

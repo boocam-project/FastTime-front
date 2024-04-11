@@ -19,9 +19,9 @@ $red-list: (
 );
 
 $gray-list: (
-  '100': $gray-100,
-  '200': $gray-200,
-  '300': $gray-300,
+  '100': v.$gray-100,
+  '200': v.$gray-200,
+  '300': v.$gray-300,
 );
 
 button {
@@ -31,11 +31,10 @@ button {
 }
 
 @mixin subBtn-gray-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
-  // padding: 6px 24px;
   border-radius: 6px;
-  font-size: $--size-smalltext;
+  font-size: v.$text-xs;
 }
 
 @mixin tag-red-style($bgColor) {
@@ -76,15 +75,15 @@ button {
 }
 
 @mixin default-gray-style($bgColor) {
-  color: $white;
+  color: v.$white;
   background-color: $bgColor;
   padding: 6px 16px;
-  font-size: $--size-subtext;
+  // font-size: $--size-subtext;
   transition: all 0.3s;
 
   &:disabled {
-    color: $gray;
-    background-color: $light-gray;
+    color: v.$gray;
+    background-color: v.$light-gray;
     padding: 6px 16px;
   }
 }

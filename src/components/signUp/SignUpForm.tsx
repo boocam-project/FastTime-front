@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './signUp.module.scss';
+import styles2 from '../atoms/button/index.module.scss';
+import classNames from 'classnames/bind';
 import Input from '../atoms/input';
 import { PATTERNS } from '@/constants/constants';
 import Button from '../atoms/button';
@@ -19,6 +21,8 @@ const SignUpForm = () => {
   const navigate = useNavigate();
   const [isEmailVerified, setIsEmailVerified] = useState(false);
   const [sendVerificationCode, setSendVerificationCode] = useState(false);
+  const cx = classNames.bind(styles);
+  const cx2 = classNames.bind(styles2);
 
   const {
     register,
@@ -52,7 +56,7 @@ const SignUpForm = () => {
   const handleEmailVerification = async () => {
     const emailValue = getValues('email');
     try {
-      const response = await instance.post('api/v1/emailconfirm', {
+      const response = await instance.post('api/v1/confirm', {
         email: emailValue,
       });
 
@@ -88,6 +92,9 @@ const SignUpForm = () => {
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.logoImageDiv}>
+          <img src="/src/assets/new_logo.png" alt="Logo" style={{ width: '140px' }} />
+        </div>
         <h2 style={{ fontWeight: 'normal' }}>회원가입</h2>
         <Input
           type="text"
@@ -102,30 +109,37 @@ const SignUpForm = () => {
           errorMessage={errors.email?.message}
           name="email"
           label="이메일"
+          placeholder="이메일"
           variant="defaultInput"
           disabled={isEmailVerified}
           subButton="이메일 인증"
+          onClick={handleEmailVerification}
         />
         {sendVerificationCode ? (
           <>
             <Input
+              className="emailinput"
               type="text"
               name="verificationCode"
               label="인증 코드"
+              placeholder="인증코드"
               register={register('verificationCode', {
                 required: '인증 코드를 입력해주세요.',
               })}
               value={watch('verificationCode')}
               variant="defaultInput"
+              subButton="인증 확인"
+              onClick={checkEmailVerification}
             />
-            <Button type="button" className="default-red-300" onClick={checkEmailVerification} show>
+            {/* <Button type="button" className="default-red-300" onClick={checkEmailVerification} show>
               인증 확인
-            </Button>
+            </Button> */}
           </>
         ) : (
-          <Button type="button" className="default-gray-100" onClick={handleEmailVerification} show>
-            이메일 인증
-          </Button>
+          // <Button type="button" className="default-gray-100" onClick={handleEmailVerification} show>
+          //   이메일 인증
+          // </Button>
+          <></>
         )}
         <Input
           type="text"
@@ -136,23 +150,26 @@ const SignUpForm = () => {
           errorMessage={errors.nickname?.message}
           name="nickname"
           label="닉네임"
+          placeholder="닉네임"
           variant="defaultInput"
         />
         <Input
           type="password"
           register={register('password', {
             required: '비밀번호를 입력해주세요.',
-            minLength: { value: 10, message: '10글자 이상 입력해주세요.' },
-            maxLength: { value: 20, message: '20글자 이하로 입력해주세요.' },
+            minLength: { value: 10, message: '10자 이상 입력해주세요.' },
+            maxLength: { value: 20, message: '20자 이하로 입력해주세요.' },
             pattern: {
               value: PATTERNS.password,
               message: '영문, 숫자, 특수문자를 포함해주세요.',
             },
+            eyes: 'open',
           })}
           value={watch('password')}
           errorMessage={errors.password?.message}
           name="password"
           label="비밀번호"
+          placeholder="비밀번호"
           variant="defaultInput"
         />
         <Input
@@ -165,14 +182,28 @@ const SignUpForm = () => {
           errorMessage={errors.confirmPassword?.message}
           name="confirmPassword"
           label="비밀번호 확인"
+          placeholder="비밀번호 확인"
           variant="defaultInput"
         />
-        <Button type="submit" className="default-gray-200" show>
+        <Button type="submit" className={cx('signUpBtn') + ' ' + cx2('default-gray-200')} show>
           회원가입
         </Button>
-        <div>
-          <span>이미 계정이 있으신가요? </span>
-          <Link to="/signin">로그인</Link>
+
+        <div className={styles.bottomWrapper}>
+          <div>
+            <span className={styles.bottomWrapper}>이미 계정이 있으신가요? </span>
+            <Link to="/signin">로그인</Link>
+          </div>
+          <span>
+            회원가입 시, 패스트타임이 제공하는 서비스를 모두 이용하실 수 있으며{' '}
+            <u>
+              <b>서비스 이용약관,</b>
+            </u>{' '}
+            <u>
+              <b>개인정보처리방침</b>
+            </u>
+            에 동의한 것으로 간주합니다.
+          </span>
         </div>
       </form>
     </div>
