@@ -1,0 +1,33 @@
+@use '@/styles/abstracts/variables' as v;
+
+.status {
+  position: relative;
+  background-color: transparent;
+
+  margin-right: 1rem;
+  padding: 0.2rem 0.6rem;
+
+  border: 1px solid v.$light-gray;
+  border-radius: 1rem;
+
+  &.active {
+    border: 1px solid v.$red-300;
+  }
+
+  & > span:first-of-type {
+    display: inline-block;
+
+    margin-right: 0.5rem;
+
+    width: 10px;
+    height: 10px;
+
+    background-color: v.$light-gray;
+
+    border-radius: 50%;
+  }
+
+  & > span.active:first-of-type {
+    background-color: v.$red-300;
+  }
+}
