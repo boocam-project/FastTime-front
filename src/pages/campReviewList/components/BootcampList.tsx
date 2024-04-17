@@ -1,7 +1,13 @@
-import styles from './BootcampList.module.scss';
 import Button from '@/components/atoms/button/Button';
+import { currentReviewState } from '@/recoil/currentReviewState';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import styles from './BootcampList.module.scss';
 
 const BootcampList = () => {
+  const setRating = useSetRecoilState(currentReviewState);
+
+  const navigate = useNavigate();
   const list = [
     {
       bootcamp: '42 Seoul',
@@ -20,12 +26,9 @@ const BootcampList = () => {
     },
   ];
 
-  const selectRandomImage = () => {
-    const images = ['/images/ai.png', '/images/back.png', '/images/front.png'];
-
-    const randomIndex = Math.floor(Math.random() * images.length);
-
-    return images[randomIndex];
+  const handleClick = (name: string, rating: number, total: number) => {
+    setRating({ averageRating: rating, totalReviews: total });
+    navigate(`/review/detail?n=${name}`);
   };
 
   return (
@@ -34,26 +37,22 @@ const BootcampList = () => {
         {list.map((bootcamp, index) => {
           return (
             <li key={index} className={styles.listContainer}>
-              <div className={styles.imgWrapper}>
-                <div className={styles.imgTextBox}>{bootcamp.bootcamp}</div>
-                <img src={selectRandomImage()} />
-              </div>
               <div className={styles.title}>
-                <div>⭐ {bootcamp.averageRating.toFixed(1)}</div>
-                <div>총 리뷰: {bootcamp.totalReviews}개</div>
+                <div>{bootcamp.bootcamp}</div>
               </div>
-              <Button variant="primary">리뷰 상세 보기</Button>
+              <div className={styles.description}>
+                <div className={styles.rating}>⭐ {bootcamp.averageRating.toFixed(1)}</div>
+                <div className={styles.totalReviews}>리뷰 {bootcamp.totalReviews}개</div>
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    handleClick(bootcamp.bootcamp, bootcamp.averageRating, bootcamp.totalReviews)
+                  }
+                >
+                  리뷰 상세 보기
+                </Button>
+              </div>
             </li>
-            // <li key={index} className={styles.listContainer}>
-            //   <div className={styles.title}>
-            //     <div>{bootcamp.bootcamp}</div>
-            //   </div>
-            //   <div className={styles.description}>
-            //     <div className={styles.rating}>⭐ {bootcamp.averageRating.toFixed(1)}</div>
-            //     <div className={styles.totalReviews}>리뷰 {bootcamp.totalReviews}개</div>
-            //     <Button variant="primary">리뷰 상세 보기</Button>
-            //   </div>
-            // </li>
           );
         })}
       </ul>
