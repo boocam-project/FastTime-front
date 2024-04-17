@@ -8,7 +8,7 @@ import { MENU_ITEMS } from '@/constants/menus';
 import toast from 'react-hot-toast';
 import { signOut } from '@/components/signIn/utils/logout';
 
-type MenuType = 'community' | 'study' | 'project' | 'portfolio' | 'review';
+type MenuType = 'community' | 'study' | 'project' | 'portfolio' | 'review' | 'activity';
 
 const Header = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuType | null>(null);
@@ -45,7 +45,7 @@ const Header = () => {
     if (liElement) {
       const menuItem = liElement.getAttribute('data-menu') as MenuType;
       if (menuItem) {
-        if (menuItem !== 'community' && menuItem !== 'review') {
+        if (menuItem !== 'community' && menuItem !== 'review' && menuItem !== 'activity') {
           alert('준비중입니다.');
           navigate(`/community`);
         }

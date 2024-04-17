@@ -1,0 +1,126 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
+.container {
+  max-width: 1000px;
+  margin: 1rem auto;
+  padding-inline: 1rem;
+
+  .title {
+    position: relative;
+
+    display: inline-block;
+
+    margin-bottom: 0.5rem;
+
+    font-size: v.$text-xl;
+    font-weight: v.$font-medium;
+
+    &::before {
+      position: absolute;
+      content: '';
+      bottom: 0;
+      left: 0;
+      height: 1rem;
+      width: 100%;
+      z-index: -1;
+      background-color: v.$red-100;
+      opacity: 0.5;
+    }
+  }
+
+  @include m.tablet {
+    max-width: 680px;
+  }
+  @include m.mobile {
+    max-width: 680px;
+  }
+}
+
+.infoWrap {
+  display: flex;
+  justify-content: space-between;
+
+  & > div {
+    border-left: 1px solid #ccc;
+  }
+
+  & > div:first-of-type {
+    flex-grow: 1;
+    font-size: 1.3rem;
+    border: none;
+  }
+  & > div:nth-of-type(2) {
+    flex-grow: 5;
+
+    padding-left: 1rem;
+  }
+  & > div:last-of-type {
+    flex-grow: 5;
+
+    padding-left: 1rem;
+  }
+
+  & > div > div {
+    margin-block: 0.3rem;
+  }
+
+  & > div > div > span:first-of-type {
+    display: inline-block;
+    width: 30%;
+
+    font-size: 0.8rem;
+  }
+  & > div > div > span:last-of-type {
+    display: inline-block;
+    width: 70%;
+
+    white-space: wrap;
+    color: v.$gray;
+
+    font-size: 0.8rem;
+  }
+
+  @include m.tablet {
+    flex-flow: column;
+
+    & > div {
+      border: none;
+    }
+
+    & > div:nth-of-type(2) {
+      padding: 0;
+    }
+    & > div:last-of-type {
+      padding: 0;
+    }
+
+    & > div:first-of-type {
+      display: none;
+    }
+  }
+  @include m.mobile {
+    flex-flow: column;
+
+    & > div {
+      border: none;
+    }
+
+    & > div:nth-of-type(2) {
+      padding: 0;
+    }
+    & > div:last-of-type {
+      padding: 0;
+    }
+
+    & > div:first-of-type {
+      display: none;
+    }
+  }
+}
+
+.content {
+  & > img {
+    width: 100%;
+  }
+}

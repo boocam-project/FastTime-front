@@ -1,0 +1,151 @@
+export const listARes = {
+  code: 200,
+  message: '공모전 목록을 성공적으로 조회했습니다.',
+  data: {
+    totalPages: 4,
+    isLastPage: true,
+    totalCompetitions: 20,
+    competitions: [
+      {
+        id: 0,
+        title: '공모전 제목dddddddddddddddddddddd',
+        organization: '공모전 주최ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 1,
+        title: '공모전 제목',
+        organization: '공모전 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 2,
+        title: '공모전 제목',
+        organization: '공모전 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 3,
+        title: '공모전 제목',
+        organization: '공모전 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 4,
+        title: '공모전 제목',
+        organization: '공모전 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 5,
+        title: '공모전 제목',
+        organization: '공모전 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+    ],
+  },
+};
+
+export const listBRes = {
+  code: 200,
+  message: '대외 활동 목록을 성공적으로 조회했습니다.',
+  data: {
+    totalPages: 11,
+    isLastPage: true,
+    totalActivities: 63,
+    activities: [
+      {
+        id: 0,
+        title: '대외 활동 제목dddddddddddddddddddddd',
+        organization: '대외 활동 주최ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 1,
+        title: '대외 활동 제목',
+        organization: '대외 활동 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 2,
+        title: '대외 활동 제목',
+        organization: '대외 활동 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 3,
+        title: '대외 활동 제목',
+        organization: '대외 활동 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 4,
+        title: '대외 활동 제목',
+        organization: '대외 활동 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+      {
+        id: 5,
+        title: '대외 활동 제목',
+        organization: '대외 활동 주최',
+        imageUrl: '/images/Artboard_1.png',
+        dDay: 20,
+      },
+    ],
+  },
+};
+
+export const itemADetail = {
+  code: 200,
+  message: '공모전 상세 정보를 성공적으로 조회했습니다.',
+  data: {
+    id: 1,
+    title: '한국 전력 공사 IT 대외활동 (공)',
+    organization: '한국전력공사 (공)',
+    corporate_type: '중소기업 (공)',
+    participate: '대학생 (공)',
+    award_scale: '5000만 원 (공)',
+    start_date: '23.1.2',
+    end_date: '23.2.3',
+    homepageUrl: 'https://blog.naver.com/gyeryongcity1/222972814128',
+    activity_benefit: '기타, 상장 수여 (공)',
+    bonus_benefit: '해외 대학 대학원 추천 제도 (공)',
+    description: '전액 무료 ! (공)',
+    imageUrl: '/images/Artboard_1.png',
+  },
+};
+
+export const itemBDetail = {
+  code: 200,
+  message: '대외 활동 상세 정보를 성공적으로 조회했습니다.',
+  data: {
+    id: 1,
+    title: '한국 전력 공사 IT 대외활동 (대)',
+    organization: '한국전력공사 (대)',
+    corporate_type: '중소기업 (대)',
+    participate: '대학생 (대)',
+    start_date: '2023-01-02',
+    end_date: '2023-02-03',
+    period: '2023-03-02 ~ 2023-12-31',
+    recruitment: '30',
+    area: '부산 (대)',
+    preferred_skills: '컴퓨터활용자격증보유 (대)',
+    homepageUrl: 'https://blog.naver.com/gyeryongcity1/222972814128',
+    activity_benefit: '실무 교육, 수료증 및 인증서 (대)',
+    activity_field: '멘토링 (대)',
+    bonus_benefit: '훈련장려금 지급 (대)',
+    description: '전액 무료 ! (대)',
+    imageUrl: '/images/Artboard_1.png',
+  },
+};
