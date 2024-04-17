@@ -1,0 +1,59 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
+.Container {
+  margin-top: 2rem;
+}
+
+.ListWrap {
+  & > li {
+    margin-block: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  & > li:first-of-type {
+    margin-top: 0;
+  }
+  & > li:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.List {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+
+  &:hover {
+    box-shadow: v.$red-100 0px 2px 8px 0px;
+  }
+
+  .campName {
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+
+  .tagContainer {
+    display: flex;
+
+    margin-top: 0.4rem;
+    & > div {
+      width: 50%;
+
+      & > div:first-of-type {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      & > div:last-of-type {
+        font-size: 0.8rem;
+        color: #777;
+      }
+    }
+  }
+
+  .content {
+    margin-top: 1rem;
+
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+}
