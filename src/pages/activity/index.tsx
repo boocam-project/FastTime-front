@@ -7,8 +7,21 @@ import StatusBadge from './components/StatusBadge';
 import TabTitle from './components/TabTitle';
 import { listARes, listBRes } from './constants';
 import styles from './index.module.scss';
+// import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
+// import { type ActivitiesQuery } from '@/api/activitiesService';
 
 const ActivityPage = () => {
+  // const [activitiesQuery, setActivitiesQuery] = useState<ActivitiesQuery>({
+  //   keyword: null,
+  //   before: true,
+  //   during: true,
+  //   closed: false,
+  //   orderBy: 'latest',
+  //   page: 1,
+  //   pageSize: 6,
+  // });
+
+  // const { data: activities } = useActivitiesData(activitiesQuery);
   const [currentTab, setCurrentTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageList, setCurrentPageList] = useState(0);
@@ -16,8 +29,8 @@ const ActivityPage = () => {
   const [order, setOrder] = useState<'latest' | 'd-day'>('latest');
 
   const [filter, setFilter] = useState([
-    { title: '모집 전', active: false },
-    { title: '모집 중', active: false },
+    { title: '모집 전', active: true },
+    { title: '모집 중', active: true },
     { title: '모집 마감', active: false },
   ]);
 
@@ -26,6 +39,8 @@ const ActivityPage = () => {
       prev.map((item, i) => (i === index ? { ...item, active: !item.active } : item))
     );
   };
+
+  // console.log(activities);
 
   return (
     <div className={styles.container}>
