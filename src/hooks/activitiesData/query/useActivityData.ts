@@ -1,13 +1,13 @@
+import ActivitiesService from '@/api/activitiesService';
 import { useQuery } from '@tanstack/react-query';
-import activitiesService from '@/api/activitiesService';
 
 const useActivitiyData = (id: number) => {
-  const reviewService = new activitiesService();
+  const activitiesService = new ActivitiesService();
 
   return useQuery({
-    queryKey: ['activitiy'],
+    queryKey: ['activitiy', id],
     queryFn: () => {
-      return reviewService.getOne(id);
+      return activitiesService.getOne(id);
     },
   });
 };

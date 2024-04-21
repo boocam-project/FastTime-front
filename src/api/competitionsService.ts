@@ -1,20 +1,20 @@
 import { instance } from './client';
 import { ENDPOINTS } from './apiConfig';
 
-interface ActivitiesResponse {
+interface CompetitionApiResponse {
   code: number;
   message: string;
-  data: ActivitiesData;
+  data: CompetitionsData;
 }
 
-interface ActivitiesData {
+interface CompetitionsData {
   totalPages: number;
   isLastPage: boolean;
-  totalActivities: number;
-  activities: Activity[];
+  totalCompetitions: number;
+  competitions: Competition[];
 }
 
-interface Activity {
+interface Competition {
   id: number;
   title: string;
   organization: string;
@@ -22,66 +22,62 @@ interface Activity {
   dDay: number;
 }
 
-interface DetailActivitiesResponse {
+interface CompetitionDetailApiResponse {
   code: number;
   message: string;
-  data: ActivityDetail;
+  data: CompetitionDetail;
 }
 
-interface ActivityDetail {
+interface CompetitionDetail {
   id: number;
   title: string;
   organization: string;
   corporate_type: string;
   participate: string;
+  award_scale: string;
   start_date: string;
   end_date: string;
-  period: string;
-  recruitment: string;
-  area: string;
-  preferred_skills: string;
   homepageUrl: string;
   activity_benefit: string;
-  activity_field: string;
   bonus_benefit: string;
   description: string;
   imageUrl: string;
 }
 
-export interface ActivitiesQuery {
+export interface CompetitionsQuery {
   keyword?: null | string;
   before?: boolean;
-  during?: boolean;
-  closed?: boolean;
+  continues?: boolean;
+  after?: boolean;
   orderBy?: 'latest' | 'd-day';
   page?: number;
   pageSize?: number;
 }
 
-class ActivitiesService {
-  private endpoint = ENDPOINTS.activities;
+class CompetitionsService {
+  private endpoint = ENDPOINTS.competitions;
 
   getAll = async ({
     keyword = null,
     before = true,
-    during = true,
-    closed = false,
+    continues = true,
+    after = false,
     orderBy = 'latest',
     page = 1,
     pageSize = 10,
-  }: ActivitiesQuery) => {
-    const response = await instance.get<ActivitiesResponse>(
-      `${this.endpoint}?keyword=${keyword}&before=${before}&during=${during}&closed=${closed}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
+  }: CompetitionsQuery) => {
+    const response = await instance.get<CompetitionApiResponse>(
+      `${this.endpoint}?keyword=${keyword}&before=${before}&continue=${continues}&after=${after}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
     );
 
     return response.data.data;
   };
 
   getOne = async (id: number) => {
-    const response = await instance.get<DetailActivitiesResponse>(`${this.endpoint}/${id}`);
+    const response = await instance.get<CompetitionDetailApiResponse>(`${this.endpoint}/${id}`);
 
     return response.data.data;
   };
 }
 
-export default ActivitiesService;
+export default CompetitionsService;

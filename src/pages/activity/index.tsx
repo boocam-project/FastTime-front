@@ -9,6 +9,8 @@ import { listARes, listBRes } from './constants';
 import styles from './index.module.scss';
 // import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
 // import { type ActivitiesQuery } from '@/api/activitiesService';
+// import useAllCompetitionData from '@/hooks/competitionsData/query/useAllCompetitionData';
+// import { type CompetitionsQuery } from '@/api/competitionsService';
 
 const ActivityPage = () => {
   // const [activitiesQuery, setActivitiesQuery] = useState<ActivitiesQuery>({
@@ -20,8 +22,19 @@ const ActivityPage = () => {
   //   page: 1,
   //   pageSize: 6,
   // });
+  // const [competitionsQuery, setCompetitionsQuery] = useState<CompetitionsQuery>({
+  //   keyword: null,
+  //   before: true,
+  //   continues: true,
+  //   after: false,
+  //   orderBy: 'latest',
+  //   page: 1,
+  //   pageSize: 6,
+  // });
 
   // const { data: activities } = useActivitiesData(activitiesQuery);
+  // const { data: competitions } = useAllCompetitionData(competitionsQuery);
+
   const [currentTab, setCurrentTab] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageList, setCurrentPageList] = useState(0);
@@ -41,6 +54,7 @@ const ActivityPage = () => {
   };
 
   // console.log(activities);
+  // console.log(competitions);
 
   return (
     <div className={styles.container}>

@@ -11,4 +11,5 @@ export const ENDPOINTS = {
   like: `/api/v1/article-like`,
   reviews: `/api/v2/reviews`,
   activities: `/api/v2/activities`,
+  competitions: `/api/v2/competitions`,
 };

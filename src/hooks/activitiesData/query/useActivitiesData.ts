@@ -1,14 +1,22 @@
+import ActivitiesService, { type ActivitiesQuery } from '@/api/activitiesService';
 import { useQuery } from '@tanstack/react-query';
-import activitiesService from '@/api/activitiesService';
-import { type ActivitiesQuery } from '@/api/activitiesService';
 
 const useActivitiesData = (query: ActivitiesQuery) => {
-  const reviewService = new activitiesService();
+  const activitiesService = new ActivitiesService();
 
   return useQuery({
-    queryKey: ['activities'],
+    queryKey: [
+      'activities',
+      query.before,
+      query.closed,
+      query.during,
+      query.keyword,
+      query.orderBy,
+      query.page,
+      query.pageSize,
+    ],
     queryFn: () => {
-      return reviewService.getAll(query);
+      return activitiesService.getAll(query);
     },
   });
 };
