@@ -14,11 +14,9 @@ interface Props extends ComponentProps<'input'> {
   errorMessage?: any;
   variant?: 'defaultInput' | 'searchInput';
   className?: string;
-  // value: string;
   subButton?: string;
-  eyes?: string;
   placeholder?: string;
-  onClick?: void;
+  onSubButtonClick?: () => void;
 }
 
 const Input = ({
@@ -28,10 +26,9 @@ const Input = ({
   errorMessage,
   className,
   variant,
-  // value,
   subButton,
   placeholder,
-  onClick,
+  onSubButtonClick,
   ...props
 }: Props) => {
   const cx = classNames.bind(styles);
@@ -63,7 +60,7 @@ const Input = ({
           <Button
             type="button"
             className={cx('subBtn') + ' ' + cx2('subBtn-gray-200')}
-            onClick={onClick}
+            onClick={onSubButtonClick}
             show
           >
             {subButton}

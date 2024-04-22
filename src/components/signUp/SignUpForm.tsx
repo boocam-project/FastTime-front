@@ -113,7 +113,7 @@ const SignUpForm = () => {
           variant="defaultInput"
           disabled={isEmailVerified}
           subButton="이메일 인증"
-          onClick={handleEmailVerification}
+          onSubButtonClick={handleEmailVerification}
         />
         {sendVerificationCode ? (
           <>
@@ -129,7 +129,7 @@ const SignUpForm = () => {
               value={watch('verificationCode')}
               variant="defaultInput"
               subButton="인증 확인"
-              onClick={checkEmailVerification}
+              onSubButtonClick={checkEmailVerification}
             />
             {/* <Button type="button" className="default-red-300" onClick={checkEmailVerification} show>
               인증 확인
@@ -163,7 +163,6 @@ const SignUpForm = () => {
               value: PATTERNS.password,
               message: '영문, 숫자, 특수문자를 포함해주세요.',
             },
-            eyes: 'open',
           })}
           value={watch('password')}
           errorMessage={errors.password?.message}
