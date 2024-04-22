@@ -3,9 +3,19 @@ import { currentReviewState } from '@/recoil/currentReviewState';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styles from './BootcampList.module.scss';
+// import useSummaryData from '@/hooks/reviewData/query/useSummaryData';
+// import { useState } from 'react';
 
 const BootcampList = () => {
+  // const [reviewQuery, setReviewQuery] = useState({
+  //   page: 1,
+  //   size: 6,
+  // });
+  // const { data: summary } = useSummaryData(reviewQuery);
+
   const setRating = useSetRecoilState(currentReviewState);
+
+  // console.log(summary);
 
   const navigate = useNavigate();
   const list = [

@@ -11,10 +11,19 @@ export interface ReviewPostData {
   content: string;
 }
 
+export interface ReviewEditData extends ReviewPostData {
+  authorNickname: string;
+}
+
 export interface ReviewPostResponse {
   code: number;
   message: string;
   data: ReviewPostData | null;
+}
+export interface ReviewEditResponse {
+  code: number;
+  message: string;
+  data: ReviewEditData | null;
 }
 
 export type ReviewRequest = {
@@ -28,7 +37,15 @@ export type ReviewRequest = {
 export interface SummaryResponse {
   code: number;
   message: string;
-  data: Summary[];
+  data: SummaryData;
+}
+
+interface SummaryData {
+  currentPage: 1;
+  totalPages: 1;
+  currentElements: 2;
+  totalElements: 2;
+  reviews: Summary[];
 }
 
 export interface Summary {
@@ -41,28 +58,31 @@ class ReviewService {
   private endpoint = ENDPOINTS.reviews;
 
   post = async (review: ReviewRequest) => {
-    const response = await instance.post<{ data: ReviewPostResponse }>(this.endpoint, review);
+    const response = await instance.post<ReviewPostResponse>(this.endpoint, review);
 
     return response.data.data;
   };
 
   delete = async (id: number) => {
-    const response = await instance.post<{ data: ReviewPostResponse }>(`${this.endpoint}/${id}`);
+    const response = await instance.post<{
+      code: number;
+      message: string;
+      data: null;
+    }>(`${this.endpoint}/${id}`);
 
     return response.data.data;
   };
 
   edit = async (review: ReviewRequest, id: number) => {
-    const response = await instance.put<{ data: ReviewPostResponse }>(
-      `${this.endpoint}/${id}`,
-      review
-    );
+    const response = await instance.put<ReviewEditResponse>(`${this.endpoint}/${id}`, review);
 
     return response.data.data;
   };
 
-  summary = async () => {
-    const response = await instance.put<{ data: SummaryResponse }>(`${this.endpoint}/summary`);
+  summary = async ({ page = 1, size = 6 }: { page?: number; size?: number }) => {
+    const response = await instance.get<SummaryResponse>(
+      `${this.endpoint}/summary?page=${page}&size=${size}`
+    );
 
     return response.data.data;
   };
