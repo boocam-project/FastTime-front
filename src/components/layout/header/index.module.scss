@@ -10,6 +10,10 @@
   padding-inline: 1rem;
   border-bottom: 1px solid v.$extra-light-gray;
 
+  @include m.mobile {
+    display: none;
+  }
+
   img {
     width: 100%;
     height: 100%;
@@ -87,6 +91,7 @@
   white-space: nowrap;
 
   @include m.mobile {
+    display: none;
     justify-content: flex-start;
     padding-inline-start: 1rem;
   }
