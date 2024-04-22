@@ -70,6 +70,8 @@ class ActivitiesService {
     page = 1,
     pageSize = 10,
   }: ActivitiesQuery) => {
+    if (keyword === '') keyword = null;
+
     const response = await instance.get<ActivitiesResponse>(
       `${this.endpoint}?keyword=${keyword}&before=${before}&during=${during}&closed=${closed}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
     );

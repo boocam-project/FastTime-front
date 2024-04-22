@@ -66,6 +66,8 @@ class CompetitionsService {
     page = 1,
     pageSize = 10,
   }: CompetitionsQuery) => {
+    if (keyword === '') keyword = null;
+
     const response = await instance.get<CompetitionApiResponse>(
       `${this.endpoint}?keyword=${keyword}&before=${before}&continue=${continues}&after=${after}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
     );
