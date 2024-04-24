@@ -13,8 +13,8 @@ const ActivityPage = () => {
         <TabTitle text="공모전" active={currentTab === 0} onClick={() => setCurrentTab(0)} />
         <TabTitle text="대외 활동" active={currentTab === 1} onClick={() => setCurrentTab(1)} />
       </div>
-      {currentTab === 0 && <Activity />}
-      {currentTab === 1 && <Competition />}
+      {currentTab === 0 && <Competition />}
+      {currentTab === 1 && <Activity />}
     </div>
   );
 };

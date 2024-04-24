@@ -1,15 +1,18 @@
+import { type ActivitiesQuery } from '@/api/activitiesService';
 import Divider from '@/components/atoms/Divider';
+// import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
 import { useEffect, useState } from 'react';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { IoIosSearch } from 'react-icons/io';
+import { listBRes } from '../constants';
+import styles from '../index.module.scss';
 import Item from './Item';
 import StatusBadge from './StatusBadge';
-import { listARes } from '../constants';
-import styles from '../index.module.scss';
-// import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
-import { type ActivitiesQuery } from '@/api/activitiesService';
+import { useNavigate } from 'react-router-dom';
 
 const Activity = () => {
+  const navigate = useNavigate();
+
   const [activitiesQuery, setActivitiesQuery] = useState<ActivitiesQuery>({
     keyword: '',
     before: true,
@@ -20,7 +23,7 @@ const Activity = () => {
     pageSize: 6,
   });
 
-  // const { data: activities } = useActivitiesData(activitiesQuery);
+  //   const { data: activities } = useActivitiesData(activitiesQuery);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageList, setCurrentPageList] = useState(0);
@@ -36,10 +39,12 @@ const Activity = () => {
     }));
   };
 
-  // console.log(activities);
+  //   console.log(activities);
+
+  //   if (activities?.activities.length === 0) return <div>등록된 대외 활동이 없습니다.</div>;
 
   return (
-    <div className={styles.container}>
+    <div>
       {/* 필터링 검색 바 */}
       <div className={styles.searchContainer}>
         <div>
@@ -102,7 +107,7 @@ const Activity = () => {
       <Divider size="sm" />
       {/* 아이템 리스트 */}
       <ul className={styles.listContainer}>
-        {listARes.data.competitions.map((item) => {
+        {listBRes.data.activities.map((item, index) => {
           return (
             <Item
               title={item.title}
@@ -110,8 +115,11 @@ const Activity = () => {
               imageUrl={item.imageUrl}
               dDay={item.dDay}
               itemId={item.id}
-              type="competitions"
+              type="activities"
               key={item.id}
+              onClick={() => {
+                navigate(`/activity/${index}?t=activities`);
+              }}
             />
           );
         })}
