@@ -35,6 +35,12 @@ class ResumeService {
 
     return response.data;
   };
+
+  like = async (id: number) => {
+    const response = await instance.post(`${this.endpoint}/${id}/like`);
+
+    return response.data;
+  };
 }
 
 export default new ResumeService();
