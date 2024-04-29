@@ -12,6 +12,9 @@ import AdminBoard from '@/pages/adminBoard';
 import CampReviewListPage from '@/pages/campReviewList';
 import ReviewDetailListPage from '@/pages/reviewDetailList';
 import { Suspense, lazy } from 'react';
+import CreateStudy from '@/pages/studies/components/CreateStudy';
+import StudiesPage from '@/pages/studies';
+import StudyDetailPage from '@/pages/studies/detail';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
 
@@ -63,6 +66,9 @@ export const router = createBrowserRouter([
       { path: '/admin/login', element: <AdminLogin /> },
       { path: '/admin/board', element: <AdminBoard /> },
       { path: '/admin/detail/:id', element: <AdminBoardDetail /> },
+      { path: '/study', element: <StudiesPage /> },
+      { path: '/study/new', element: <CreateStudy /> },
+      { path: '/study/:id', element: <StudyDetailPage /> },
     ],
   },
   {
