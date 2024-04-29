@@ -38,4 +38,13 @@
       color: v.$black;
     }
   }
+
+  &.default {
+    color: #020202;
+    background-color: #ffffff;
+    border: 1px v.$light-gray solid;
+    font-size: v.$text-xs;
+    font-weight: v.$font-medium;
+    cursor: default;
+  }
 }
