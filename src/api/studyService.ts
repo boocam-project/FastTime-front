@@ -35,6 +35,18 @@ interface Study {
   categories: string[];
 }
 
+export interface CreateStudyData {
+  title: string;
+  content: string;
+  skill: string;
+  total: number;
+  recruitmentEnd: string;
+  progressStart: string;
+  progressEnd: string;
+  contact: string;
+  categoryIds: number[];
+}
+
 class StudyService {
   private endpoint = ENDPOINTS.studies;
 
@@ -54,6 +66,12 @@ class StudyService {
     const response = await instance.get<{ data: Study }>(`${this.endpoint}/${id}`);
 
     return response.data.data;
+  };
+
+  createStudy = async (study: CreateStudyData) => {
+    const response = await instance.post(`${this.endpoint}`, study);
+
+    return response.data;
   };
 
   applyStudy = async (id: number, message: string) => {

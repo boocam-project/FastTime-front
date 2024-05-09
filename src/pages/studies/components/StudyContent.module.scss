@@ -20,6 +20,9 @@
 }
 
 .subContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   font-size: v.$text-sm;
   font-weight: v.$font-regular;
   color: #2e2e2e;
