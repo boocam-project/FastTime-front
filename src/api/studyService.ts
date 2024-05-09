@@ -68,6 +68,14 @@ class StudyService {
     return response.data.data;
   };
 
+  getCategories = async () => {
+    const response = await instance.get<{ data: { id: number; name: string }[] }>(
+      ENDPOINTS.categories
+    );
+
+    return response.data.data;
+  };
+
   createStudy = async (study: CreateStudyData) => {
     const response = await instance.post(`${this.endpoint}`, study);
 

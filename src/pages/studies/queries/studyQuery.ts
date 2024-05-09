@@ -19,6 +19,15 @@ export const useGetStudy = (id: number) => {
   return { isLoading, data, error };
 };
 
+export const useGetCategories = () => {
+  const { isLoading, data, error } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => studyService.getCategories(),
+  });
+
+  return { isLoading, data, error };
+};
+
 export const useCreateStudy = () => {
   const { mutate, error, isPending } = useMutation({
     mutationKey: ['createStudy'],

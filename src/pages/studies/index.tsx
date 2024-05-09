@@ -1,7 +1,10 @@
-import { useGetStudies } from './queries/studyQuery';
+import { useGetCategories, useGetStudies } from './queries/studyQuery';
 
 const StudiesPage = () => {
   const { data, isLoading } = useGetStudies();
+  const { data: categories } = useGetCategories();
+
+  console.log(categories);
 
   if (isLoading) return <div>로딩중...</div>;
 
