@@ -1,7 +1,7 @@
 import Button from '@/components/atoms/button/Button';
 import styles from './StudyContent.module.scss';
 import StudySubContent from './StudySubContent';
-import { useGetStudy } from '../queries/useGetStudy';
+import { useGetStudy } from '../queries/studyQuery';
 import { useParams } from 'react-router-dom';
 
 const StudyContent = () => {

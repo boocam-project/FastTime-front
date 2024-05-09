@@ -45,7 +45,7 @@ const Header = () => {
     if (liElement) {
       const menuItem = liElement.getAttribute('data-menu') as MenuType;
       if (menuItem) {
-        if (menuItem !== 'community' && menuItem !== 'review') {
+        if (menuItem !== 'community' && menuItem !== 'review' && menuItem !== 'study') {
           alert('준비중입니다.');
           navigate(`/community`);
         }

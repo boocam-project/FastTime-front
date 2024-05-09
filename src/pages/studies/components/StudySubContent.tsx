@@ -10,7 +10,7 @@ const StudySubContent = ({ title, children }: Props) => {
   return (
     <div>
       <p className={styles.subTitle}>{title}</p>
-      <p className={styles.subContent}>{children}</p>
+      <div className={styles.subContent}>{children}</div>
     </div>
   );
 };
