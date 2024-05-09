@@ -12,4 +12,5 @@ export const ENDPOINTS = {
   reviews: `${API_VERSION}/reviews`,
   resume: `${API_VERSION}/resume`,
   studies: `${API_VERSION}/studies`,
+  categories: `${API_VERSION}/categories`,
 };

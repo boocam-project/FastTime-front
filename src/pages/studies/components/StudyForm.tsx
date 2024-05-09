@@ -5,7 +5,7 @@ import StudySubContent from './StudySubContent';
 import { DateRange } from 'react-day-picker';
 import styles from './CreateStudy.module.scss';
 import { useState } from 'react';
-import { useCreateStudy } from '../queries/studyQuery';
+import { useCreateStudy, useGetCategories } from '../queries/studyQuery';
 import { format } from 'date-fns';
 
 export interface FormValues {
@@ -18,6 +18,7 @@ export interface FormValues {
 }
 
 const StudyForm = () => {
+  const { data: categories } = useGetCategories();
   const { register, control, handleSubmit } = useForm<FormValues>({
     defaultValues: {
       title: '',
@@ -35,7 +36,7 @@ const StudyForm = () => {
     },
   });
   const [skills, setSkills] = useState<string[]>([]);
-  const { mutate, error, isPending } = useCreateStudy();
+  const { mutate } = useCreateStudy();
 
   const handleAddSkill = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -87,6 +88,13 @@ const StudyForm = () => {
             }),
           }}
         />
+      </StudySubContent>
+      <StudySubContent title="카테고리">
+        {categories?.map((category) => (
+          <div key={category.id} className={styles.category}>
+            {category.name}
+          </div>
+        ))}
       </StudySubContent>
       <StudySubContent title="모집 기간">
         <Controller
