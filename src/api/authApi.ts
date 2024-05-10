@@ -49,7 +49,7 @@ export const getNewAccessToken = async (accessToken: string, refreshToken: strin
     `${ENDPOINTS.refreshToken}`,
     { accessToken, refreshToken },
     {
-      headers: { Authorization: `Bearer ${refreshToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     }
   );
   return response.data;
