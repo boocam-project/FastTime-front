@@ -1,24 +1,39 @@
 import { ENDPOINTS } from './apiConfig';
 import { instance } from './client';
 
-interface Resume {
+export interface Resume {
+  id: number;
   title: string;
-  introduction: string;
-  skill: string;
-  project: any;
-  study: any;
+  content: string;
+  writer: string;
+  likeCount: number;
+  viewCount: number;
+  createdAt: string | null;
+  lastModifiedAt: string | null;
+  deletedAt: string | null;
+}
+
+export interface CreateResumeData {
+  title: string;
+  content: string;
 }
 
 class ResumeService {
   private endpoint = ENDPOINTS.resume;
 
-  getResume = async () => {
-    const response = await instance.get<{ data: Resume }>(`${this.endpoint}`);
+  getResumes = async () => {
+    const response = await instance.get<{ data: Resume[] }>(`${this.endpoint}`);
 
-    return response.data;
+    return response.data.data;
   };
 
-  update = async (resume: any, id: number) => {
+  getResume = async (id: number) => {
+    const response = await instance.get<{ data: Resume }>(`${this.endpoint}/${id}`);
+
+    return response.data.data;
+  };
+
+  update = async (resume: CreateResumeData, id: number) => {
     const response = await instance.put(`${this.endpoint}/${id}`, resume);
 
     return response.data;
@@ -30,8 +45,8 @@ class ResumeService {
     return response.data;
   };
 
-  create = async (resume: any) => {
-    const response = await instance.post(`${this.endpoint}`, resume);
+  create = async (resume: CreateResumeData) => {
+    const response = await instance.post(`${this.endpoint}/create`, resume);
 
     return response.data;
   };
