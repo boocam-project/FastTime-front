@@ -46,6 +46,36 @@ export interface CreateStudyData {
   contact: string;
   categoryIds: number[];
 }
+export interface StudyApplication {
+  id: number;
+  status: string;
+  studyId: number;
+  applicantId: number;
+  nickname: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string | null;
+  deletedAt: string | null;
+}
+
+export interface StudySuggestionsData {
+  totalPages: number;
+  isLastPage: boolean;
+  totalStudySuggestions: number;
+  studySuggestions: StudySuggestion[];
+}
+
+export interface StudySuggestion {
+  studySuggestionId: number;
+  status: string;
+  studyId: number;
+  memberId: number;
+  nickname: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string | null;
+  deletedAt: string | null;
+}
 
 class StudyService {
   private endpoint = ENDPOINTS.studies;
@@ -87,6 +117,36 @@ class StudyService {
       `${this.endpoint}/${id}`,
       {
         message,
+      }
+    );
+
+    return response.data.data;
+  };
+
+  getApplications = async (studyId?: number, pageSize: number = 10, page: number = 0) => {
+    const response = await instance.get<{ data: StudyApplication[] }>(
+      `${this.endpoint}/applications`,
+      {
+        params: {
+          studyId,
+          pageSize,
+          page,
+        },
+      }
+    );
+
+    return response.data.data;
+  };
+
+  getSuggestions = async (id?: number, pageSize: number = 10, page: number = 0) => {
+    const response = await instance.get<{ data: StudySuggestionsData }>(
+      `${this.endpoint}/suggestions`,
+      {
+        params: {
+          id,
+          pageSize,
+          page,
+        },
       }
     );
 
