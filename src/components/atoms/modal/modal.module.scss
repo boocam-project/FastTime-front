@@ -1,3 +1,6 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .text-container {
   width: 70%;
   display: flex;
@@ -14,11 +17,11 @@
   visibility: hidden;
 }
 
-@include desktop {
+@include m.desktop {
   .container {
     width: 30%;
     height: 40rem;
-    background-color: $white;
+    background-color: v.$white;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -36,11 +39,11 @@
     visibility: visible;
   }
 }
-@include tablet {
+@include m.tablet {
   .container {
     width: 30%;
     height: 40rem;
-    background-color: $white;
+    background-color: v.$white;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -55,11 +58,11 @@
     }
   }
 }
-@include mobile {
+@include m.mobile {
   .container {
     width: 70%;
     height: 40rem;
-    background-color: $white;
+    background-color: v.$white;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -74,4 +77,20 @@
       margin: 0 auto;
     }
   }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: v.$white;
+  z-index: 1000;
+  border-radius: 10px;
+  padding: 2rem;
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
 }
