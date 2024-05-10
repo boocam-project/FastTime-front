@@ -4,9 +4,10 @@ import StudyCalendar from './StudyCalendar';
 import StudySubContent from './StudySubContent';
 import { DateRange } from 'react-day-picker';
 import styles from './CreateStudy.module.scss';
-import { useState } from 'react';
-import { useCreateStudy, useGetCategories } from '../queries/studyQuery';
+import { useEffect, useState } from 'react';
+import { useCreateStudy, useGetCategories, useGetStudy } from '../queries/studyQuery';
 import { format } from 'date-fns';
+import { useParams } from 'react-router-dom';
 
 export interface FormValues {
   title: string;
@@ -18,8 +19,10 @@ export interface FormValues {
 }
 
 const StudyForm = () => {
+  const { id } = useParams();
+  const { data: study } = useGetStudy(parseInt(id!));
   const { data: categories } = useGetCategories();
-  const { register, control, handleSubmit } = useForm<FormValues>({
+  const { register, control, handleSubmit, reset } = useForm<FormValues>({
     defaultValues: {
       title: '',
       recruiting: {
@@ -35,6 +38,26 @@ const StudyForm = () => {
       content: '',
     },
   });
+
+  useEffect(() => {
+    if (study) {
+      reset({
+        title: study.title,
+        recruiting: {
+          from: new Date(study.recruitmentStart),
+          to: new Date(study.recruitmentEnd),
+        },
+        progress: {
+          from: new Date(study.progressStart),
+          to: new Date(study.progressEnd),
+        },
+        total: study.total,
+        skill: study.skill,
+        content: study.content,
+      });
+    }
+  }, [study, reset]);
+
   const [skills, setSkills] = useState<string[]>([]);
   const { mutate } = useCreateStudy();
 

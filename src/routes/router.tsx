@@ -15,6 +15,9 @@ import { Suspense, lazy } from 'react';
 import CreateStudy from '@/pages/studies/components/CreateStudy';
 import StudiesPage from '@/pages/studies';
 import StudyDetailPage from '@/pages/studies/detail';
+import StudyApplicantsViewPage from '@/pages/studies/applicants';
+import ResumePage from '@/pages/resume';
+import ResumeDetail from '@/pages/resume/components/ResumeDetail';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
 
@@ -69,6 +72,10 @@ export const router = createBrowserRouter([
       { path: '/study', element: <StudiesPage /> },
       { path: '/study/new', element: <CreateStudy /> },
       { path: '/study/:id', element: <StudyDetailPage /> },
+      { path: '/study/apply', element: <StudyApplicantsViewPage /> },
+      { path: '/study/edit/:id', element: <CreateStudy /> },
+      { path: '/resume', element: <ResumePage /> },
+      { path: '/resume/:id', element: <ResumeDetail /> },
     ],
   },
   {
