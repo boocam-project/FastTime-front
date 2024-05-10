@@ -1,11 +1,13 @@
 import Button from '@/components/atoms/button/Button';
-import { useParams } from 'react-router-dom';
-import { useGetStudy } from '../queries/studyQuery';
+import { Link, useParams } from 'react-router-dom';
+import { useGetApplications, useGetStudy } from '../queries/studyQuery';
 import styles from './StudyInfos.module.scss';
+import ModalProvider, { Modal, ModalTrigger } from '@/components/atoms/modal/Modal';
 
 const StudyInfos = () => {
   const params = useParams();
   const { data } = useGetStudy(parseInt(params.id!));
+  const { data: applications } = useGetApplications(parseInt(params.id!));
 
   const [year, month, day] = new Date()
     .toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' })
@@ -30,7 +32,26 @@ const StudyInfos = () => {
           {/* TODO: createdAt 필요? */}
           <span className={styles.date}>날짜</span>
         </div>
-        <Button>지원자 보기</Button>
+        <div>
+          <Link to={`/study/edit/${data.id}`}>수정</Link>
+          <button>삭제</button>
+          <ModalProvider>
+            <ModalTrigger>
+              <Button>{applications?.length}명의 지원자 보기</Button>
+            </ModalTrigger>
+            <Modal>
+              <div>지원자 목록</div>
+              <ul>
+                {applications?.map((application) => (
+                  <li key={application.id}>
+                    <span>{application.nickname}</span>
+                    <span>{application.message}</span>
+                  </li>
+                ))}
+              </ul>
+            </Modal>
+          </ModalProvider>
+        </div>
       </div>
     </div>
   );
