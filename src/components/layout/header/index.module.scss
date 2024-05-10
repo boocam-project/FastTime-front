@@ -27,7 +27,7 @@
     border-radius: 50%;
   }
 
-  .user-modal {
+  .userModal {
     position: absolute;
     width: 260px;
     top: v.$header-height;
@@ -70,6 +70,24 @@
         font-size: 14px;
         padding: 0.75rem;
         background-color: v.$extra-light-gray;
+      }
+    }
+  }
+
+  .right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .alert {
+      position: relative;
+
+      button {
+        padding: 4px;
+        border: none;
+        background-color: transparent;
+        font-size: v.$text-sm;
+        cursor: pointer;
       }
     }
   }
