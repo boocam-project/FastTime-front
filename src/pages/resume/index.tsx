@@ -1,4 +1,4 @@
-import ResumeList from './components/ResumaList';
+import ResumeList from './components/ResumeList';
 
 const ResumePage = () => {
   return (
