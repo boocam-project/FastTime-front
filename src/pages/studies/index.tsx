@@ -1,10 +1,8 @@
-import { useGetCategories, useGetStudies } from './queries/studyQuery';
+import { Link } from 'react-router-dom';
+import { useGetStudies } from './queries/studyQuery';
 
 const StudiesPage = () => {
   const { data, isLoading } = useGetStudies();
-  const { data: categories } = useGetCategories();
-
-  console.log(categories);
 
   if (isLoading) return <div>로딩중...</div>;
 
@@ -14,7 +12,7 @@ const StudiesPage = () => {
     <div>
       {data?.data.studies.map((study) => (
         <div key={study.id}>
-          <span>{study.title}</span>
+          <Link to={`/study/${study.id}`}>{study.title}</Link>
         </div>
       ))}
     </div>

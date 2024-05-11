@@ -28,6 +28,12 @@
       background-color: #fff;
       border: 1px solid v.$black;
     }
+
+    &[data-selected='selected'] {
+      color: v.$black;
+      background-color: #fff5f5;
+      border: 1px solid v.$black;
+    }
   }
 
   &.text {
