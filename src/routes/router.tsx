@@ -17,7 +17,7 @@ import StudiesPage from '@/pages/studies';
 import StudyDetailPage from '@/pages/studies/detail';
 import StudyApplicantsViewPage from '@/pages/studies/applicants';
 import ResumePage from '@/pages/resume';
-import ResumeDetail from '@/pages/resume/components/ResumeDetail';
+import ResumeDetailPage from '@/pages/resume/components/ResumeDetail';
 import CreateResumePage from '@/pages/resume/new';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
       { path: '/study/apply', element: <StudyApplicantsViewPage /> },
       { path: '/study/edit/:id', element: <CreateStudy /> },
       { path: '/resume', element: <ResumePage /> },
-      { path: '/resume/:id', element: <ResumeDetail /> },
+      { path: '/resume/:id', element: <ResumeDetailPage /> },
       { path: '/resume/new', element: <CreateResumePage /> },
     ],
   },
