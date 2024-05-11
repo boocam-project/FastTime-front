@@ -52,6 +52,7 @@ export const getNewAccessToken = async (accessToken: string, refreshToken: strin
       headers: { Authorization: `Bearer ${accessToken}` },
     }
   );
+  
   return response.data;
 };
 

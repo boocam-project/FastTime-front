@@ -6,9 +6,13 @@ interface ChildCommentsProps {
 }
 
 const ChildComments = ({ parentCommentId }: ChildCommentsProps) => {
-  const { data } = useChildComments(parentCommentId);
+  const { data, isLoading } = useChildComments(parentCommentId);
 
   const childComments = data?.pages.flatMap((page) => page.comments);
+
+  if (isLoading) {
+    return <div className={styles.loadingSpinner} />;
+  }
 
   return (
     <div className={styles.childCommentWrapper}>
