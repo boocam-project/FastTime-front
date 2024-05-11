@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { signOut } from '@/components/signIn/utils/logout';
 import Alert from './Alert';
 
-type MenuType = 'community' | 'study' | 'project' | 'portfolio' | 'review' | 'activity';
+type MenuType = 'community' | 'study' | 'project' | 'portfolio' | 'review' | 'activity' | 'resume';
 
 const Header = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuType | null>(null);
