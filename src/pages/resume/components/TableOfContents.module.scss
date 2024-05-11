@@ -1,0 +1,25 @@
+.nav {
+  max-width: fit-content;
+  top: 110px;
+  right: 0;
+}
+
+.wrapper {
+  position: sticky;
+  top: 40px;
+  padding-left: 0.5rem;
+  background-color: white;
+  border-left: 1px solid #e0e0e0;
+}
+
+.link {
+  display: block;
+  padding: 0.25rem 0;
+  color: gray;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: black;
+  }
+}
