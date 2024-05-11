@@ -5,14 +5,15 @@ import { DayPicker } from 'react-day-picker';
 import styles from './CreateStudy.module.scss';
 import Button from '@/components/atoms/button/Button';
 import 'react-day-picker/dist/style.css';
-import { ControllerRenderProps } from 'react-hook-form';
-import { FormValues } from './StudyForm';
+import { ControllerRenderProps, FieldPath, FieldValues } from 'react-hook-form';
 
-interface Props {
-  field: ControllerRenderProps<FormValues, 'recruiting' | 'progress'>;
+interface Props<T extends FieldValues, TName extends FieldPath<T>> {
+  field: ControllerRenderProps<T, TName>;
 }
 
-const StudyCalendar = ({ field }: Props) => {
+const StudyCalendar = <T extends FieldValues, TName extends FieldPath<T>>({
+  field,
+}: Props<T, TName>) => {
   const [isCalendarOpen, setCalendarOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
