@@ -46,7 +46,7 @@ class ResumeService {
   };
 
   create = async (resume: CreateResumeData) => {
-    const response = await instance.post(`${this.endpoint}/create`, resume);
+    const response = await instance.post(`${this.endpoint}`, resume);
 
     return response.data;
   };
