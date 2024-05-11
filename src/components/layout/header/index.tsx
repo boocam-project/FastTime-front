@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { signOut } from '@/components/signIn/utils/logout';
 import Alert from './Alert';
 
-type MenuType = 'community' | 'study' | 'project' | 'resume' | 'review';
+type MenuType = 'community' | 'study' | 'project' | 'portfolio' | 'review' | 'activity';
 
 const Header = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuType | null>(null);
@@ -47,7 +47,8 @@ const Header = () => {
           menuItem !== 'community' &&
           menuItem !== 'review' &&
           menuItem !== 'study' &&
-          menuItem !== 'resume'
+          menuItem !== 'resume' &&
+          menuItem !== 'activity'
         ) {
           alert('준비중입니다.');
           navigate(`/community`);
@@ -129,7 +130,7 @@ const Header = () => {
           ))}
         </ul>
       </div>
-      <div className={styles.spacer} />
+      {/* <div className={styles.spacer} /> */}
     </>
   );
 };
