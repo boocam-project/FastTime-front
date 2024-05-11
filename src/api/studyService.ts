@@ -32,7 +32,7 @@ interface Study {
   progressEnd: string;
   contact: string;
   nickname: string;
-  categories: string[];
+  categories: number[];
 }
 
 export interface CreateStudyData {
@@ -106,13 +106,25 @@ class StudyService {
     return response.data.data;
   };
 
-  createStudy = async (study: CreateStudyData) => {
-    const response = await instance.post(`${this.endpoint}`, study);
+  create = async (study: CreateStudyData) => {
+    const response = await instance.post<{ data: string }>(`${this.endpoint}`, study);
+
+    return response.data.data;
+  };
+
+  update = async (study: CreateStudyData, id: number) => {
+    const response = await instance.put<{ data: string }>(`${this.endpoint}/${id}`, study);
+
+    return response.data.data;
+  };
+
+  delete = async (studyId: number) => {
+    const response = await instance.delete(`${this.endpoint}/${studyId}`);
 
     return response.data;
   };
 
-  applyStudy = async (id: number, message: string) => {
+  apply = async (id: number, message: string) => {
     const response = await instance.post<{ data: { studyApplicationId: number } }>(
       `${this.endpoint}/${id}`,
       {
