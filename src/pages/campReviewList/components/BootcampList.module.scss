@@ -1,28 +1,9 @@
 @use '@/styles/abstracts/variables' as v;
 @use '@/styles/abstracts/mixins' as m;
 
-// 스타일 1
-.Container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.listWrapContainer {
-  margin: 2rem;
-
-  display: grid;
-  grid-template-columns: repeat(2, 300px);
-  grid-gap: 20px;
-
-  @include m.mobile {
-    grid-template-columns: repeat(1, 300px);
-  }
-}
-
 .listContainer {
   margin-top: 1rem;
-  padding: 1rem;
+  padding: 1.5rem;
 
   border-radius: 1rem;
   border: 1px solid v.$extra-light-gray;
@@ -33,119 +14,46 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.listContainer img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.imgWrapper {
-  position: relative;
-  width: 100%;
-  height: 230px;
-
-  border-radius: 1rem;
-
-  overflow: hidden;
-}
-
-.imgWrapper::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-.imgTextBox {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  font-weight: v.$font-medium;
-  font-size: v.$text-xl;
-  text-align: center;
-  color: v.$white;
-
-  z-index: 10;
-}
-
 .title {
+  font-size: v.$text-xl;
+
+  @include m.mobile {
+    text-align: center;
+  }
+}
+
+.description {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 
+  padding-top: 1rem;
+
+  @include m.mobile {
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+.rating {
   font-size: v.$text-lg;
   font-weight: v.$font-medium;
 
-  margin: 0.5rem 0;
+  margin-right: 1.5rem;
+
+  @include m.mobile {
+    margin-right: 0;
+    padding: 0.3rem;
+  }
 }
-.title > div:nth-of-type(2) {
-  font-size: v.$text-sm;
-  font-weight: v.$font-regular;
+
+.totalReviews {
+  font-size: v.$text-md;
+  color: v.$gray;
+
+  margin-right: 1.5rem;
+
+  @include m.mobile {
+    margin-right: 0;
+    padding: 0.3rem;
+  }
 }
-
-// 스타일 2
-// .listContainer {
-//   margin-top: 1rem;
-//   padding: 1.5rem;
-
-//   border-radius: 1rem;
-//   border: 1px solid v.$extra-light-gray;
-//   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-// }
-
-// .listContainer:hover {
-//   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-// }
-
-// .title {
-//   font-size: v.$text-xl;
-
-//   @include m.mobile {
-//     text-align: center;
-//   }
-// }
-
-// .description {
-//   display: flex;
-//   align-items: center;
-
-//   padding-top: 1rem;
-
-//   @include m.mobile {
-//     justify-content: center;
-//     flex-direction: column;
-//   }
-// }
-
-// .rating {
-//   font-size: v.$text-lg;
-//   font-weight: v.$font-medium;
-
-//   margin-right: 1.5rem;
-
-//   @include m.mobile {
-//     margin-right: 0;
-//     padding: 0.3rem;
-//   }
-// }
-
-// .totalReviews {
-//   font-size: v.$text-md;
-//   color: v.$gray;
-
-//   margin-right: 1.5rem;
-
-//   @include m.mobile {
-//     margin-right: 0;
-//     padding: 0.3rem;
-//   }
-// }
