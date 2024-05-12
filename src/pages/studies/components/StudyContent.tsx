@@ -42,7 +42,7 @@ const StudyContent = () => {
             <Button>지원하기</Button>
           </ModalTrigger>
           <Modal>
-            <div>
+            <div className={styles.apply}>
               <label htmlFor="">지원 동기를 입력하세요.</label>
               <input type="text" onChange={(e) => setMessage(e.target.value)} />
               <button onClick={() => handleApply(message)}>지원하기</button>
