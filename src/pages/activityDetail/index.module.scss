@@ -31,9 +31,16 @@
 
   @include m.tablet {
     max-width: 680px;
+
+    .title {
+      font-size: 1.3rem;
+    }
   }
   @include m.mobile {
     max-width: 680px;
+    .title {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -122,5 +129,11 @@
 .content {
   & > img {
     width: 100%;
+
+    margin-bottom: 1rem;
   }
+}
+
+.detailLink:hover {
+  text-decoration: underline;
 }

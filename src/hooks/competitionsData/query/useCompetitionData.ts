@@ -1,7 +1,7 @@
 import CompetitionsService from '@/api/competitionsService';
 import { useQuery } from '@tanstack/react-query';
 
-const useCompetitionData = (id: number) => {
+const useCompetitionData = ({ id, start }: { id: number; start: boolean }) => {
   const competitionsService = new CompetitionsService();
 
   return useQuery({
@@ -9,6 +9,7 @@ const useCompetitionData = (id: number) => {
     queryFn: () => {
       return competitionsService.getOne(id);
     },
+    enabled: start,
   });
 };
 

@@ -1,7 +1,7 @@
 import ActivitiesService from '@/api/activitiesService';
 import { useQuery } from '@tanstack/react-query';
 
-const useActivitiyData = (id: number) => {
+const useActivitiyData = ({ id, start }: { id: number; start: boolean }) => {
   const activitiesService = new ActivitiesService();
 
   return useQuery({
@@ -9,6 +9,7 @@ const useActivitiyData = (id: number) => {
     queryFn: () => {
       return activitiesService.getOne(id);
     },
+    enabled: start,
   });
 };
 

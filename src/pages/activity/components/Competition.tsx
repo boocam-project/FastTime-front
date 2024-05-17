@@ -1,14 +1,14 @@
 import { type CompetitionsQuery } from '@/api/competitionsService';
 import Divider from '@/components/atoms/Divider';
-// import useAllCompetitionData from '@/hooks/competitionsData/query/useAllCompetitionData';
-import { useEffect, useState } from 'react';
+import useAllCompetitionData from '@/hooks/competitionsData/query/useAllCompetitionData';
+import { useState } from 'react';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { IoIosSearch } from 'react-icons/io';
-import { listARes } from '../constants';
+import { useNavigate } from 'react-router-dom';
 import styles from '../index.module.scss';
 import Item from './Item';
 import StatusBadge from './StatusBadge';
-import { useNavigate } from 'react-router-dom';
+import ActivitySkeleton from './ActivitySkeleton';
 
 const Competition = () => {
   const navigate = useNavigate();
@@ -23,15 +23,10 @@ const Competition = () => {
     pageSize: 6,
   });
 
-  //   const { data: competitions, refetch } = useAllCompetitionData(competitionsQuery);
+  const { data: competitions, isLoading } = useAllCompetitionData(competitionsQuery);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageList, setCurrentPageList] = useState(0);
-
-  useEffect(() => {
-    console.log(competitionsQuery);
-    // refetch();
-  }, [competitionsQuery]);
 
   const updateCompetitionsQuery = (updates: Partial<CompetitionsQuery>) => {
     setCompetitionsQuery((prev) => ({
@@ -40,8 +35,7 @@ const Competition = () => {
     }));
   };
 
-  //   console.log(competitions);
-  //   if (competitions?.competitions.length === 0) return <div>등록된 공모전이 없습니다.</div>;
+  console.log(isLoading);
 
   return (
     <div>
@@ -106,24 +100,40 @@ const Competition = () => {
       </div>
       <Divider size="sm" />
       {/* 아이템 리스트 */}
-      <ul className={styles.listContainer}>
-        {listARes.data.competitions.map((item, index) => {
-          return (
-            <Item
-              title={item.title}
-              organization={item.organization}
-              imageUrl={item.imageUrl}
-              dDay={item.dDay}
-              itemId={item.id}
-              type="competitions"
-              key={item.id}
-              onClick={() => {
-                navigate(`/activity/${index}?t=competitions`);
-              }}
-            />
-          );
-        })}
-      </ul>
+
+      {isLoading && (
+        <ul className={styles.listContainer}>
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+        </ul>
+      )}
+      {competitions?.competitions.length === 0 ? (
+        <div>등록된 공모전이 없습니다.</div>
+      ) : (
+        <ul className={styles.listContainer}>
+          {competitions?.competitions.map((item, index) => {
+            return (
+              <Item
+                title={item.title}
+                organization={item.organization}
+                imageUrl={item.imageUrl}
+                dDay={item.dDay}
+                itemId={item.id}
+                type="competitions"
+                key={item.id}
+                onClick={() => {
+                  navigate(`/activity/${index}?t=competitions`);
+                }}
+              />
+            );
+          })}
+        </ul>
+      )}
+
       <div className={styles.page}>
         <button
           onClick={() => {
@@ -138,30 +148,30 @@ const Competition = () => {
           {/** *
            * TODO: 리스트 아이템 개수 연결
            */}
-          {Array.from({ length: 49 }, (_, i) => i + 1)
-            .slice(currentPageList * 5, currentPageList * 5 + 5)
-            .map((number, index) => {
-              return (
-                <button
-                  key={index}
-                  style={{ backgroundColor: number === currentPage ? '#ffdadf' : '' }}
-                  onClick={() => {
-                    setCurrentPage(number);
-                  }}
-                >
-                  {number}
-                </button>
-              );
-            })}
+          {competitions?.totalPages &&
+            Array.from({ length: competitions?.totalPages }, (_, i) => i + 1)
+              .slice(currentPageList * 5, currentPageList * 5 + 5)
+              .map((number, index) => {
+                return (
+                  <button
+                    key={index}
+                    style={{ backgroundColor: number === currentPage ? '#ffdadf' : '' }}
+                    onClick={() => {
+                      setCurrentPage(number);
+                      setCompetitionsQuery((prev) => ({ ...prev, page: number }));
+                    }}
+                  >
+                    {number}
+                  </button>
+                );
+              })}
         </span>
+
         <button
           onClick={() => {
             setCurrentPageList((prev) => prev + 1);
           }}
-          /**
-           * TODO: ListARes.data.isLastPage 연결
-           */
-          disabled={false}
+          disabled={competitions && currentPageList === Math.ceil(competitions.totalPages / 5) - 1}
         >
           <GrNext />
         </button>

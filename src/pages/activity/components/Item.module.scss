@@ -3,6 +3,7 @@
 
 .list {
   width: 33.333%;
+  list-style: none;
 
   @include m.mobile {
     width: 50%;
@@ -35,6 +36,7 @@
       overflow: hidden;
 
       height: 200px;
+      width: 100%;
 
       & > img {
         display: block;
@@ -45,7 +47,7 @@
       }
     }
     & > div:nth-of-type(2) {
-      font-size: 1.2rem;
+      font-size: 1rem;
       width: 90%;
 
       text-align: left;
@@ -61,7 +63,7 @@
       justify-content: space-between;
 
       color: v.$gray;
-      font-size: 0.9rem;
+      font-size: 0.7rem;
 
       width: 100%;
 

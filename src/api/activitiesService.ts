@@ -32,18 +32,18 @@ interface ActivityDetail {
   id: number;
   title: string;
   organization: string;
-  corporate_type: string;
+  corporateType: string;
   participate: string;
-  start_date: string;
-  end_date: string;
+  startDate: string;
+  endDate: string;
   period: string;
   recruitment: string;
   area: string;
-  preferred_skills: string;
+  preferredSkills: string;
   homepageUrl: string;
-  activity_benefit: string;
-  activity_field: string;
-  bonus_benefit: string;
+  activityBenefit: string;
+  activityField: string;
+  bonusBenefit: string;
   description: string;
   imageUrl: string;
 }
@@ -70,13 +70,17 @@ class ActivitiesService {
     page = 1,
     pageSize = 10,
   }: ActivitiesQuery) => {
-    if (keyword === '') keyword = null;
-
-    const response = await instance.get<ActivitiesResponse>(
-      `${this.endpoint}?keyword=${keyword}&before=${before}&during=${during}&closed=${closed}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
-    );
-
-    return response.data.data;
+    if (keyword === '' || keyword === null) {
+      const response = await instance.get<ActivitiesResponse>(
+        `${this.endpoint}?before=${before}&during=${during}&closed=${closed}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
+      );
+      return response.data.data;
+    } else {
+      const response = await instance.get<ActivitiesResponse>(
+        `${this.endpoint}?keyword=${keyword}&before=${before}&during=${during}&closed=${closed}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
+      );
+      return response.data.data;
+    }
   };
 
   getOne = async (id: number) => {

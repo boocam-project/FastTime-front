@@ -1,14 +1,14 @@
 import { type ActivitiesQuery } from '@/api/activitiesService';
 import Divider from '@/components/atoms/Divider';
-// import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
-import { useEffect, useState } from 'react';
+import useActivitiesData from '@/hooks/activitiesData/query/useActivitiesData';
+import { useState } from 'react';
 import { GrNext, GrPrevious } from 'react-icons/gr';
 import { IoIosSearch } from 'react-icons/io';
-import { listBRes } from '../constants';
+import { useNavigate } from 'react-router-dom';
 import styles from '../index.module.scss';
 import Item from './Item';
 import StatusBadge from './StatusBadge';
-import { useNavigate } from 'react-router-dom';
+import ActivitySkeleton from './ActivitySkeleton';
 
 const Activity = () => {
   const navigate = useNavigate();
@@ -23,14 +23,10 @@ const Activity = () => {
     pageSize: 6,
   });
 
-  //   const { data: activities } = useActivitiesData(activitiesQuery);
+  const { data: activities, isLoading } = useActivitiesData(activitiesQuery);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPageList, setCurrentPageList] = useState(0);
-
-  useEffect(() => {
-    console.log(activitiesQuery);
-  }, [activitiesQuery]);
 
   const updateActivitiesQuery = (updates: Partial<ActivitiesQuery>) => {
     setActivitiesQuery((prev) => ({
@@ -38,10 +34,6 @@ const Activity = () => {
       ...updates,
     }));
   };
-
-  //   console.log(activities);
-
-  //   if (activities?.activities.length === 0) return <div>등록된 대외 활동이 없습니다.</div>;
 
   return (
     <div>
@@ -106,24 +98,40 @@ const Activity = () => {
       </div>
       <Divider size="sm" />
       {/* 아이템 리스트 */}
-      <ul className={styles.listContainer}>
-        {listBRes.data.activities.map((item, index) => {
-          return (
-            <Item
-              title={item.title}
-              organization={item.organization}
-              imageUrl={item.imageUrl}
-              dDay={item.dDay}
-              itemId={item.id}
-              type="activities"
-              key={item.id}
-              onClick={() => {
-                navigate(`/activity/${index}?t=activities`);
-              }}
-            />
-          );
-        })}
-      </ul>
+
+      {isLoading && (
+        <ul className={styles.listContainer}>
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+          <ActivitySkeleton />
+        </ul>
+      )}
+      {activities?.activities.length === 0 ? (
+        <div>등록된 대외 활동이 없습니다.</div>
+      ) : (
+        <ul className={styles.listContainer}>
+          {activities?.activities.map((item, index) => {
+            return (
+              <Item
+                title={item.title}
+                organization={item.organization}
+                imageUrl={item.imageUrl}
+                dDay={item.dDay}
+                itemId={item.id}
+                type="activities"
+                key={item.id}
+                onClick={() => {
+                  navigate(`/activity/${index}?t=activities`);
+                }}
+              />
+            );
+          })}
+        </ul>
+      )}
+
       <div className={styles.page}>
         <button
           onClick={() => {
@@ -138,30 +146,29 @@ const Activity = () => {
           {/** *
            * TODO: 리스트 아이템 개수 연결
            */}
-          {Array.from({ length: 49 }, (_, i) => i + 1)
-            .slice(currentPageList * 5, currentPageList * 5 + 5)
-            .map((number, index) => {
-              return (
-                <button
-                  key={index}
-                  style={{ backgroundColor: number === currentPage ? '#ffdadf' : '' }}
-                  onClick={() => {
-                    setCurrentPage(number);
-                  }}
-                >
-                  {number}
-                </button>
-              );
-            })}
+          {activities?.totalPages &&
+            Array.from({ length: activities?.totalPages }, (_, i) => i + 1)
+              .slice(currentPageList * 5, currentPageList * 5 + 5)
+              .map((number, index) => {
+                return (
+                  <button
+                    key={index}
+                    style={{ backgroundColor: number === currentPage ? '#ffdadf' : '' }}
+                    onClick={() => {
+                      setCurrentPage(number);
+                      setActivitiesQuery((prev) => ({ ...prev, page: number }));
+                    }}
+                  >
+                    {number}
+                  </button>
+                );
+              })}
         </span>
         <button
           onClick={() => {
             setCurrentPageList((prev) => prev + 1);
           }}
-          /**
-           * TODO: ListARes.data.isLastPage 연결
-           */
-          disabled={false}
+          disabled={activities && currentPageList === Math.ceil(activities.totalPages / 5) - 1}
         >
           <GrNext />
         </button>

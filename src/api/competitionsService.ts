@@ -32,14 +32,14 @@ interface CompetitionDetail {
   id: number;
   title: string;
   organization: string;
-  corporate_type: string;
+  corporateType: string;
   participate: string;
-  award_scale: string;
-  start_date: string;
-  end_date: string;
+  awardScale: string;
+  startDate: string;
+  endDate: string;
   homepageUrl: string;
-  activity_benefit: string;
-  bonus_benefit: string;
+  activityBenefit: string;
+  bonusBenefit: string;
   description: string;
   imageUrl: string;
 }
@@ -66,13 +66,17 @@ class CompetitionsService {
     page = 1,
     pageSize = 10,
   }: CompetitionsQuery) => {
-    if (keyword === '') keyword = null;
-
-    const response = await instance.get<CompetitionApiResponse>(
-      `${this.endpoint}?keyword=${keyword}&before=${before}&continue=${continues}&after=${after}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
-    );
-
-    return response.data.data;
+    if (keyword === '' || keyword === null) {
+      const response = await instance.get<CompetitionApiResponse>(
+        `${this.endpoint}?before=${before}&continue=${continues}&after=${after}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
+      );
+      return response.data.data;
+    } else {
+      const response = await instance.get<CompetitionApiResponse>(
+        `${this.endpoint}?keyword=${keyword}&before=${before}&continue=${continues}&after=${after}&orderBy=${orderBy}&page=${page}&pageSize=${pageSize}`
+      );
+      return response.data.data;
+    }
   };
 
   getOne = async (id: number) => {
