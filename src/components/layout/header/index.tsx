@@ -122,7 +122,7 @@ const Header = () => {
           ))}
         </ul>
       </div>
-      <div className={styles.spacer} />
+      {/* <div className={styles.spacer} /> */}
     </>
   );
 };

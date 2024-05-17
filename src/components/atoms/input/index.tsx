@@ -1,7 +1,9 @@
 import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './input.module.scss';
+import styles2 from '../button/index.module.scss';
 import { ComponentProps } from 'react';
 import classNames from 'classnames/bind';
+import Button from '../button';
 import { CiSearch } from 'react-icons/ci';
 import InputIcon from './InputIcon';
 
@@ -12,7 +14,9 @@ interface Props extends ComponentProps<'input'> {
   errorMessage?: any;
   variant?: 'defaultInput' | 'searchInput';
   className?: string;
-  // value: string;
+  subButton?: string;
+  placeholder?: string;
+  onSubButtonClick?: () => void;
 }
 
 const Input = ({
@@ -22,10 +26,13 @@ const Input = ({
   errorMessage,
   className,
   variant,
-  // value,
+  subButton,
+  placeholder,
+  onSubButtonClick,
   ...props
 }: Props) => {
   const cx = classNames.bind(styles);
+  const cx2 = classNames.bind(styles2);
   const isValid = Boolean(errorMessage === undefined && props.value);
 
   return (
@@ -39,6 +46,7 @@ const Input = ({
         <input
           className={cx('input', className?.split(' '), { error: errorMessage })}
           id={name}
+          placeholder={placeholder}
           autoComplete="off"
           value={props.value}
           {...register}
@@ -47,10 +55,24 @@ const Input = ({
         <div className={styles.icon}>
           <InputIcon type={variant} isValid={isValid} />
         </div>
+        {subButton && (
+          // <Button type="button" className="subBtn-gray-200" show>
+          <Button
+            type="button"
+            className={cx('subBtn') + ' ' + cx2('subBtn-gray-200')}
+            onClick={onSubButtonClick}
+            show
+          >
+            {subButton}
+          </Button>
+        )}
       </div>
 
       {variant === 'defaultInput' && errorMessage && (
-        <span className={styles.message}>{errorMessage}</span>
+        <div>
+          <img src="/wranIcon.png" alt="wranImg"></img>
+          <span className={styles.message}>{errorMessage}</span>
+        </div>
       )}
     </div>
   );

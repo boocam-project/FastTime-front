@@ -1,3 +1,23 @@
 .childCommentWrapper {
   padding-left: 1rem;
 }
+
+.loadingSpinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #c1c1c1;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  margin-left: 1rem;
+
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
