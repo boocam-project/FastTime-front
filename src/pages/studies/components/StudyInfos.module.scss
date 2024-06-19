@@ -1,0 +1,78 @@
+@use '@/styles/abstracts/variables' as v;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid v.$light-gray;
+}
+
+.stateContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #d3d3d3;
+
+    &[data-state='open'] {
+      background-color: #5ce37e;
+    }
+
+    &[data-state='closed'] {
+      background-color: #f13c60;
+    }
+  }
+
+  .state {
+  }
+}
+
+.title {
+  font-size: v.$text-lg;
+  font-weight: v.$font-medium;
+}
+
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #d3d3d3;
+      overflow: hidden;
+    }
+
+    .name {
+      font-size: v.$text-md;
+      font-weight: v.$font-medium;
+    }
+
+    .date {
+      font-size: v.$text-md;
+      font-weight: v.$font-light;
+      color: v.$gray;
+    }
+  }
+
+  .utils {
+    display: flex;
+    gap: 0.5rem;
+
+    .btns {
+      display: flex;
+    }
+  }
+}

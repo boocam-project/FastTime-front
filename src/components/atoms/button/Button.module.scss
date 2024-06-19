@@ -28,6 +28,12 @@
       background-color: #fff;
       border: 1px solid v.$black;
     }
+
+    &[data-selected='selected'] {
+      color: v.$black;
+      background-color: #fff5f5;
+      border: 1px solid v.$black;
+    }
   }
 
   &.text {
@@ -37,5 +43,14 @@
     &:hover {
       color: v.$black;
     }
+  }
+
+  &.default {
+    color: #020202;
+    background-color: #ffffff;
+    border: 1px v.$light-gray solid;
+    font-size: v.$text-xs;
+    font-weight: v.$font-medium;
+    cursor: default;
   }
 }

@@ -8,8 +8,8 @@ import { CiSearch } from 'react-icons/ci';
 import InputIcon from './InputIcon';
 
 interface Props extends ComponentProps<'input'> {
-  name: string;
-  label: string;
+  name?: string;
+  label?: string;
   register?: UseFormRegisterReturn;
   errorMessage?: any;
   variant?: 'defaultInput' | 'searchInput';

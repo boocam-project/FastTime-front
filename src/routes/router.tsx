@@ -14,6 +14,13 @@ import CampReviewListPage from '@/pages/campReviewList';
 import MyPage from '@/pages/myPage';
 import ReviewDetailListPage from '@/pages/reviewDetailList';
 import { Suspense, lazy } from 'react';
+import CreateStudy from '@/pages/studies/components/CreateStudy';
+import StudiesPage from '@/pages/studies';
+import StudyDetailPage from '@/pages/studies/detail';
+import StudyApplicantsViewPage from '@/pages/studies/applicants';
+import ResumePage from '@/pages/resume';
+import ResumeDetailPage from '@/pages/resume/components/ResumeDetail';
+import CreateResumePage from '@/pages/resume/new';
 
 const WriteReviewPage = lazy(() => import('@/pages/writeReview'));
 
@@ -67,6 +74,14 @@ export const router = createBrowserRouter([
       { path: '/admin/login', element: <AdminLogin /> },
       { path: '/admin/board', element: <AdminBoard /> },
       { path: '/admin/detail/:id', element: <AdminBoardDetail /> },
+      { path: '/study', element: <StudiesPage /> },
+      { path: '/study/new', element: <CreateStudy /> },
+      { path: '/study/:id', element: <StudyDetailPage /> },
+      { path: '/study/apply', element: <StudyApplicantsViewPage /> },
+      { path: '/study/edit/:id', element: <CreateStudy /> },
+      { path: '/resume', element: <ResumePage /> },
+      { path: '/resume/:id', element: <ResumeDetailPage /> },
+      { path: '/resume/new', element: <CreateResumePage /> },
     ],
   },
   {

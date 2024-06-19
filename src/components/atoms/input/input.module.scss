@@ -37,6 +37,13 @@
       width: 100%;
       height: 35px;
 
+      // 숫자 타입 화살표 제거
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
       outline: none;
       border: none;
       border-bottom: 1px solid m.$light-gray;
