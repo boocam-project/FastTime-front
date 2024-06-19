@@ -1,9 +1,9 @@
-import useComments from '../../hooks/useComments';
+import { useParentComments } from '../../hooks/useComments';
 import CommentInput from './CommentInput';
 import CommentList from './CommentList';
 
 const CommentArea = () => {
-  const { data } = useComments();
+  const { data } = useParentComments();
 
   return (
     <>

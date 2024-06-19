@@ -1,0 +1,23 @@
+@use '@/styles/abstracts/variables' as v;
+
+.title {
+  margin: 2rem 0.4rem 0.6rem 0.4rem;
+  font-weight: v.$font-medium;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.starRating {
+  & input {
+    display: none;
+  }
+  & img {
+    width: 40px;
+    cursor: pointer;
+  }
+}

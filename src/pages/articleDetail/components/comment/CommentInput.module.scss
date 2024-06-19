@@ -1,11 +1,15 @@
+@use '@/styles/abstracts/variables' as v;
+@use '@/styles/abstracts/mixins' as m;
+
 .box {
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 
   .textArea {
-    font-family: $--font-main;
-    font-size: $text-md;
+    font-family: v.$font-main;
+    font-size: v.$text-md;
 
     padding-block: 0.5rem;
     margin-bottom: 0.5rem;
@@ -16,15 +20,15 @@
     border: none;
     outline: none;
 
-    box-shadow: 0 2px 0 0 $light-gray;
+    box-shadow: 0 2px 0 0 v.$light-gray;
 
     &:focus-within {
-      box-shadow: 0 2px 0 0 $gray;
+      box-shadow: 0 2px 0 0 v.$gray;
     }
   }
 
   .actions {
-    @include flex-center;
+    @include m.flex-center;
     justify-content: flex-end;
     gap: 1rem;
   }

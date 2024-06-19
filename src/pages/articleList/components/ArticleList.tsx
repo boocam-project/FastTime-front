@@ -1,8 +1,10 @@
 import { useArticles } from '@/pages/articleList/hooks/useArticles';
 import styles from './ArticleList.module.scss';
 import { formatTime } from '@/pages/articleDetail/utils';
+
 import { AiOutlineComment } from 'react-icons/ai';
-import { BsHeartFill } from 'react-icons/bs';
+import { ReactComponent as HeartFill } from '@/assets/icons/heart_filled.svg';
+
 import { Link } from 'react-router-dom';
 import { PAGE_SIZE } from '../constants';
 import useIntersect from '../hooks/useIntersect';
@@ -34,7 +36,7 @@ const ArticleList = () => {
               <span className={styles.user}>{article.isAnonymity ? '익명' : article.nickname}</span>
               <span className={styles.date}>{formatTime(article.createdAt)}</span>
               <span className={styles.like}>
-                <BsHeartFill size={14} /> {article.likeCount}
+                <HeartFill /> {article.likeCount}
               </span>
               <span>
                 <AiOutlineComment size={18} /> {article.commentCounts}

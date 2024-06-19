@@ -1,11 +1,14 @@
+@use '@/styles/abstracts/variables' as m;
+
 .group {
-  display: grid;
-  gap: 0.3rem;
+  // display: grid;
+  // gap: 0.3rem;
 
   .input-wrapper {
     position: relative;
-
     transition: border 0.2s ease;
+
+    margin-top: 0.4rem;
 
     &.search {
       display: flex;
@@ -13,44 +16,57 @@
       padding-inline: 1rem;
       height: 46px;
 
-      border: 1px solid $light-gray;
+      border: 1px solid m.$light-gray;
       border-radius: 0.25rem;
 
       gap: 0.5rem;
 
       &:focus-within {
-        border: 1px solid $gray;
+        border: 1px solid m.$gray;
       }
     }
 
     .input {
       position: relative;
-      font-size: 14px;
+      font-size: 1rem;
       font-family: 'spoqa Han Sans Neo', 'sans-serif';
-      color: $black;
+      color: m.$black;
 
       padding: 0;
       margin: 0;
       width: 100%;
-      height: 28px;
+      height: 35px;
+
+      // 숫자 타입 화살표 제거
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
 
       outline: none;
       border: none;
-      border-bottom: 1px solid $light-gray;
+      border-bottom: 1px solid m.$light-gray;
 
       transition: border-bottom 0.2s ease-in-out;
 
       &:focus-within {
-        border-bottom: 1px solid $blue;
+        border-bottom: 1px solid m.$red-400;
       }
 
       &.error {
-        border-bottom: 1px solid $red-400;
+        border-bottom: 1px solid m.$red-400;
       }
 
       &.search {
         border: none;
       }
+    }
+    .input::placeholder {
+      padding-left: 0.2rem;
+      color: #c8c8c8;
+      font-size: 0.9rem;
+      font-weight: 100;
     }
 
     .icon {
@@ -61,15 +77,43 @@
       width: 20px;
       height: 20px;
     }
+
+    .subBtn {
+      width: 4.6rem;
+      height: 2rem;
+      // font-size: 0px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+
+    .eyeIcons {
+      width: 4.6rem;
+      position: absolute;
+      z-index: 100;
+    }
   }
 
   .label {
-    font-size: 12px;
-    color: $gray;
+    font-size: 16px;
+    color: #635a5b;
+    font-weight: 400;
   }
 
-  .message {
-    font-size: 12px;
-    color: $red-400;
+  div {
+    display: flex;
+    align-items: center;
+    margin-top: 0.3rem;
+
+    img {
+      width: 1.2rem;
+      height: 1.2rem;
+      margin-right: 0.3rem;
+    }
+
+    .message {
+      font-size: 14px;
+      color: m.$red-400;
+    }
   }
 }

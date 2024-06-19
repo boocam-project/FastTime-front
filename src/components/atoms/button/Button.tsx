@@ -4,16 +4,22 @@ import { ComponentProps, ReactNode } from 'react';
 
 type ButtonProps = ComponentProps<'button'> & {
   children: ReactNode;
-  variant: 'primary' | 'secondary' | 'text';
+  variant?: 'primary' | 'secondary' | 'text' | 'default';
+  classNames?: string;
 };
 
 const cx = classNames.bind(styles);
 
-const Button = ({ children, variant = 'primary', ...props }: ButtonProps) => {
+const Button = ({ children, classNames, variant = 'primary', ...props }: ButtonProps) => {
   return (
     <button
       {...props}
-      className={cx({ button: true, secondary: variant === 'secondary' })}
+      className={cx(classNames, {
+        button: true,
+        secondary: variant === 'secondary',
+        text: variant === 'text',
+        default: variant === 'default',
+      })}
       type="button"
     >
       {children}
