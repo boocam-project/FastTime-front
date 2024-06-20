@@ -1,5 +1,6 @@
 import { useGetResumes } from '../queries/useResume';
 import ResumeItem from './ResumeItem';
+import styles from './Resume.module.scss';
 
 const ResumeList = () => {
   const { data: resumes } = useGetResumes();
@@ -9,9 +10,9 @@ const ResumeList = () => {
   }
 
   return (
-    <div>
+    <div className={styles.container}>
       {resumes?.map((resume) => (
-        <div key={resume.id}>
+        <div key={resume.id} className={styles.card}>
           <ResumeItem resume={resume} />
         </div>
       ))}

@@ -18,9 +18,21 @@
 .content {
   flex: 1;
 
-  .title {
-    font-size: 2rem;
-    font-weight: v.$font-bold;
+  .info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2rem;
+
+    .title {
+      font-size: 2rem;
+      font-weight: v.$font-bold;
+    }
   }
+}
+
+.propose {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
