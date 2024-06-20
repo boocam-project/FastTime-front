@@ -135,8 +135,19 @@ class StudyService {
     return response.data.data;
   };
 
+  propose = async (studyId: number, memberId: number, message: string) => {
+    const response = await instance.post<{ message: string }>(
+      `${this.endpoint}/${studyId}/members/${memberId}`,
+      {
+        message,
+      }
+    );
+
+    return response.data.message;
+  };
+
   getApplications = async (studyId?: number, pageSize: number = 10, page: number = 0) => {
-    const response = await instance.get<{ data: StudyApplication[] }>(
+    const response = await instance.get<{ data: { studyApplications: StudyApplication[] } }>(
       `${this.endpoint}/applications`,
       {
         params: {

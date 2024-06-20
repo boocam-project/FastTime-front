@@ -54,12 +54,12 @@ const StudyInfos = () => {
           </div>
           <ModalProvider>
             <ModalTrigger>
-              <Button>{applications?.length}명의 지원자 보기</Button>
+              <Button>{applications?.studyApplications.length}명의 지원자 보기</Button>
             </ModalTrigger>
             <Modal>
               <div>지원자 목록</div>
               <ul>
-                {applications?.map((application) => (
+                {applications?.studyApplications.map((application) => (
                   <li key={application.id}>
                     <span>{application.nickname}</span>
                     <span>{application.message}</span>

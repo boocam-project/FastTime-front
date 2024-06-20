@@ -74,6 +74,21 @@ export const useDeleteStudy = () => {
   return { mutate, error, isPending };
 };
 
+export const usePropose = () => {
+  return useMutation({
+    mutationKey: ['propose'],
+    mutationFn: ({
+      studyId,
+      memberId,
+      message,
+    }: {
+      studyId: number;
+      memberId: number;
+      message: string;
+    }) => studyService.propose(studyId, memberId, message),
+  });
+};
+
 export const useGetApplications = (studyId?: number, pageSize?: number, page?: number) => {
   const { isLoading, data, error } = useQuery({
     queryKey: ['applicants', studyId],
