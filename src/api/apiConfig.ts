@@ -9,7 +9,8 @@ export const ENDPOINTS = {
   admin: `/api/v1/admin`,
   report: `/api/v1/report`,
   like: `/api/v1/article-like`,
-  reviews: `/api/v2/reviews`,
-  activities: `/api/v2/activities`,
-  competitions: `/api/v2/competitions`,
+  reviews: `${API_VERSION}/reviews`,
+  resume: `${API_VERSION}/resumes`,
+  studies: `${API_VERSION}/studies`,
+  categories: `${API_VERSION}/categories`,
 };

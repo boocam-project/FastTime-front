@@ -36,6 +36,13 @@ const teamMembers: TeamMember[] = [
     blog: 'https://velog.io/@uijeong',
   },
   {
+    name: '공지혁',
+    role: 'BE',
+    link: 'https://github.com/JeongUijeong',
+    email: 'example@gmail.com',
+    blog: 'https://velog.io/@uijeong',
+  },
+  {
     name: '이재준',
     role: 'FE',
     link: 'https://github.com/Gaoridang',
@@ -43,7 +50,14 @@ const teamMembers: TeamMember[] = [
     blog: 'https://velog.io/example',
   },
   {
-    name: '장문용',
+    name: '강해민',
+    role: 'FE',
+    link: 'https://github.com/Gaoridang',
+    email: 'monooi@naver.com',
+    blog: 'https://velog.io/example',
+  },
+  {
+    name: '이용훈',
     role: 'FE',
     link: 'https://github.com/moonyah',
     email: 'dltk456@naver.com',

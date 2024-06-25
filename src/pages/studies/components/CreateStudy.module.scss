@@ -1,0 +1,82 @@
+.calendarWrapper {
+  position: relative;
+
+  .calendar {
+    position: absolute;
+    background-color: #fff;
+    left: 0;
+    padding: 1rem;
+    margin: 0.5rem 0 0;
+
+    border: 1px solid #d3d3d3;
+    border-radius: 0.5rem;
+
+    z-index: 100;
+
+    animation: fadeIn 3s cubic-bezier(0.14, 0.18, 0.16, 1.02);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.95);
+  }
+  10%,
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  10%,
+  100% {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.95);
+  }
+}
+
+.form {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  textarea {
+    resize: none;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #d3d3d3;
+    border-radius: 0.5rem;
+
+    font-size: 1rem;
+  }
+
+  .skills {
+    display: flex;
+    gap: 0.5rem;
+
+    .skill {
+      background-color: #fff;
+
+      padding: 4px 6px;
+      border: 1px solid #d3d3d3;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: rgb(232, 232, 232);
+      }
+    }
+  }
+
+  .category {
+    padding: 2px;
+    border: 1px solid #d3d3d3;
+    border-radius: 6px;
+  }
+}

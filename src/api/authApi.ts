@@ -45,10 +45,14 @@ const authInstance = axios.create({
 });
 
 export const getNewAccessToken = async (accessToken: string, refreshToken: string) => {
-  const response = await authInstance.post<RefreshTokenResponse>(`${ENDPOINTS.refreshToken}`, {
-    accessToken,
-    refreshToken,
-  });
+  const response = await authInstance.post<RefreshTokenResponse>(
+    `${ENDPOINTS.refreshToken}`,
+    { accessToken, refreshToken },
+    {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }
+  );
+
   return response.data;
 };
 
