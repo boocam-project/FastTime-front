@@ -18,7 +18,7 @@ export interface ReviewEditData extends ReviewPostData {
 export interface ReviewPostResponse {
   code: number;
   message: string;
-  data: ReviewPostData | null;
+  data: ReviewPostData;
 }
 export interface ReviewEditResponse {
   code: number;
@@ -54,6 +54,31 @@ export interface Summary {
   totalReviews: number;
 }
 
+export interface ReviewDetail {
+  id: number;
+  authorNickname: string;
+  bootcamp: string;
+  title: string;
+  goodtags: string[];
+  badtags: string[];
+  rating: number;
+  content: string;
+}
+
+export interface ReviewDetailResponseData {
+  currentPage: number;
+  totalPages: number;
+  currentElements: number;
+  totalElements: number;
+  reviews: ReviewDetail[];
+}
+
+export interface ReviewDetailResponse {
+  code: number;
+  message: string;
+  data: ReviewDetailResponseData;
+}
+
 class ReviewService {
   private endpoint = ENDPOINTS.reviews;
 
@@ -82,6 +107,22 @@ class ReviewService {
   summary = async ({ page = 1, size = 6 }: { page?: number; size?: number }) => {
     const response = await instance.get<SummaryResponse>(
       `${this.endpoint}/summary?page=${page}&size=${size}`
+    );
+
+    return response.data.data;
+  };
+
+  detail = async ({
+    sortBy = 'createdAt',
+    bootcamp,
+    page = 1,
+  }: {
+    sortBy?: 'rating' | 'createdAt';
+    bootcamp: string;
+    page?: number;
+  }) => {
+    const response = await instance.get<ReviewDetailResponse>(
+      `${this.endpoint}?sortBy=${sortBy}&bootcamp=${bootcamp}&page=${page}`
     );
 
     return response.data.data;

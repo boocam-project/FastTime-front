@@ -1,16 +1,17 @@
 import { currentReviewState } from '@/recoil/currentReviewState';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import ReviewList from './ReviewList';
 import styles from './index.module.scss';
 
 const ReviewDetailListPage = () => {
-  const review = useRecoilValue(currentReviewState);
-
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const bootcampTitle = queryParams.get('n');
+
+  const review = useRecoilValue(currentReviewState);
 
   const [moreView, setMoreView] = useState(false);
 
@@ -39,6 +40,11 @@ const ReviewDetailListPage = () => {
       setMoreView(true);
     }
   };
+
+  if (!bootcampTitle) {
+    navigate('/review');
+    return;
+  }
 
   return (
     <div className={styles.container}>
@@ -84,7 +90,7 @@ const ReviewDetailListPage = () => {
           </>
         )}
       </div>
-      <ReviewList />
+      <ReviewList bootcampTitle={bootcampTitle as string} />
     </div>
   );
 };

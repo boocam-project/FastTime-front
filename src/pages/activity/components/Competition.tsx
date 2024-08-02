@@ -35,8 +35,6 @@ const Competition = () => {
     }));
   };
 
-  console.log(isLoading);
-
   return (
     <div>
       {/* 필터링 검색 바 */}
