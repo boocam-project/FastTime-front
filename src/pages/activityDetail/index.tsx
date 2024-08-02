@@ -1,18 +1,27 @@
-import { useLocation } from 'react-router-dom';
-import styles from './index.module.scss';
-import { itemADetail, itemBDetail } from '../activity/constants';
 import Divider from '@/components/atoms/Divider';
+import useActivitiyData from '@/hooks/activitiesData/query/useActivityData';
+import useCompetitionData from '@/hooks/competitionsData/query/useCompetitionData';
+import { useLocation, useParams } from 'react-router-dom';
+import styles from './index.module.scss';
 
 const ActivityDetailPage = () => {
-  // const { id } = useParams();
+  const { id } = useParams();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tabName = queryParams.get('t');
+  const { data: competition } = useCompetitionData({
+    id: Number(id),
+    start: tabName === 'competitions',
+  });
+  const { data: activitiy } = useActivitiyData({
+    id: Number(id),
+    start: tabName === 'activities',
+  });
 
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        {tabName === 'competitions' ? itemADetail.data.title : itemBDetail.data.title}
+        {tabName === 'competitions' ? competition?.title : activitiy?.title}
       </div>
       <Divider size="sm" space={15} />
       <div className={styles.infoWrap}>
@@ -26,45 +35,43 @@ const ActivityDetailPage = () => {
             <span>{tabName === 'competitions' ? '공모전 주최' : '대외 활동 주최'}</span>
             <span>
               {tabName === 'competitions'
-                ? itemADetail.data.organization || ''
-                : itemBDetail.data.organization}
+                ? competition?.organization || ''
+                : activitiy?.organization}
             </span>
           </div>
           <div>
             <span>기업 형태</span>
             <span>
               {tabName === 'competitions'
-                ? itemADetail.data.corporate_type || ''
-                : itemBDetail.data.corporate_type}
+                ? competition?.corporateType || ''
+                : activitiy?.corporateType}
             </span>
           </div>
           <div>
             <span>참여 대상</span>
             <span>
-              {tabName === 'competitions'
-                ? itemADetail.data.participate || ''
-                : itemBDetail.data.participate}
+              {tabName === 'competitions' ? competition?.participate || '' : activitiy?.participate}
             </span>
           </div>
           <div>
             <span>접수 기간</span>
             <span>
               {tabName === 'competitions'
-                ? `${itemADetail.data.start_date || ''} ~ ${itemADetail.data.end_date || ''}` || ''
-                : `${itemBDetail.data.start_date || ''} ~ ${itemBDetail.data.end_date || ''}`}
+                ? `${competition?.startDate || ''} ~ ${competition?.endDate || ''}` || ''
+                : `${activitiy?.startDate || ''} ~ ${activitiy?.endDate || ''}`}
             </span>
           </div>
 
           {tabName === 'activities' && (
             <div>
               <span>활동 기간</span>
-              <span>{itemBDetail.data.period}</span>
+              <span>{activitiy?.period}</span>
             </div>
           )}
           {tabName === 'activities' && (
             <div>
               <span>모집 인원</span>
-              <span>{itemBDetail.data.recruitment}명</span>
+              <span>{activitiy?.recruitment}명</span>
             </div>
           )}
         </div>
@@ -72,26 +79,26 @@ const ActivityDetailPage = () => {
           {tabName === 'competitions' && (
             <div>
               <span>시상 규모</span>
-              <span>{itemADetail.data.activity_benefit || ''}</span>
+              <span>{competition?.activityBenefit || ''}</span>
             </div>
           )}
 
           {tabName === 'activities' && (
             <div>
               <span>활동 지역</span>
-              <span>{itemBDetail.data.area}</span>
+              <span>{activitiy?.area}</span>
             </div>
           )}
           {tabName === 'activities' && (
             <div>
               <span>우대 역량</span>
-              <span>{itemBDetail.data.preferred_skills}</span>
+              <span>{activitiy?.preferredSkills}</span>
             </div>
           )}
           {tabName === 'activities' && (
             <div>
               <span>활동 분야</span>
-              <span>{itemBDetail.data.activity_field}</span>
+              <span>{activitiy?.activityField}</span>
             </div>
           )}
 
@@ -99,16 +106,16 @@ const ActivityDetailPage = () => {
             <span>활동 혜택</span>
             <span>
               {tabName === 'competitions'
-                ? itemADetail.data.activity_benefit || ''
-                : itemBDetail.data.activity_benefit}
+                ? competition?.activityBenefit || ''
+                : activitiy?.activityBenefit}
             </span>
           </div>
           <div>
             <span>추가 혜택</span>
             <span>
               {tabName === 'competitions'
-                ? itemADetail.data.bonus_benefit || ''
-                : itemBDetail.data.bonus_benefit}
+                ? competition?.bonusBenefit || ''
+                : activitiy?.bonusBenefit}
             </span>
           </div>
           <div>
@@ -116,16 +123,15 @@ const ActivityDetailPage = () => {
             <span>
               <a
                 href={
-                  tabName === 'competitions'
-                    ? itemADetail.data.homepageUrl
-                    : itemBDetail.data.homepageUrl
+                  tabName === 'competitions' ? competition?.homepageUrl : activitiy?.homepageUrl
                 }
                 target="_blank"
                 rel="noopener noreferrer"
+                className={styles.detailLink}
               >
                 {tabName === 'competitions'
-                  ? itemADetail.data.homepageUrl || ''
-                  : itemBDetail.data.homepageUrl || ''}
+                  ? competition?.homepageUrl.split('?')[0] || competition?.homepageUrl || ''
+                  : activitiy?.homepageUrl.split('?')[0] || activitiy?.homepageUrl || ''}
               </a>
             </span>
           </div>
@@ -134,12 +140,10 @@ const ActivityDetailPage = () => {
       <Divider size="sm" space={15} />
       <div className={styles.content}>
         <img
-          src={tabName === 'competitions' ? itemADetail.data.imageUrl : itemBDetail.data.imageUrl}
+          src={tabName === 'competitions' ? competition?.imageUrl : activitiy?.imageUrl}
           alt="detail"
         />
-        <div>
-          {tabName === 'competitions' ? itemADetail.data.description : itemBDetail.data.description}
-        </div>
+        <div>{tabName === 'competitions' ? competition?.description : activitiy?.description}</div>
       </div>
     </div>
   );

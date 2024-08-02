@@ -1,40 +1,34 @@
 import Button from '@/components/atoms/button/Button';
+import useSummaryData from '@/hooks/reviewData/query/useSummaryData';
 import { currentReviewState } from '@/recoil/currentReviewState';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styles from './BootcampList.module.scss';
 
+const reviewQuery = {
+  page: 1,
+  size: 6,
+};
+
 const BootcampList = () => {
+  const { data: summary, isError } = useSummaryData(reviewQuery);
+
   const setRating = useSetRecoilState(currentReviewState);
 
   const navigate = useNavigate();
-  const list = [
-    {
-      bootcamp: '42 Seoul',
-      averageRating: 4.2,
-      totalReviews: 20,
-    },
-    {
-      bootcamp: '우아한테크코스',
-      averageRating: 4.0,
-      totalReviews: 100,
-    },
-    {
-      bootcamp: '패스트캠퍼스',
-      averageRating: 1.2,
-      totalReviews: 1,
-    },
-  ];
 
   const handleClick = (name: string, rating: number, total: number) => {
     setRating({ averageRating: rating, totalReviews: total });
     navigate(`/review/detail?n=${name}`);
   };
 
+  if (isError) return <div>잠시 후 다시 시도해주세요.</div>;
+  if (!summary) return <div>등록 된 리뷰가 없습니다.</div>;
+
   return (
     <div className={styles.Container}>
       <ul className={styles.listWrapContainer}>
-        {list.map((bootcamp, index) => {
+        {summary?.reviews.map((bootcamp, index) => {
           return (
             <li key={index} className={styles.listContainer}>
               <div className={styles.title}>

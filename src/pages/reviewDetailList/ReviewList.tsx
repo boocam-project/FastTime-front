@@ -1,44 +1,36 @@
+import useReviewDetailData from '@/hooks/reviewData/query/useReviewDetailData';
+import useInView from '@/hooks/useInview';
+import { useEffect } from 'react';
 import styles from './ReviewList.module.scss';
 
-const data = [
-  {
-    id: 7,
-    authorNickname: 'nickcname1',
-    bootcamp: '야놀자x패스트캠퍼스 부트캠프',
-    title: '후기 수정',
-    goodtags: ['강의가 좋아요'],
-    badtags: ['피드백이 느려요'],
-    rating: 5,
-    content: '내용 수정',
-  },
-  {
-    id: 6,
-    authorNickname: 'nickcname2',
-    bootcamp: '야놀자x패스트캠퍼스 부트캠프',
-    title: 'test 부트캠프 리뷰',
-    goodtags: ['친절해요', '강의가 좋아요'],
-    badtags: ['불친절해요', '피드백이 느려요'],
-    rating: 3,
-    content: '뭐야',
-  },
-  {
-    id: 5,
-    authorNickname: 'nickcname3',
-    bootcamp: '야놀자x패스트캠퍼스 부트캠프',
-    title: '후기 수정111',
-    goodtags: ['친절해요'],
-    badtags: ['불친절해요'],
-    rating: 2,
-    content: '훈련장려금 언제나와???',
-  },
-];
+const ReviewList = ({ bootcampTitle }: { bootcampTitle: string }) => {
+  const {
+    data: reviewDetail,
+    fetchNextPage,
+    hasNextPage,
+  } = useReviewDetailData({
+    sortBy: 'createdAt',
+    bootcamp: bootcampTitle as string,
+  });
 
-const ReviewList = () => {
+  const [ref, inView] = useInView({
+    rootMargin: '100px',
+  });
+
+  // Fetch the next page when the bottom of the list comes into view
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage, hasNextPage]);
+
+  console.log(reviewDetail);
+
   return (
     <div className={styles.Container}>
       <ul className={styles.ListWrap}>
-        {data.map((review) => {
-          return (
+        {reviewDetail?.pages.map((page) =>
+          page.reviews.map((review) => (
             <li className={styles.List} key={review.id}>
               <div>
                 <span className={styles.campName}>{review.bootcamp}</span>
@@ -65,9 +57,10 @@ const ReviewList = () => {
               </div>
               <div className={styles.content}>{review.content}</div>
             </li>
-          );
-        })}
+          ))
+        )}
       </ul>
+      <div ref={ref} className={styles.InViewTrigger} />
     </div>
   );
 };

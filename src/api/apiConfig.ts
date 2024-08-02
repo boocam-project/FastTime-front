@@ -13,4 +13,6 @@ export const ENDPOINTS = {
   resume: `${API_VERSION}/resumes`,
   studies: `${API_VERSION}/studies`,
   categories: `${API_VERSION}/categories`,
+  activities: `${API_VERSION}/activities`,
+  competitions: `${API_VERSION}/competitions`,
 };

@@ -1,13 +1,13 @@
+import { ReactComponent as PenSquare } from '@/assets/icons/pen_square.svg';
 import Button from '@/components/atoms/button/Button';
 import Input from '@/components/atoms/input';
+import usePostReview from '@/hooks/reviewData/mutation/usePostReview';
 import { reviewFormState } from '@/recoil/reviewFormState';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import SelectTag from './components/SelectTag';
 import SetRating from './components/SetRating';
 import styles from './index.module.scss';
-
-import { ReactComponent as PenSquare } from '@/assets/icons/pen_square.svg';
-import { useState } from 'react';
 
 export interface Tag {
   id: number;
@@ -17,6 +17,7 @@ export interface Tag {
 }
 
 const WriteReviewPage = () => {
+  const { mutate: postReview } = usePostReview();
   const review = useRecoilValue(reviewFormState);
   const [titleInput, setTitleInput] = useState('');
   const [contentInput, setContentInput] = useState('');
@@ -24,13 +25,14 @@ const WriteReviewPage = () => {
   const handleSubmit = () => {
     const data = {
       title: titleInput,
-      goodTags: review.goodTags,
-      badTags: review.badTags,
+      goodtags: review.goodTags,
+      badtags: review.badTags,
       rating: review.rating,
       content: contentInput,
     };
 
-    console.log(data);
+    postReview(data);
+    // console.log(data);
   };
 
   return (
